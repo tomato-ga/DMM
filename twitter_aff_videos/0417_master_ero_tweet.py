@@ -9,16 +9,30 @@ import datetime
 
 
 class Tweet_get:
-
+    #WARN katudonのAPI使ってるのに注意する 200万/月アクセス可能 Elevated
     auth = tweepy.OAuthHandler(API_config_katudon.API_KEY, API_config_katudon.API_SECRET)
     auth.set_access_token(API_config_katudon.ACCESS_TOKEN, API_config_katudon.ACCESS_TOKEN_SECRET)
-    api = tweepy.API(auth)
+    api = tweepy.API(auth, wait_on_rate_limit=True)
 
     # search_result = tweepy.Cursor(api.user_timeline, screen_name=key_account, include_rts=False, include_entities=True, tweet_mode='extended', lang='ja').items(10)
     # print(search_result)
 
-    """投稿IDによってスレッドとスレッドじゃない場合がある
-    最初に読み込むツイートでvideo URLを含まないツイートが存在するのでifできりわける？"""
+    """
+    1.投稿IDによってスレッドとスレッドじゃない場合がある
+    最初に読み込むツイートでvideo URLを含まないツイートが存在するのでifできりわける？
+    →スレッドだけ取得して、元のツイートIDに遡ってvideo獲得した
+
+    2.正規表現でアフィID特定完了
+    # https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fdigital%2Fvideoa%2F-%2Fdetail%2F%3D%2Fcid%3Dssis00253%2F&af_id=totokyu2019-001
+    # af._?id=[0-9a-zA-Z_].* → af_id=totokyu2019-001の部分がとれるので、それを置き換える
+
+    【DMM】
+    [a-zA-z0-9]*-\d{3} ←これでDMM ID全部取れるため、re.subで置換する
+
+    【MGS】
+    [^_=.*?][A-Z0-9*]{25}
+    26だと取れなかった。25にして、アンダーバーとイコールを削除
+    """
 
     @classmethod
     def url_get(self, key_accounts) -> list:
@@ -35,16 +49,14 @@ class Tweet_get:
 
         for key_account in key_accounts:
             account_id = str(key_account.replace('https://twitter.com/', ''))
+
             results: iter = tweepy.Cursor(self.api.user_timeline, # タイムラインの取得
                         id=account_id, # 取得対象のユーザーを指定
                         include_entities=True, # 省略されたリンクを全て取得
                         tweet_mode='extended', # 省略されたツイートを全て取得
                         lang='ja',
                         exclude_replies=False,
-                        include_rts=False,
-                        wait_on_rate_limit=True).items(count_no) # 取得件数を指定 .pages()でもいける # wait_on_rate_limitで待機する
-
-
+                        include_rts=False).items(limit=count_no) # 取得件数を指定 .pages()でもいける # wait_on_rate_limitで待機する
 
 
             for result in results:
@@ -86,7 +98,7 @@ class Tweet_get:
                     pass
 
 
-        return video_urls_list, af_urls_list, comments_list
+        return video_urls_list, af_urls_list, comments_list,  # TODO key_account AVのタイプを保存しておきたい
 
 
     @classmethod
@@ -100,7 +112,7 @@ class Tweet_get:
             v_url_file_name = v_url_file_name.replace('/', '')
             with open(f'E:\\twitvideo\\{str(v_url_file_name)}.mp4', 'wb') as save_video:
                 save_video.write(response.content)
-                time.sleep(1)
+                time.sleep(2)
 
             if 'dmm' in af_url:
                 urls =re.sub('[a-zA-Z0-9]*-\d{3}', 'kamipanmen-001',  af_url)
@@ -141,10 +153,10 @@ class Tweet_get:
 if __name__ == '__main__':
 
     key_accounts = [
-        'https://twitter.com/k9xypip',
-        'https://twitter.com/paipai1414',
-        # 'https://twitter.com/cb_Eugene13',
-        # 'https://twitter.com/penne27436851',
+        # 'https://twitter.com/k9xypip',
+        # 'https://twitter.com/paipai1414',
+        'https://twitter.com/cb_Eugene13',
+        'https://twitter.com/penne27436851',
         # 'https://twitter.com/beauty_pretty_i',
         # 'https://twitter.com/SGmRmu3SzDfvshj',
         # 'https://twitter.com/reiwachijo',
@@ -162,17 +174,5 @@ if __name__ == '__main__':
 
 
 
-#TODO , 全件取得し、ファイル名とアフィURLをDBに保存する
-
-"""
-正規表現でアフィID特定完了
-# https://al.dmm.co.jp/?lurl=https%3A%2F%2Fwww.dmm.co.jp%2Fdigital%2Fvideoa%2F-%2Fdetail%2F%3D%2Fcid%3Dssis00253%2F&af_id=totokyu2019-001
-# af._?id=[0-9a-zA-Z_].* → af_id=totokyu2019-001の部分がとれるので、それを置き換える
-
-【DMM】
-[a-zA-z0-9]*-\d{3} ←これでDMM ID全部取れるため、re.subで置換する
-
-【MGS】
-[^_=.*?][A-Z0-9*]{25}
-26だと取れなかった。25にして、アンダーバーとイコールを削除
-"""
+#TODO , 全件取得し、ファイル名とアフィURLをDBに保存する Ratelimitテストする
+#TODO , dbとpandasで差分取得する
