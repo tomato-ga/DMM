@@ -5,6 +5,7 @@ import pymongo
 import random
 import pandas as pd
 import glob
+import os
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -25,7 +26,7 @@ class Tweet:
         # self.options.add_argument('--disable-desktop-notifications')
         # self.options.add_argument("--disable-extensions")
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
+        self.driver = webdriver.Chrome('C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe', options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
         #self.driver.implicitly_wait(10)
         self.wait1 = random.random()
         self.wait2 = random.randint(3,6)
@@ -84,7 +85,7 @@ class Tweet:
 
         # ファイルパスを入力
         self.wait.until(EC.presence_of_all_elements_located)
-        video_path = glob.glob(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')     # Windows ('E:\\twitvideo\\vfNE_p1K-0GNdQfF.mp4')
+        video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')     # Windows ('E:\\twitvideo\\vfNE_p1K-0GNdQfF.mp4')
         self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
         time.sleep(2)
 
