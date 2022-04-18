@@ -80,7 +80,7 @@ class Tweet:
         random_video = df.sample()
         upload_video_file_name: str = random_video['video_file'].values[0]
         upload_url: str = random_video['url'].values[0]
-
+        print(upload_video_file_name, ':', upload_url)
 
         # ファイルパスを入力
         self.wait.until(EC.presence_of_all_elements_located)
