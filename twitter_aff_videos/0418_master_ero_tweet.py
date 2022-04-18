@@ -110,7 +110,7 @@ class Tweet_get:
             v_url_file_name_list = re.findall('(/[a-zA-z0-9_-]*)(.mp4)', v_url)
             v_url_file_name = v_url_file_name_list[0][0]
             v_url_file_name = v_url_file_name.replace('/', '')
-            with open(f'/mnt/hdd/don/files/twitvideo/{str(v_url_file_name)}.mp4', 'wb') as save_video:   # Ubuntu /mnt/hdd/don/files    Win f'E:\\twitvideo\\{str(v_url_file_name)}.mp4',
+            with open(f'/mnt/hdd/don/files/twitvideo/{str(v_url_file_name)}.mp4', 'wb') as save_video:   # Ubuntu /mnt/hdd/don/files //  Win f'E:\\twitvideo\\{str(v_url_file_name)}.mp4',
                 save_video.write(response.content)
                 time.sleep(2)
 
@@ -153,10 +153,10 @@ class Tweet_get:
 if __name__ == '__main__':
 
     key_accounts = [
-        # 'https://twitter.com/k9xypip',
-        # 'https://twitter.com/paipai1414',
-        # 'https://twitter.com/cb_Eugene13',
-        # 'https://twitter.com/penne27436851',
+        'https://twitter.com/k9xypip',
+        'https://twitter.com/paipai1414',
+        'https://twitter.com/cb_Eugene13',
+        'https://twitter.com/penne27436851',
         'https://twitter.com/beauty_pretty_i',
         'https://twitter.com/SGmRmu3SzDfvshj',
         # 'https://twitter.com/reiwachijo',
@@ -174,5 +174,5 @@ if __name__ == '__main__':
 
 
 
-#TODO , 全件取得し、ファイル名とアフィURLをDBに保存する Ratelimitテストする
+#TODO , key_accountsを辞書にしてtypeを追加する ex, 'type': 'sirouto' 'type': 'normal' etc...
 #TODO , dbとpandasで差分取得する
