@@ -90,7 +90,7 @@ class Tweet:
 
         # テキスト入力
         self.wait.until(EC.presence_of_all_elements_located)
-        text = f'この動画を特定したぞ→ {upload_url}'
+        text = 'この動画を特定したぞ→' + ' '+ f'{upload_url}'
         elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
         elem_text.click()
         elem_text.send_keys(text)
