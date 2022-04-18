@@ -84,6 +84,7 @@ class Tweet:
         print(upload_video_file_name, ':', upload_url)
 
         # ファイルパスを入力
+        """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!"""
         self.wait.until(EC.presence_of_all_elements_located)
         video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')     # Windows ('E:\\twitvideo\\vfNE_p1K-0GNdQfF.mp4')
         self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
