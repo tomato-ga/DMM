@@ -42,7 +42,7 @@ def Thirdparty_rt():
 
 def My_rt():
 
-    """自分アカウントの公式リツイートだけ"""
+    """自分アカウント"""
 
     client = tweepy.Client(consumer_key=api_tomorrow_genkio.API_KEY, consumer_secret=api_tomorrow_genkio.API_SECRET, access_token=api_tomorrow_genkio.ACCESS_TOKEN, \
         access_token_secret=api_tomorrow_genkio.ACCESS_TOKEN_SECRET, bearer_token=api_tomorrow_genkio.Bearer_token)
@@ -50,9 +50,9 @@ def My_rt():
     """自分アカウント"""
 
     ids: list = [
-        1515696887781015558,
-        1515697390480945160,
-        1515978583730458630
+        1515696887781015558, # togsi
+        1515697390480945160, # 1j_mc
+        1515978583730458630 # OtxSf
     ]
 
 
