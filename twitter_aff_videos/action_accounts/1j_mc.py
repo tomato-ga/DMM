@@ -20,7 +20,7 @@ def tweet():
 
     """他者アカウント"""
     rt_count = 0
-    while rt_count == 3:
+    while rt_count > 3:
         for media in tweet:
             mediatw = media.data
             if 'attachments' in mediatw: #動画つきのツイートだけに絞り込む
@@ -29,6 +29,8 @@ def tweet():
                 try:
                     client.retweet(post) # 自動RT
                     rt_count += 1
+                    if rt_count == 3:
+                        break
                 except Exception as e:
                     print(e)
                 else:
