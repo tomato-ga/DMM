@@ -8,6 +8,7 @@ def tweet():
 
     wait = random.uniform(10, 25)
     wait_long = random.uniform(30, 50)
+
     # Twitter API v2対応
     client = tweepy.Client(consumer_key=api_HjQhq.API_KEY, consumer_secret=api_HjQhq.API_SECRET, access_token=api_HjQhq.ACCESS_TOKEN, \
         access_token_secret=api_HjQhq.ACCESS_TOKEN_SECRET, bearer_token=api_HjQhq.Bearer_token)

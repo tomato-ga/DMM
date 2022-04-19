@@ -7,6 +7,7 @@ import random
 def tweet():
 
     wait = random.uniform(10, 25)
+    wait_long = random.uniform(30, 50)
     # Twitter API v2対応
     client = tweepy.Client(consumer_key=api_1j_mc.API_KEY, consumer_secret=api_1j_mc.API_SECRET, access_token=api_1j_mc.ACCESS_TOKEN, \
         access_token_secret=api_1j_mc.ACCESS_TOKEN_SECRET, bearer_token=api_1j_mc.Bearer_token)
@@ -68,6 +69,7 @@ def tweet():
                         af_url_list = af_url_text_full.split(' ')
                         af_url = af_url_list[1]
                         client.create_tweet(in_reply_to_tweet_id=reply_id, text=f'作品はこちら{af_url}')
+                        time.sleep(wait_long)
                 except Exception as e:
                     print(e)
                 else:
