@@ -69,7 +69,7 @@ def tweet():
                     time.sleep(wait_long)
                     reply_id =  ref_tweet[0]['id']
 
-                    if 'http' in rttw['text']: #TODO httpは入ってるから意味なし 他者RTと自分RTを分割ファイルにする
+                    if 'http' in rttw['text']: #TODO httpは動画URLで入ってるから意味なし 他者RTと自分RTを分割ファイルにする
                         af_url_text_full = rttw['text']
                         af_url_list = af_url_text_full.split(' ')
                         af_url = af_url_list[1]
