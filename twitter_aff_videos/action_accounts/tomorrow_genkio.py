@@ -63,6 +63,7 @@ def tweet():
                 time.sleep(wait)
                 try:
                     ref_tweet = client.create_tweet(text=f'https://twitter.com/{username}/status/{post_mine}/video/1')
+                    time.sleep(wait_long)
                     reply_id =  ref_tweet[0]['id']
                     if rttw['text']:
                         af_url_text_full = rttw['text']

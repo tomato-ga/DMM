@@ -94,7 +94,7 @@ class Tweet:
 
             # テキスト入力
             self.wait.until(EC.presence_of_all_elements_located)
-            text = '今日はこれでぬきぬき！'
+            text = ''
             elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
             elem_text.click()
             elem_text.send_keys(text)
