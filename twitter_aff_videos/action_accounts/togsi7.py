@@ -52,6 +52,7 @@ def tweet():
                         af_url_list = af_url_text_full.split(' ')
                         af_url = af_url_list[1]
                         client.create_tweet(in_reply_to_tweet_id=reply_id, text=f'特定！{af_url}')
+                        time.sleep(wait)
                 except Exception as e:
                     print(e)
                 else:

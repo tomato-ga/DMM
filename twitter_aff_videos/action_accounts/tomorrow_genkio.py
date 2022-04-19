@@ -67,7 +67,7 @@ def tweet():
                         af_url_text_full = rttw['text']
                         af_url_list = af_url_text_full.split(' ')
                         af_url = af_url_list[1]
-                        client.create_tweet(in_reply_to_tweet_id=reply_id, text=f'みつけたよ{af_url}')
+                        client.create_tweet(in_reply_to_tweet_id=reply_id, text=f'これだな{af_url}')
                 except Exception as e:
                     print(e)
                 else:
