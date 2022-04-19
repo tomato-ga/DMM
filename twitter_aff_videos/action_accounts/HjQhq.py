@@ -13,29 +13,6 @@ def tweet():
     client = tweepy.Client(consumer_key=api_HjQhq.API_KEY, consumer_secret=api_HjQhq.API_SECRET, access_token=api_HjQhq.ACCESS_TOKEN, \
         access_token_secret=api_HjQhq.ACCESS_TOKEN_SECRET, bearer_token=api_HjQhq.Bearer_token)
 
-    # # リストのツイート取得 非公開リストは取得NG 公開設定にする
-    # response = client.get_list_tweets(id=1514978714572173313, max_results=15, expansions=["attachments.media_keys"])
-    # tweet = response.data
-    # random.shuffle(tweet)
-    # print(tweet)
-
-    # """他者アカウント"""
-    # rt_count = 0
-    # while rt_count == 3:
-    #     for media in tweet:
-    #         mediatw = media.data
-    #         if 'attachments' in mediatw: #動画つきのツイートだけに絞り込む
-    #             post = media.id # 動画つきのツイートのIDだけ抜き出す
-    #             time.sleep(wait)
-    #             try:
-    #                 client.retweet(post) # 自動RT
-    #                 rt_count += 1
-    #             except Exception as e:
-    #                 print(e)
-    #             else:
-    #                 print('RT完了')
-
-
     """自分アカウント"""
 
     ids: list = [
