@@ -42,7 +42,7 @@ class Tweet_get:
         Twitter APIへの1回のリクエストにつき最大100ツイートまで
         レートリミットに達すると、自動的に待機/スリープ状態になります。"""
 
-        count_no = 3000
+        count_no = 5
         video_urls_list = []
         af_urls_list = []
         comments_list = []
@@ -135,7 +135,7 @@ class Tweet_get:
         db_url = 'mongodb://pyton:radioipad1215@192.168.0.23:27017'
         client = pymongo.MongoClient(db_url)
         db = client.twitter
-        collection = db.affvideos
+        collection = db.kyonyu
 
         return collection
 
@@ -164,7 +164,8 @@ if __name__ == '__main__':
         # 'https://twitter.com/tmp_pnpk',
         # 'https://twitter.com/Spelunker1231',
         # 'https://twitter.com/nukitender',
-        # 'https://twitter.com/Mature_Milf_Mom'
+        # 'https://twitter.com/Mature_Milf_Mom',
+        'https://twitter.com/AV_honpo_kyonyu' #巨乳
     ]
 
     i = Tweet_get()
