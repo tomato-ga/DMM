@@ -29,7 +29,7 @@ def tweet():
 
     for id_mine in ids:
         try:
-            timeline = client.get_users_tweets(id=id_mine, max_results=10, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"], tweet_fields=["context_annotations","public_metrics","created_at", "text", "source", "geo"])
+            timeline = client.get_users_tweets(id=id_mine, max_results=1, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"], tweet_fields=["context_annotations","public_metrics","created_at", "text", "source", "geo"])
             name: list = [username_0.data['username'] for username_0 in timeline.includes['users']]
             username =name[0]
 

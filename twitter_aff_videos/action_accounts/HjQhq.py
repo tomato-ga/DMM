@@ -47,7 +47,7 @@ def tweet():
 
     for id_mine in ids:
         try:
-            timeline = client.get_users_tweets(id=id_mine, max_results=10, exclude='retweets', expansions=["attachments.media_keys"])
+            timeline = client.get_users_tweets(id=id_mine, max_results=1, exclude='retweets', expansions=["attachments.media_keys"])
             rts_tweet = timeline.data
             random.shuffle(rts_tweet)
             print(rts_tweet)
