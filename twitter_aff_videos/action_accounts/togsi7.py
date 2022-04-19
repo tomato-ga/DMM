@@ -32,7 +32,6 @@ def tweet():
             name: list = [username_0.data['username'] for username_0 in timeline.includes['users']]
             username =name[0]
 
-
             rts_tweet = timeline.data
             random.shuffle(rts_tweet)
             print(rts_tweet)
@@ -43,17 +42,16 @@ def tweet():
         for rt_tweet in rts_tweet:
             rttw = rt_tweet.data
             if 'attachments' in rttw:
-                af_url_text_full = rttw['text']
-                af_url_list = af_url_text_full.split(' ')
-                af_url = af_url_list[1]
-
                 post_mine = rt_tweet.id
                 time.sleep(wait)
                 try:
                     ref_tweet = client.create_tweet(text=f'https://twitter.com/{username}/status/{post_mine}/video/1')
                     reply_id =  ref_tweet[0]['id']
-                    print(ref_tweet)
-                    client.create_tweet(in_reply_to_tweet_id=ref_tweet[0]['id'], text=f'特定！{af_url}')
+                    if rttw['text']:
+                        af_url_text_full = rttw['text']
+                        af_url_list = af_url_text_full.split(' ')
+                        af_url = af_url_list[1]
+                        client.create_tweet(in_reply_to_tweet_id=reply_id, text=f'特定！{af_url}')
                 except Exception as e:
                     print(e)
                 else:

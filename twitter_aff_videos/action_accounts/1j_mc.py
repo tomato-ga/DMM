@@ -11,27 +11,27 @@ def tweet():
     client = tweepy.Client(consumer_key=api_1j_mc.API_KEY, consumer_secret=api_1j_mc.API_SECRET, access_token=api_1j_mc.ACCESS_TOKEN, \
         access_token_secret=api_1j_mc.ACCESS_TOKEN_SECRET, bearer_token=api_1j_mc.Bearer_token)
 
-    # # リストのツイート取得 非公開リストは取得NG 公開設定にする
-    # response = client.get_list_tweets(id=1514978714572173313, max_results=15, expansions=["attachments.media_keys"])
-    # tweet = response.data
-    # random.shuffle(tweet)
-    # print(tweet)
+    # リストのツイート取得 非公開リストは取得NG 公開設定にする
+    response = client.get_list_tweets(id=1514978714572173313, max_results=15, expansions=["attachments.media_keys"])
+    tweet = response.data
+    random.shuffle(tweet)
+    print(tweet)
 
-    # """他者アカウント"""
-    # rt_count = 0
-    # while rt_count == 3:
-    #     for media in tweet:
-    #         mediatw = media.data
-    #         if 'attachments' in mediatw: #動画つきのツイートだけに絞り込む
-    #             post = media.id # 動画つきのツイートのIDだけ抜き出す
-    #             time.sleep(wait)
-    #             try:
-    #                 client.retweet(post) # 自動RT
-    #                 rt_count += 1
-    #             except Exception as e:
-    #                 print(e)
-    #             else:
-    #                 print('RT完了')
+    """他者アカウント"""
+    rt_count = 0
+    while rt_count == 3:
+        for media in tweet:
+            mediatw = media.data
+            if 'attachments' in mediatw: #動画つきのツイートだけに絞り込む
+                post = media.id # 動画つきのツイートのIDだけ抜き出す
+                time.sleep(wait)
+                try:
+                    client.retweet(post) # 自動RT
+                    rt_count += 1
+                except Exception as e:
+                    print(e)
+                else:
+                    print('RT完了')
 
 
     """自分アカウント"""
@@ -44,7 +44,10 @@ def tweet():
 
     for id_mine in ids:
         try:
-            timeline = client.get_users_tweets(id=id_mine, max_results=10, exclude='retweets', expansions=["attachments.media_keys"])
+            timeline = client.get_users_tweets(id=id_mine, max_results=10, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"], tweet_fields=["context_annotations","public_metrics","created_at", "text", "source", "geo"])
+            name: list = [username_0.data['username'] for username_0 in timeline.includes['users']]
+            username =name[0]
+
             rts_tweet = timeline.data
             random.shuffle(rts_tweet)
             print(rts_tweet)
@@ -58,11 +61,17 @@ def tweet():
                 post_mine = rt_tweet.id
                 time.sleep(wait)
                 try:
-                    client.retweet(post_mine)
+                    ref_tweet = client.create_tweet(text=f'https://twitter.com/{username}/status/{post_mine}/video/1')
+                    reply_id =  ref_tweet[0]['id']
+                    if rttw['text']:
+                        af_url_text_full = rttw['text']
+                        af_url_list = af_url_text_full.split(' ')
+                        af_url = af_url_list[1]
+                        client.create_tweet(in_reply_to_tweet_id=reply_id, text=f'作品はこちら{af_url}')
                 except Exception as e:
                     print(e)
                 else:
-                    print('自分のRT完了!!')
+                    print('自分のRTとReply完了!!')
 
 
 tweet()

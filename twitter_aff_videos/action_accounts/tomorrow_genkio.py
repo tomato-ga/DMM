@@ -44,7 +44,10 @@ def tweet():
 
     for id_mine in ids:
         try:
-            timeline = client.get_users_tweets(id=id_mine, max_results=10, exclude='retweets', expansions=["attachments.media_keys"])
+            timeline = client.get_users_tweets(id=id_mine, max_results=10, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"], tweet_fields=["context_annotations","public_metrics","created_at", "text", "source", "geo"])
+            name: list = [username_0.data['username'] for username_0 in timeline.includes['users']]
+            username =name[0]
+
             rts_tweet = timeline.data
             random.shuffle(rts_tweet)
             print(rts_tweet)
@@ -58,11 +61,18 @@ def tweet():
                 post_mine = rt_tweet.id
                 time.sleep(wait)
                 try:
-                    client.retweet(post_mine)
+                    ref_tweet = client.create_tweet(text=f'https://twitter.com/{username}/status/{post_mine}/video/1')
+                    reply_id =  ref_tweet[0]['id']
+                    if rttw['text']:
+                        af_url_text_full = rttw['text']
+                        af_url_list = af_url_text_full.split(' ')
+                        af_url = af_url_list[1]
+                        client.create_tweet(in_reply_to_tweet_id=reply_id, text=f'みつけたよ{af_url}')
                 except Exception as e:
                     print(e)
                 else:
-                    print('自分のRT完了!!')
+                    print('自分のRTとReply完了!!')
+
 
 
 tweet()
