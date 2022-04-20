@@ -2,14 +2,18 @@ import tweepy
 import time
 import random
 from tweepy import TweepyException
-import pandas as pd
 
-import api_HjQhq as API
+import api_HjQhq as API #TODO APIはテストでこのアカウントにしてる
 import follow_db
 
 
 
 class Get_follower:
+
+
+    def __init__(self) -> None:
+        pass
+
 
     def apicall(self, API):
         client = tweepy.Client(consumer_key=API.API_KEY, consumer_secret=API.API_SECRET, access_token=API.ACCESS_TOKEN, \
@@ -28,35 +32,35 @@ class Get_follower:
         return fid
 
     """フォロー候補のIDをDBから読み込み"""
-    def db_read(self):
-        newfollow_db_collection = follow_db.Follow_kouho_db_set()
+    def follow_kouho_db_read(self):
+        newfollow_db_collection = follow_db.follow_kouho_db_set()
         return newfollow_db_collection
 
     """自分アカウントのフォローしてるIDを取得"""
-    def followed_mine(self, client): #ids, new_fid
-        followed = client.get_users_following(id=1514977383216205834, user_fields=["id", "name"])
+    def followed_mine(self, client, my_id):
+        followed = client.get_users_following(id=my_id, user_fields=["id", "name"])
         follow_id_list = [follow.id for follow in followed.data]
         # no_follow_id = list(set(fid + new_fid))
         # print(no_follow_id)
         return follow_id_list
 
-    """DBつきあわせて差分取得する"""
-    def follow_kouho(self):
-        collection = follow_db.Follow_kouho_db_set()
-        print('Follow候補数', len(collection))
-        my_collction = follow_db.My_following_id_db_set()
-        print('フォローしたID数', len(my_collction))
-        follow_ids = collection - my_collction #TODO pymongoでDBの差分抽出
-        return follow_ids
+
 
     """フォロー10人する"""
     def follow10(self,client, no_follow_id):
         no_follow_id = no_follow_id
 
         count = 0
-        while count > 10:
+        while count < 10:
             for fid in no_follow_id:
-                client.follow_user(target_user_id=fid)
+                try:
+                    client.follow_user(target_user_id=fid) #TODO ifもしフォローしてたらスルーする処理を追加
+                    count += 1
+                    time.sleep(60)
+                    print('フォロー完了しました')
+                except Exception as ex:
+                    print(ex)
+                    pass
 
 
 class Follow_twid(Get_follower):
@@ -71,6 +75,6 @@ class DB(Get_follower):
 i = Get_follower()
 client = i.apicall(API)
 # new_fid = i.followers_recently(client)
-followed_id = i.Followed_mine(client)
+#followed_id = i.followed_mine(client)
 
 # i.Follow10(no_follow_id, client)
