@@ -98,7 +98,7 @@ class Tweet_get:
                     pass
 
 
-        return video_urls_list, af_urls_list, comments_list,  # TODO key_account AVのタイプを保存しておきたい
+        return video_urls_list, af_urls_list, comments_list,  # TODO 1.yieldで返すようにする：リストをやめる key_account AVのタイプを保存しておきたい 2.元ツイートURLとツイートauthor_idを保存する
 
 
     @classmethod
