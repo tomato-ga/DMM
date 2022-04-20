@@ -19,7 +19,7 @@ def Follow_kouho_id_save_db(new_follower: list):
 
 
 """自分のフォローIDのDB読み込み"""
-def db_set_my_following_id():
+def My_following_id_db_set():
     db_url = 'mongodb://pyton:radioipad1215@192.168.0.23:27017'
     client = pymongo.MongoClient(db_url)
     db = client.twitter
@@ -29,5 +29,6 @@ def db_set_my_following_id():
 
 
 """自分のフォローIDのDBに保存する"""
-def following_id_save_db():
-    collection = db_set_my_following_id()
+def My_following_id_save_db(my_following_ids: list):
+    collection = My_following_id_db_set()
+    collection.insert_one()
