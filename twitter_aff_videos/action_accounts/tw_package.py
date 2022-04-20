@@ -54,7 +54,7 @@ def My_rt(API, ids):
 
     for id_mine in ids:
         try:
-            timeline = client.get_users_tweets(id=id_mine, max_results=5, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"], tweet_fields=["context_annotations","created_at","text","source","entities"])
+            timeline = client.get_users_tweets(id=id_mine, max_results=5, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"], tweet_fields=["text","source","entities"]) # context_annotations削除
             name: list = [username_0.data['username'] for username_0 in timeline.includes['users']]
             username =name[0]
 
