@@ -134,7 +134,8 @@ class Tweet_get:
             urls = re.sub('[^_=.*?][A-Z0-9*]{25}', 'R2YZBPJ6L7WYGJYWOPG8NJAMRY', af_url)
             print('[video_af_url_get]:', urls)
         else:
-            pass
+            urls = ""
+
 
 
         now = datetime.datetime.today()
