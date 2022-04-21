@@ -108,7 +108,8 @@ class Tweet:
                 time.sleep(40)
                 self.wait.until(EC.presence_of_all_elements_located)
 
-        except:
+        except Exception as ex:
+            print('[Uploads]:', ex)
             pass
 
 
