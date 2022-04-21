@@ -38,7 +38,7 @@ class Tweet:
         db_url = 'mongodb://pyton:radioipad1215@192.168.0.23:27017'
         client = pymongo.MongoClient(db_url)
         db = client.twitter
-        collection = db.affvideos
+        collection = db.videos
 
         return collection
 
@@ -85,51 +85,36 @@ class Tweet:
             upload_url: str = random_video['url'].values[0]
             print(upload_video_file_name, ':', upload_url)
 
-            # ファイルパスを入力
-            """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!"""
-            self.wait.until(EC.presence_of_all_elements_located)
-            video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
-            self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
-            time.sleep(2)
+            if upload_url is not None:
 
-            # テキスト入力
-            self.wait.until(EC.presence_of_all_elements_located)
-            text = ''
-            elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
-            elem_text.click()
-            elem_text.send_keys(text)
-            time.sleep(1)
+                # ファイルパスを入力
+                """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!"""
+                self.wait.until(EC.presence_of_all_elements_located)
+                video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
+                self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
+                time.sleep(2)
 
-            # 投稿
-            tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
-            tweet_button.click()
-            time.sleep(40)
-            self.wait.until(EC.presence_of_all_elements_located)
+                # テキスト入力
+                self.wait.until(EC.presence_of_all_elements_located)
+                text = 'この動画を特定したぞ→' + ' '+ f'{upload_url}'
+                elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
+                elem_text.click()
+                elem_text.send_keys(text)
+                time.sleep(1)
 
-        except:
+                # 投稿
+                tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
+                tweet_button.click()
+                time.sleep(40)
+                self.wait.until(EC.presence_of_all_elements_located)
+
+        except Exception as ex:
+            print('[Uploads]:', ex)
             pass
 
 
     def Quit(self):
         self.driver.quit()
 
-"""IDを入れてforで回して投稿できるか確認"""
-# ids = [
-#     'tomorrow_genkio',
-#     'togsi7',
-#     '1j_mc',
-#     'OtxSf'
-# ]
-
-i = Tweet()
-
-i.Uploads('OtxSf')
-i.Quit()
-# i.Uploads('togsi7')
-# i.Quit()
-# i.Uploads('OtxSf')
-# i.Quit()
-# i.Uploads('1j_mc')
-# i.Quit()
 
 
