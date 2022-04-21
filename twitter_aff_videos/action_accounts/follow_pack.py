@@ -45,6 +45,12 @@ class Get_follower:
         return follow_id_list
 
 
+    def follower_mine(self, client, my_id):
+        follower = client.get_users_followers(id=my_id, user_fields=["id", "name"])
+        follower_id_list = [follower.id for follower in follower.data]
+        print(follower, len(follower))
+        return follower_id_list
+
 
     """フォロー10人する"""
     def follow10(self,client, no_follow_id):
@@ -55,7 +61,7 @@ class Get_follower:
             for fid in no_follow_id:
                 try:
                     follow = client.follow_user(target_user_id=fid) #TODO ifもしフォローしてたらスルーする処理を追加
-                    follow.response
+
                     if follow.data['following'] == True:
                         count += 1
                     elif follow.data['following'] == False:
@@ -65,6 +71,18 @@ class Get_follower:
                 except Exception as ex:
                     print(ex)
                     pass
+
+
+    def unfollow(self, client, un_follow_id):
+        un_follow_id = un_follow_id
+
+        for fid in un_follow_id:
+            try:
+                client.unfollow_user(target_user_id=fid)
+                time.sleep(60)
+            except Exception as ex:
+                print('[unfollow] Except : ', ex)
+                pass
 
 
 class Follow_twid(Get_follower):
