@@ -54,8 +54,12 @@ class Get_follower:
         while count < 10:
             for fid in no_follow_id:
                 try:
-                    client.follow_user(target_user_id=fid) #TODO ifもしフォローしてたらスルーする処理を追加
-                    count += 1
+                    follow = client.follow_user(target_user_id=fid) #TODO ifもしフォローしてたらスルーする処理を追加
+                    follow.response
+                    if follow.data['following'] == True:
+                        count += 1
+                    elif follow.data['following'] == False:
+                        count = count
                     time.sleep(60)
                     print('フォロー完了しました')
                 except Exception as ex:
