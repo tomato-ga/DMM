@@ -1,4 +1,3 @@
-import follow_pack
 import pymongo
 
 

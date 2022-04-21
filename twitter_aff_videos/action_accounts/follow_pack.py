@@ -57,7 +57,7 @@ class Get_follower:
         no_follow_id = no_follow_id
 
         count = 0
-        while count < 10:
+        while count < 3:
             for fid in no_follow_id:
                 try:
                     follow = client.follow_user(target_user_id=fid) #TODO ifもしフォローしてたらスルーする処理を追加
@@ -66,11 +66,13 @@ class Get_follower:
                         count += 1
                     elif follow.data['following'] == False:
                         count = count
-                    time.sleep(60)
+                    # time.sleep(60)
                     print('フォロー完了しました')
                 except Exception as ex:
                     print(ex)
                     pass
+            if count == 3:
+                break
 
 
     def unfollow(self, client, un_follow_id):
@@ -94,8 +96,8 @@ class DB(Get_follower):
         pass
 
 
-i = Get_follower()
-client = i.apicall(API)
+# i = Get_follower()
+# client = i.apicall(API)
 # new_fid = i.followers_recently(client)
 #followed_id = i.followed_mine(client)
 
