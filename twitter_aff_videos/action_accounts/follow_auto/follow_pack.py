@@ -3,7 +3,6 @@ import time
 import random
 from tweepy import TweepyException
 
-import api_HjQhq as API #TODO APIはテストでこのアカウントにしてる
 import follow_db
 
 
@@ -85,20 +84,3 @@ class Get_follower:
             except Exception as ex:
                 print('[unfollow] Except : ', ex)
                 pass
-
-
-class Follow_twid(Get_follower):
-    def follow_id(self):
-        pass
-
-class DB(Get_follower):
-    def pas(self):
-        pass
-
-
-# i = Get_follower()
-# client = i.apicall(API)
-# new_fid = i.followers_recently(client)
-#followed_id = i.followed_mine(client)
-
-# i.Follow10(no_follow_id, client)
