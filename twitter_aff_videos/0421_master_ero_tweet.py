@@ -14,6 +14,11 @@ class Tweet_get:
     auth.set_access_token(API_config_katudon.ACCESS_TOKEN, API_config_katudon.ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
+
+    # client = tweepy.Client(consumer_key=API_config_katudon.API_KEY, consumer_secret=API_config_katudon.API_SECRET, access_token=API_config_katudon.ACCESS_TOKEN, access_token_secret=API_config_katudon.ACCESS_TOKEN_SECRET, bearer_token=API_config_katudon.Bearer_token)
+
+
+
     # search_result = tweepy.Cursor(api.user_timeline, screen_name=key_account, include_rts=False, include_entities=True, tweet_mode='extended', lang='ja').items(10)
     # print(search_result)
 
@@ -41,7 +46,7 @@ class Tweet_get:
         Twitter APIへの1回のリクエストにつき最大100ツイートまで
         レートリミットに達すると、自動的に待機/スリープ状態になります。"""
 
-        count_no = 3
+        count_no = 3000
         video_urls_list = []
         af_urls_list = []
         comments_list = []
@@ -56,7 +61,6 @@ class Tweet_get:
                     lang='ja',
                     exclude_replies=False,
                     include_rts=False).items(limit=count_no) # 取得件数を指定
-
 
         for result in results:
             try:
@@ -92,6 +96,15 @@ class Tweet_get:
                                 af_urls_list.append(af_url)
 
                         yield (dict(video_url=movie_url, af_url=af_url, comment=comment, id=account_id))
+
+
+                # elif result.extended_entities['media']: # TODO 次回以降の課題
+                #     moto_tweet = result.id
+                #     moto_medias = result.extended_entities['media']
+                #     moto_tweet = self.client.hide_reply(moto_tweet)
+
+                else:
+                    pass
 
             except Exception as ex:
                 print('[url_get]: Exception:', ex)
@@ -149,7 +162,7 @@ class Tweet_get:
         db_url = 'mongodb://pyton:radioipad1215@192.168.0.23:27017'
         client = pymongo.MongoClient(db_url)
         db = client.twitter
-        collection = db.testtest
+        collection = db.videos
 
         return collection
 
@@ -163,14 +176,14 @@ class Tweet_get:
 if __name__ == '__main__':
 
     key_accounts = [
-        # 'https://twitter.com/k9xypip',
-        # 'https://twitter.com/paipai1414',
+        'https://twitter.com/k9xypip',
+        'https://twitter.com/paipai1414',
         # 'https://twitter.com/cb_Eugene13',
         # 'https://twitter.com/penne27436851',
         # 'https://twitter.com/beauty_pretty_i',
         # 'https://twitter.com/SGmRmu3SzDfvshj',
-        'https://twitter.com/reiwachijo', # とれない
-        # 'https://twitter.com/Erotube081', #とれない
+        # 'https://twitter.com/reiwachijo', # とれない
+        # 'https://twitter.com/Erotube081',
         # 'https://twitter.com/tmp_pnpk',
         # 'https://twitter.com/Spelunker1231',
         # 'https://twitter.com/nukitender',
