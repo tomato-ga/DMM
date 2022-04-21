@@ -153,7 +153,7 @@ class Tweet_get:
 if __name__ == '__main__':
 
     key_accounts = [
-        # 'https://twitter.com/k9xypip',
+        'https://twitter.com/k9xypip',
         # 'https://twitter.com/paipai1414',
         # 'https://twitter.com/cb_Eugene13',
         # 'https://twitter.com/penne27436851',
@@ -165,7 +165,7 @@ if __name__ == '__main__':
         # 'https://twitter.com/Spelunker1231',
         # 'https://twitter.com/nukitender',
         # 'https://twitter.com/Mature_Milf_Mom',
-        'https://twitter.com/AV_honpo_kyonyu' #巨乳
+        # 'https://twitter.com/AV_honpo_kyonyu' #巨乳
     ]
 
     i = Tweet_get()
