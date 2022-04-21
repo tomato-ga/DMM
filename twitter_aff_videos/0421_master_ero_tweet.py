@@ -123,7 +123,7 @@ class Tweet_get:
         v_url_file_name_list = re.findall('(/[a-zA-z0-9_-]*)(.mp4)', movie_url)
         v_url_file_name = v_url_file_name_list[0][0]
         v_url_file_name = v_url_file_name.replace('/', '')
-        with open(f'E:\\twitvideo\\{str(v_url_file_name)}.mp4', 'wb') as save_video:   # Ubuntu /mnt/hdd/don/files //  Win f'E:\\twitvideo\\{str(v_url_file_name)}.mp4',
+        with open(f'/mnt/hdd/don/files/twitvideo/{str(v_url_file_name)}.mp4', 'wb') as save_video:   # Ubuntu f'/mnt/hdd/don/files/twitvideo/ //  Win f'E:\\twitvideo\\{str(v_url_file_name)}.mp4',
             save_video.write(response.content)
             time.sleep(2)
 
