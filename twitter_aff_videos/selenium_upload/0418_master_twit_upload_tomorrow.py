@@ -85,7 +85,7 @@ class Tweet:
             upload_url: str = random_video['url'].values[0]
             print(upload_video_file_name, ':', upload_url)
 
-            if upload_video_file_name and upload_url is not None:
+            if upload_url is not None:
 
                 # ファイルパスを入力
                 """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!"""
