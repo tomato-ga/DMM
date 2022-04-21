@@ -68,8 +68,9 @@ class Tweet_get:
                     comments_list.append(comment)
 
                     """スレッドの場合、元ツイートの動画を取得"""
-                    moto_tweet = self.api.get_status(moto_tweet_id, include_entities=True)
+                    moto_tweet = self.api.get_status(moto_tweet_id, include_entities=True, tweet_mode='extended')
                     moto_medias = moto_tweet.extended_entities['media']
+
 
                     if 'video_info' in moto_medias[0]:
                         ex_media_video_variants = moto_medias[0]['video_info']['variants']
@@ -168,8 +169,8 @@ if __name__ == '__main__':
         # 'https://twitter.com/penne27436851',
         # 'https://twitter.com/beauty_pretty_i',
         # 'https://twitter.com/SGmRmu3SzDfvshj',
-        'https://twitter.com/reiwachijo',
-        'https://twitter.com/Erotube081',
+        'https://twitter.com/reiwachijo', # とれない
+        # 'https://twitter.com/Erotube081', #とれない
         # 'https://twitter.com/tmp_pnpk',
         # 'https://twitter.com/Spelunker1231',
         # 'https://twitter.com/nukitender',
