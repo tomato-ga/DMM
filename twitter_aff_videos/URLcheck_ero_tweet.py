@@ -93,7 +93,6 @@ class Tweet_get:
                         yield (dict(video_url=movie_url, af_url=af_url, comment=comment, id=account_id))
 
             except Exception as ex:
-                """スレッドの前からとる場合、動画URLとって、スレッドconvarsation?のIDを取得"""
                 print('[url_get]: Exception:', ex)
                 pass
 
@@ -163,14 +162,14 @@ class Tweet_get:
 if __name__ == '__main__':
 
     key_accounts = [
-        'https://twitter.com/k9xypip',
-        'https://twitter.com/paipai1414',
+        # 'https://twitter.com/k9xypip',
+        # 'https://twitter.com/paipai1414',
         # 'https://twitter.com/cb_Eugene13',
         # 'https://twitter.com/penne27436851',
         # 'https://twitter.com/beauty_pretty_i',
         # 'https://twitter.com/SGmRmu3SzDfvshj',
-        # 'https://twitter.com/reiwachijo',
-        # 'https://twitter.com/Erotube081',
+        'https://twitter.com/reiwachijo',
+        'https://twitter.com/Erotube081',
         # 'https://twitter.com/tmp_pnpk',
         # 'https://twitter.com/Spelunker1231',
         # 'https://twitter.com/nukitender',
