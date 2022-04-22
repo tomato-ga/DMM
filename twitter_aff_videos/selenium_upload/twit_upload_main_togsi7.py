@@ -4,5 +4,5 @@ from master_twit_upload_module_0421 import Tweet
 if __name__ == '__main__':
 
     i = Tweet()
-    i.Uploads('togsi7')
+    i.Uploads(account='togsi7', text='いいね！')
     i.Quit()
