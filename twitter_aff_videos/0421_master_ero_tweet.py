@@ -17,8 +17,6 @@ class Tweet_get:
 
     # client = tweepy.Client(consumer_key=API_config_katudon.API_KEY, consumer_secret=API_config_katudon.API_SECRET, access_token=API_config_katudon.ACCESS_TOKEN, access_token_secret=API_config_katudon.ACCESS_TOKEN_SECRET, bearer_token=API_config_katudon.Bearer_token)
 
-
-
     # search_result = tweepy.Cursor(api.user_timeline, screen_name=key_account, include_rts=False, include_entities=True, tweet_mode='extended', lang='ja').items(10)
     # print(search_result)
 
@@ -150,7 +148,7 @@ class Tweet_get:
 
     def info_matome(self, key_accounts):
         for key_account in key_accounts:
-            dicts = i.url_get(key_account)
+            dicts = self.url_get(key_account)
             for info in dicts:
                 movie_url = info['video_url']
                 af_url = info['af_url']
@@ -177,8 +175,8 @@ class Tweet_get:
 if __name__ == '__main__':
 
     key_accounts = [
-        'https://twitter.com/k9xypip',
-        'https://twitter.com/paipai1414',
+        # 'https://twitter.com/k9xypip',
+        # 'https://twitter.com/paipai1414',
         # 'https://twitter.com/cb_Eugene13',
         # 'https://twitter.com/penne27436851',
         # 'https://twitter.com/beauty_pretty_i',
@@ -187,8 +185,8 @@ if __name__ == '__main__':
         # 'https://twitter.com/Erotube081',
         # 'https://twitter.com/tmp_pnpk',
         # 'https://twitter.com/Spelunker1231',
-        # 'https://twitter.com/nukitender',
-        # 'https://twitter.com/Mature_Milf_Mom',
+        'https://twitter.com/nukitender',
+        'https://twitter.com/Mature_Milf_Mom',
         # 'https://twitter.com/AV_honpo_kyonyu' #巨乳
     ]
 
@@ -198,4 +196,4 @@ if __name__ == '__main__':
 
 
 #TODO , key_accountsを辞書にしてtypeを追加する ex, 'type': 'sirouto' 'type': 'normal' etc...
-#TODO , dbとpandasで差分取得する
+
