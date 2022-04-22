@@ -54,7 +54,7 @@ def My_rt(API, ids):
 
     for id_mine in ids:
         try:
-            timeline = client.get_users_tweets(id=id_mine, max_results=5, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"], tweet_fields=["text","source","entities"]) # context_annotations削除
+            timeline = client.get_users_tweets(id=id_mine, max_results=5, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"]) # context_annotations削除 tweet_fields=["text","source","entities"]
             name: list = [username_0.data['username'] for username_0 in timeline.includes['users']]
             username =name[0]
 
@@ -76,7 +76,7 @@ def My_rt(API, ids):
                 except Exception as e:
                     print(e)
                 else:
-                    print('自分のRTとReply完了!!')
+                    print('[My_rt]: 自分のRTとReply完了!!')
 
 
 def My_new_rt(API, ids):
@@ -117,4 +117,4 @@ def My_new_rt(API, ids):
                 except Exception as e:
                     print(e)
                 else:
-                    print('自分のRTとReply完了!!')
+                    print('[My_new_rt]: 自分の新規動画RTとReply完了!!')
