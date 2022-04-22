@@ -185,9 +185,8 @@ if __name__ == '__main__':
         # 'https://twitter.com/Erotube081',
         # 'https://twitter.com/tmp_pnpk',
         # 'https://twitter.com/Spelunker1231',
-        'https://twitter.com/nukitender',
         'https://twitter.com/Mature_Milf_Mom',
-        # 'https://twitter.com/AV_honpo_kyonyu' #巨乳
+        'https://twitter.com/AV_honpo_kyonyu' #巨乳
     ]
 
     i = Tweet_get()
