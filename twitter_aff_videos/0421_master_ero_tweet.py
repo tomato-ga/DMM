@@ -110,8 +110,6 @@ class Tweet_get:
 
 
 
-        # return video_urls_list, af_urls_list, comments_list,  # TODO 1.yieldで返すようにする：リストをやめる key_account AVのタイプを保存しておきたい 2.元ツイートURLとツイートauthor_idを保存する
-
 
     def video_af_url_get(self,movie_url, af_url, comment, account_id) -> list:
 

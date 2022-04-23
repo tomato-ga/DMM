@@ -55,14 +55,13 @@ def jsonload():
 
 
 def genre_search():
-    genre_url = f'https://api.dmm.com/affiliate/v3/ItemList?api_id={APIID}&affiliate_id={AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits=20&sort=date&article=genre&article_id=6940&output=json'
+    genre_url = f'https://api.dmm.com/affiliate/v3/ItemList?api_id={APIID}&affiliate_id={AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits=10&sort=date&article=genre&article_id=6940&output=json'
     response = requests.get(genre_url)
     print()
     genre_text = response.text
     genre_data = json.loads(genre_text)
     genre_item = genre_data['result']['items']
     print(genre_item)
-
 
     for items in genre_item:
         af_url = items['affiliateURL']
@@ -89,12 +88,7 @@ def genre_search():
                 video_url=v_url
             )
 
-# TODO あとは動画をダウンロードしてDBに保存していくだけ
-
-
-def get_url(page_url):
-    spank = requests.get(page_url)
-    print(spank)
-
-
 genre_search()
+
+
+# TODO あとは動画をダウンロードしてDBに保存していくだけ
