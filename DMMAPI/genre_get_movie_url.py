@@ -53,13 +53,20 @@ def jsonload():
 """ジャンルに特化した最新の動画を集める"""
 
 
-def genre_search():
-    hits_count = 10
+def genre_get_movie():
+    hits_count = 20
     offset_count = 1
 
+    """ジャンルID
+    スパンキング: 6940
+    辱め： 27
+    鼻フック： 6950
+    """
+
+    genre_id = 6950
 
     while True:
-        genre_url = f'https://api.dmm.com/affiliate/v3/ItemList?api_id={APIID}&affiliate_id={AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits={hits_count}&sort=date&offset={offset_count}&article=genre&article_id=6940&output=json'
+        genre_url = f'https://api.dmm.com/affiliate/v3/ItemList?api_id={APIID}&affiliate_id={AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits={hits_count}&sort=date&offset={offset_count}&article=genre&article_id={genre_id}&output=json'
         response = requests.get(genre_url)
         genre_text = response.text
         genre_data = json.loads(genre_text)
@@ -68,40 +75,42 @@ def genre_search():
 
         for items in genre_item:
             try:
-                af_url = items['affiliateURL']
-                title = items['title']
-                videos_info = items['sampleMovieURL']
-                del videos_info['pc_flag'], videos_info['sp_flag']
+                average = items['review']['average']
+                if float(average) >= 3.5:
+                    af_url = items['affiliateURL']
+                    title = items['title']
+                    videos_info = items['sampleMovieURL']
+                    del videos_info['pc_flag'], videos_info['sp_flag']
 
-                size_array = []
-                video_array = []
-                for size, v_url in videos_info.items():
+                    size_array = []
+                    video_array = []
+                    for size, v_url in videos_info.items():
 
-                    max_size_info = size.split('_')
-                    split_size = int(max_size_info[1])
-                    size_array.append(split_size)
-                    video_array.append(v_url)
+                        max_size_info = size.split('_')
+                        split_size = int(max_size_info[1])
+                        size_array.append(split_size)
+                        video_array.append(v_url)
 
-                max_size = size_array.index(max(size_array))
-                if str(size_array[max_size]) in v_url:
+                    max_size = size_array.index(max(size_array))
+                    if str(size_array[max_size]) in v_url:
 
-                    if videos_info:
-                        yield dict(
-                            title=title,
-                            aff_url=af_url,
-                            video_url=v_url
+                        if videos_info:
+                            yield dict(
+                                title=title,
+                                aff_url=af_url,
+                                video_url=v_url
                         )
             except Exception as ex:
                 print(ex)
 
         offset_count = hits_count + offset_count
 
-        if len(genre_item) is 0:
+        if len(genre_item) == 0:
             break
 
 
 
-for i in genre_search():
+for i in genre_get_movie():
     print(i)
 
 
