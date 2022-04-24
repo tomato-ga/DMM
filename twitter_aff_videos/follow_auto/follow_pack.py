@@ -60,6 +60,7 @@ class Get_follower:
             while count < 3:
                 try:
                     follow = client.follow_user(target_user_id=fid) #TODO ifもしフォローしてたらスルーする処理を追加
+                    time.sleep(60)
 
                     if follow.data['following'] == True:
                         count += 1
