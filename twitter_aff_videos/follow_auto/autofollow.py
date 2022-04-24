@@ -31,8 +31,9 @@ tweets = response.data
 random.shuffle(tweets)
 
 like_user_follow = 0
-while like_user_follow < 5:
-    for tweet in tweets:
+
+for tweet in tweets:
+    while like_user_follow < 2:
         tid = tweet.id
         like_users = client.get_liking_users(tid)
         follows = like_users.data
@@ -41,7 +42,7 @@ while like_user_follow < 5:
             for follow in follows:
                 client.follow_user(target_user_id=follow.id)
                 like_user_follow += 1
-    if like_user_follow == 5:
-        break
+                if like_user_follow == 2:
+                    break
 
 ###################リストから最新ツイート取得してLIKEしてるユーザーをフォロー##########################
