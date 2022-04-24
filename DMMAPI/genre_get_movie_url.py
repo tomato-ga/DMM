@@ -37,6 +37,7 @@ pprint.pprint(floor_item)
 
 # pprint.pprint(genre_item)
 
+"""コミック"""
 #コミック辱め ID 27
 
 hits_count = 20
@@ -64,112 +65,111 @@ pprint.pprint(genre_item)
 # with open('genre.json', 'w', encoding='utf-8') as f:
 #     json.dump(all_genre_item, f, indent=4, ensure_ascii=False)
 
-# class Genre_read:
+class Genre_read:
 
-#     """ジャンルのIDを取得する"""
-#     def jsonload(self):
-#         with open('genre.json', 'r', encoding='utf-8') as r:
-#             genre = json.load(r)
-#             for items in genre['genre']:
-#                 if 'スパンキング' in items['name']:
-#                     page_url = items['list_url']
-#                     print(page_url)
-#         return page_url
-
-
-#     """ジャンルに特化した最新の動画を集める"""
+    """ジャンルのIDを取得する"""
+    def jsonload(self):
+        with open('genre.json', 'r', encoding='utf-8') as r:
+            genre = json.load(r)
+            for items in genre['genre']:
+                if 'スパンキング' in items['name']:
+                    page_url = items['list_url']
+                    print(page_url)
+        return page_url
 
 
-#     def genre_get_movie(self):
-#         hits_count = 20
-#         offset_count = 1
-
-#         """ジャンルID
-#         スパンキング: 6940
-#         辱め： 27
-#         鼻フック： 6950
-#         """
-
-#         genre_id = 6950
-
-#         while True:
-#             genre_url = f'https://api.dmm.com/affiliate/v3/ItemList?api_id={APIID}&affiliate_id={AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits={hits_count}&sort=date&offset={offset_count}&article=genre&article_id={genre_id}&output=json'
-#             response = requests.get(genre_url)
-#             genre_text = response.text
-#             genre_data = json.loads(genre_text)
-#             genre_item = genre_data['result']['items']
+    """ジャンルに特化した最新の動画を集める"""
 
 
-#             for items in genre_item:
-#                 try:
-#                     average = items['review']['average']
-#                     if float(average) >= 3.5:
-#                         af_url = items['affiliateURL']
-#                         title = items['title']
-#                         videos_info = items['sampleMovieURL']
-#                         del videos_info['pc_flag'], videos_info['sp_flag']
+    def genre_get_movie(self):
+        hits_count = 20
+        offset_count = 1
 
-#                         size_array = []
-#                         video_array = []
-#                         for size, v_url in videos_info.items():
+        """ジャンルID
+        スパンキング: 6940
+        辱め： 27
+        鼻フック： 6950
+        """
 
-#                             max_size_info = size.split('_')
-#                             split_size = int(max_size_info[1])
-#                             size_array.append(split_size)
-#                             video_array.append(v_url)
+        genre_id = 6950
 
-#                         max_size = size_array.index(max(size_array))
-#                         if str(size_array[max_size]) in v_url:
-
-#                             if videos_info:
-#                                 yield dict(
-#                                     title=title,
-#                                     aff_url=af_url,
-#                                     video_url=v_url
-#                             )
-#                 except Exception as ex:
-#                     print(ex)
-
-#             offset_count = hits_count + offset_count
-
-#             if len(genre_item) == 0:
-#                 break
-
-#         with open('genre.json', 'w', encoding='utf-8') as f:
-#             json.dump(all_genre_item, f, indent=4, ensure_ascii=False)
+        while True:
+            genre_url = f'https://api.dmm.com/affiliate/v3/ItemList?api_id={APIID}&affiliate_id={AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits={hits_count}&sort=date&offset={offset_count}&article=genre&article_id={genre_id}&output=json'
+            response = requests.get(genre_url)
+            genre_text = response.text
+            genre_data = json.loads(genre_text)
+            genre_item = genre_data['result']['items']
 
 
-# class video:
+            for items in genre_item:
+                try:
+                    average = items['review']['average']
+                    if float(average) >= 3.5:
+                        af_url = items['affiliateURL']
+                        title = items['title']
+                        videos_info = items['sampleMovieURL']
+                        del videos_info['pc_flag'], videos_info['sp_flag']
 
-#     def __init__(self):
-#         self.options = Options()
-#         self.options.add_argument('--headless')
-#         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-#         self.driver = webdriver.Chrome('C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe', options=self.options)
-#         # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
-#         #self.driver.implicitly_wait(10)
+                        size_array = []
+                        video_array = []
+                        for size, v_url in videos_info.items():
 
-#         self.wait = WebDriverWait(driver=self.driver, timeout=30)
+                            max_size_info = size.split('_')
+                            split_size = int(max_size_info[1])
+                            size_array.append(split_size)
+                            video_array.append(v_url)
 
-#     def down(self, index, video_info: dict):
+                        max_size = size_array.index(max(size_array))
+                        if str(size_array[max_size]) in v_url:
 
-#         print(video_info)
-#         self.driver.get(video_info['video_url'])
-#         self.wait.until(EC.presence_of_all_elements_located)
-#         iframe = self.driver.find_element(by=By.TAG_NAME, value='iframe')
-#         self.driver.switch_to.frame(iframe)
-#         elem = self.driver.find_element(by=By.XPATH, value="//main[contains(@id, 'dmmvideo-player')]/video").get_attribute('src')
-#         print(elem)
+                            if videos_info:
+                                yield dict(
+                                    title=title,
+                                    aff_url=af_url,
+                                    video_url=v_url
+                            )
+                except Exception as ex:
+                    print(ex)
 
-#         video_response = requests.get(elem)
-#         with open(f'{index}test.mp4', 'wb') as save_v:
-#             save_v.write(video_response.content)
+            offset_count = hits_count + offset_count
+
+            if len(genre_item) == 0:
+                break
+
+        with open('genre.json', 'w', encoding='utf-8') as f:
+            json.dump(all_genre_item, f, indent=4, ensure_ascii=False)
 
 
+class video:
 
-# if __name__ == '__main__':
+    def __init__(self):
+        self.options = Options()
+        self.options.add_argument('--headless')
+        self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
+        self.driver = webdriver.Chrome('C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe', options=self.options)
+        # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
+        #self.driver.implicitly_wait(10)
 
-#     zz = Genre_read()
-#     vv = video()
-#     for i, video_info in enumerate(zz.genre_get_movie()):
-#         vv.down(i, video_info)
+        self.wait = WebDriverWait(driver=self.driver, timeout=30)
+
+    def down(self, index, video_info: dict):
+
+        print(video_info)
+        self.driver.get(video_info['video_url'])
+        self.wait.until(EC.presence_of_all_elements_located)
+        iframe = self.driver.find_element(by=By.TAG_NAME, value='iframe')
+        self.driver.switch_to.frame(iframe)
+        elem = self.driver.find_element(by=By.XPATH, value="//main[contains(@id, 'dmmvideo-player')]/video").get_attribute('src')
+        print(elem)
+
+        video_response = requests.get(elem)
+        with open(f'{index}test.mp4', 'wb') as save_v:
+            save_v.write(video_response.content)
+
+
+if __name__ == '__main__':
+
+    zz = Genre_read()
+    vv = video()
+    for i, video_info in enumerate(zz.genre_get_movie()):
+        vv.down(i, video_info)
