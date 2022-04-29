@@ -18,21 +18,18 @@ from selenium.webdriver.chrome import service as fs
 
 class Tweet:
 
-
-
     def __init__(self):
         self.options = Options()
-        #self.options.add_argument('--headless')
+        self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome('C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe', options=self.options)
+        self.driver = webdriver.Chrome(options=self.options)
         # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
         #self.driver.implicitly_wait(10)
 
-        wait_1 = random.random()
-        wait_2 = random.randint(30,40)
-        self.randomwait = round(wait_1 + wait_2, 5)
+        self.wait1 = random.random()
+        self.wait2 = random.randint(3,6)
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
@@ -52,7 +49,7 @@ class Tweet:
 
         return df
 
-    def Uploads(self, account: str, text: str):
+    def Uploads(self, account: str):
 
         account = account
         password = 'asdflkjh'
@@ -93,23 +90,22 @@ class Tweet:
                 # ファイルパスを入力
                 """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!"""
                 self.wait.until(EC.presence_of_all_elements_located)
-                video_path = os.path.abspath(f'X:\\don\\files\\twitvideo\\{upload_video_file_name}')     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
+                video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
                 time.sleep(2)
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
-                text = f'{text}' + ' '+ f'{upload_url}'
+                text = 'この動画を特定したぞ→' + ' '+ f'{upload_url}'
                 elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                 elem_text.click()
                 elem_text.send_keys(text)
                 time.sleep(1)
 
                 # 投稿
-                # time.sleep(self.randomwait)
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 tweet_button.click()
-
+                #time.sleep(40)
                 self.wait.until(EC.presence_of_all_elements_located)
 
         except Exception as ex:
@@ -119,6 +115,3 @@ class Tweet:
 
     def Quit(self):
         self.driver.quit()
-
-
-
