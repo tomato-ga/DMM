@@ -5,9 +5,9 @@ import api_togsi7
 import api_HjQhq
 import api_OtxSf # RT設定しない
 
-
-tw_package.Thirdparty_rt(api_tomorrow_genkio)
-tw_package.My_rt(api_tomorrow_genkio, api_tomorrow_genkio.ids)
+#メインアカはRTしない
+# tw_package.Thirdparty_rt(api_tomorrow_genkio)
+# tw_package.My_rt(api_tomorrow_genkio, api_tomorrow_genkio.ids)
 
 tw_package.Thirdparty_rt(api_1j_mc)
 tw_package.My_rt(api_1j_mc, api_1j_mc.ids)
