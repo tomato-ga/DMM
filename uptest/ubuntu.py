@@ -110,7 +110,6 @@ class Tweet:
 
         except Exception as ex:
             print('[Uploads]:', ex)
-            pass
 
 
     def Quit(self):
