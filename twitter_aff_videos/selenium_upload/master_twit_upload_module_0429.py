@@ -15,10 +15,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
-wait_1 = random.random()
-wait_2 = random.randint(40,800)
-randomwait = round(wait_1 + wait_2, 5)
-
 
 class Tweet:
 
@@ -34,8 +30,9 @@ class Tweet:
         # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
         #self.driver.implicitly_wait(10)
 
-        self.wait1 = random.random()
-        self.wait2 = random.randint(3,6)
+        wait_1 = random.random()
+        wait_2 = random.randint(30,40)
+        self.randomwait = round(wait_1 + wait_2, 5)
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
@@ -109,7 +106,7 @@ class Tweet:
                 time.sleep(1)
 
                 # 投稿
-                time.sleep(randomwait)
+                time.sleep(self.randomwait)
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 tweet_button.click()
 
