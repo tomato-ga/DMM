@@ -15,8 +15,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
+wait_1 = random.random()
+wait_2 = random.randint(59,300)
+wait = round(wait_1 + wait_2, 5)
+
 
 class Tweet:
+
+
 
     def __init__(self):
         self.options = Options()
@@ -105,7 +111,7 @@ class Tweet:
                 # 投稿
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 tweet_button.click()
-                time.sleep(40)
+                time.sleep(wait)
                 self.wait.until(EC.presence_of_all_elements_located)
 
         except Exception as ex:
