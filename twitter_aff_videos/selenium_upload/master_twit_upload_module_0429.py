@@ -106,7 +106,7 @@ class Tweet:
                 time.sleep(1)
 
                 # 投稿
-                time.sleep(self.randomwait)
+                # time.sleep(self.randomwait)
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 tweet_button.click()
 
