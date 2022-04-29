@@ -17,7 +17,7 @@ from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
 wait_2 = random.randint(40,800)
-wait = round(wait_1 + wait_2, 5)
+randomwait = round(wait_1 + wait_2, 5)
 
 
 class Tweet:
@@ -109,7 +109,7 @@ class Tweet:
                 time.sleep(1)
 
                 # 投稿
-                time.sleep(wait)
+                time.sleep(randomwait)
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 tweet_button.click()
 
