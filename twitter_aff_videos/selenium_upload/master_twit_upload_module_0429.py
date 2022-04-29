@@ -109,9 +109,10 @@ class Tweet:
                 time.sleep(1)
 
                 # 投稿
+                time.sleep(wait)
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 tweet_button.click()
-                time.sleep(wait)
+
                 self.wait.until(EC.presence_of_all_elements_located)
 
         except Exception as ex:

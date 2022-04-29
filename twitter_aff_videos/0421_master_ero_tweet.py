@@ -44,7 +44,7 @@ class Tweet_get:
         Twitter APIへの1回のリクエストにつき最大100ツイートまで
         レートリミットに達すると、自動的に待機/スリープ状態になります。"""
 
-        count_no = 3000
+        count_no = 3
         video_urls_list = []
         af_urls_list = []
         comments_list = []
