@@ -51,8 +51,7 @@ class Image:
             title = soup.find('h2', {'class': 'entry-title'}).text
             blocks = soup.find('div', {'class': 'entry-content'})
             img_url = blocks.find_all('img')
-            os.mkdir(f'/mnt/hdd/don/fliles/twitphotos/{title}')
-            os.chmod(f'/mnt/hdd/don/fliles/twitphotos/{title}', 755)
+            os.mkdir(f'/mnt/hdd/don/files/twitphotos/{title}', mode=755)
 
             for img in img_url:
                 self.img_urls.append(img['src'])
