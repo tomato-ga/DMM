@@ -74,9 +74,6 @@ class Image:
             pass
 
         self.driver.quit()
-        return self.img_urls
-
-
 
 
 t = Image()
