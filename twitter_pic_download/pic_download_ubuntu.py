@@ -26,22 +26,15 @@ class Image:
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome(options=self.options)
+        self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.img_urls = []
 
-        ###################Windows########################
-        # self.options = Options()
-        # self.options.add_argument('--headless')
-        # self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        # chromedriver = 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe' # '/Users/oono/Documents/py_binary/chromedriver'
-        # chrome_service = fs.Service(executable_path=chromedriver)
-        # self.driver = webdriver.Chrome(service=chrome_service, options=self.options)
-        ###################Windows########################
-        self.wait = WebDriverWait(driver=self.driver, timeout=30)
+
+    def chrome_quit(self):
+        self.driver.quit()
 
 
     def image_url_parse(self, url):
-
-        
 
         try:
             self.driver.get(url)
@@ -61,20 +54,18 @@ class Image:
 
             for img_url in self.img_urls:
                 image_get = requests.get(img_url)
-                time.sleep(0.2)
+                time.sleep(0.3)
                 file_name = re.findall('([a-zA-z0-9_-]*)(.jpg)', img_url)
                 file_name = file_name[0][0]
                 file_name = file_name.replace('/', '')
-                with open(f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb'
+                with open(f'/mnt/hdd/don/files/twitphotos/{title}\\{str(file_name)}.jpg', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb' # Ubuntu f'/mnt/hdd/don/files/twitphotos/{title}\\{str(file_name)}.jpg', 'wb'
                     image.write(image_get.content)
-                    time.sleep(0.2)
+                    time.sleep(0.3)
 
 
         except Exception as ex:
             print('[article_url_parse]', ex)
             pass
-
-        self.driver.quit()
 
 
 t = Image()
@@ -83,3 +74,4 @@ urls = urls.values
 for url in urls:
     t.image_url_parse(url[0])
 
+t.chrome_quit()
