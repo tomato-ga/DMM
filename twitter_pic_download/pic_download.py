@@ -26,6 +26,7 @@ class Image:
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome(options=self.options)
+        self.img_urls = []
 
         ###################Windows########################
         # self.options = Options()
@@ -40,7 +41,7 @@ class Image:
 
     def image_url_parse(self, url):
 
-        img_urls = []
+        
 
         try:
             self.driver.get(url)
@@ -55,10 +56,10 @@ class Image:
             os.makedirs(f'/mnt/hdd/don/files/twitphotos/{title}', mode=0o777 , exist_ok=True)
 
             for img in img_url:
-                img_urls.append(img['src'])
-            print(img_urls)
+                self.img_urls.append(img['src'])
+            print(self.img_urls)
 
-            for img_url in img_urls:
+            for img_url in self.img_urls:
                 image_get = requests.get(img_url)
                 time.sleep(0.2)
                 file_name = re.findall('([a-zA-z0-9_-]*)(.jpg)', img_url)
