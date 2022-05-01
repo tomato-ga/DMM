@@ -82,7 +82,7 @@ class Genre_read:
 
 
     def genre_get_movie(self):
-        hits_count = 20
+        hits_count = 20 #TODO initへ移動させる
         offset_count = 1
 
         """ジャンルID
@@ -136,7 +136,7 @@ class Genre_read:
             if len(genre_item) == 0:
                 break
 
-        with open('genre.json', 'w', encoding='utf-8') as f:
+        with open('fanza_genre.json', 'w', encoding='utf-8') as f:
             json.dump(all_genre_item, f, indent=4, ensure_ascii=False)
 
 
