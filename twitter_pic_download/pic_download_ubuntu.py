@@ -55,10 +55,11 @@ class Image:
             for img_url in self.img_urls:
                 image_get = requests.get(img_url)
                 time.sleep(0.3)
-                file_name = re.findall('([a-zA-z0-9_-]*)(.jpg)', img_url)
+                file_name = re.findall('([a-zA-z0-9_-]*)(.jpg)', img_url) # TODO ([a-zA-z0-9_-]*)(.[a-z]{3,4}$)
                 file_name = file_name[0][0]
                 file_name = file_name.replace('/', '')
-                with open(f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb' # Ubuntu f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb'
+                file_ex =  '' # TODO 正規表現で拡張子取って、file_exにいれるところから
+                with open(f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}{file_ex}', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb' # Ubuntu f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb'
                     image.write(image_get.content)
                     time.sleep(0.3)
 
