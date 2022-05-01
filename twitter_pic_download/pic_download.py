@@ -36,10 +36,11 @@ class Image:
         # self.driver = webdriver.Chrome(service=chrome_service, options=self.options)
         ###################Windows########################
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
-        self.img_urls = []
 
 
     def image_url_parse(self, url):
+
+        img_urls = []
 
         try:
             self.driver.get(url)
@@ -51,13 +52,13 @@ class Image:
             title = soup.find('h2', {'class': 'entry-title'}).text
             blocks = soup.find('div', {'class': 'entry-content'})
             img_url = blocks.find_all('img')
-            os.mkdir(f'/mnt/hdd/don/files/twitphotos/{title}', mode=755)
+            os.mkdir(f'/mnt/hdd/don/files/twitphotos/{title}', mode=777)
 
             for img in img_url:
-                self.img_urls.append(img['src'])
-            print(self.img_urls)
+                img_urls.append(img['src'])
+            print(img_urls)
 
-            for img_url in self.img_urls:
+            for img_url in img_urls:
                 image_get = requests.get(img_url)
                 time.sleep(0.2)
                 file_name = re.findall('([a-zA-z0-9_-]*)(.jpg)', img_url)
@@ -66,8 +67,6 @@ class Image:
                 with open(f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb'
                     image.write(image_get.content)
                     time.sleep(0.2)
-
-
 
 
         except Exception as ex:
