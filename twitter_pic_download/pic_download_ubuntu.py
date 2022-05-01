@@ -58,7 +58,7 @@ class Image:
                 file_name = re.findall('([a-zA-z0-9_-]*)(.jpg)', img_url)
                 file_name = file_name[0][0]
                 file_name = file_name.replace('/', '')
-                with open(f'/mnt/hdd/don/files/twitphotos/{title}\\{str(file_name)}.jpg', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb' # Ubuntu f'/mnt/hdd/don/files/twitphotos/{title}\\{str(file_name)}.jpg', 'wb'
+                with open(f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb' # Ubuntu f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb'
                     image.write(image_get.content)
                     time.sleep(0.3)
 
