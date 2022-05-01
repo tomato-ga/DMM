@@ -73,11 +73,15 @@ class Image:
             print('[article_url_parse]', ex)
             pass
 
+        self.driver.quit()
         return self.img_urls
 
-t = Image()
 
+
+
+t = Image()
 urls: list = pd.read_csv('url.csv')
 urls = urls.values
 for url in urls:
     t.image_url_parse(url[0])
+
