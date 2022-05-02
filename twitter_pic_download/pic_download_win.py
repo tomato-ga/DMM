@@ -33,6 +33,7 @@ class Image:
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         ###################Windows########################
 
+    @property
     def chrome_quit(self):
         self.driver.quit()
 
@@ -80,4 +81,4 @@ urls = urls.values
 for url in urls:
     t.image_url_parse(url[0])
 
-t.chrome_quit()
+t.chrome_quit

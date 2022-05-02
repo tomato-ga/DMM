@@ -20,13 +20,18 @@ class Image:
 
 
     def __init__(self):
+        """_summary_Chromedriver初期化👉Windows用
+        """
+
+        ###################Windows########################
         self.options = Options()
         self.options.add_argument('--headless')
-        self.options.add_argument('--no-sandbox')
-        self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome(options=self.options)
+        chromedriver = 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe' # '/Users/oono/Documents/py_binary/chromedriver'
+        chrome_service = fs.Service(executable_path=chromedriver)
+        self.driver = webdriver.Chrome(service=chrome_service, options=self.options)
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
+        ###################Windows########################
 
     @property
     def chrome_quit(self):
@@ -46,7 +51,7 @@ class Image:
             title = soup.find('h2', {'class': 'entry-title'}).text
             blocks = soup.find('div', {'class': 'entry-content'})
             img_url = blocks.find_all('img')
-            os.makedirs(f'/mnt/hdd/don/files/twitphotos/{title}', mode=0o777 , exist_ok=True)
+            os.makedirs(f'E:\\twit_photos\\{title}', mode=0o777 , exist_ok=True)
 
             for img in img_url:
                 img_urls.append(img['src'])
@@ -60,7 +65,7 @@ class Image:
                 file_name = name_search[0][0]
                 file_name = file_name.replace('/', '')
                 file_ex =  name_search[0][1] # TODO 正規表現で拡張子取って、file_exにいれるところから
-                with open(f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}{file_ex}', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb' # Ubuntu f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb'
+                with open(f'E:\\twit_photos\\{title}\\{str(file_name)}{file_ex}', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb' # Ubuntu f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb'
                     image.write(image_get.content)
                     time.sleep(0.3)
 
@@ -71,8 +76,9 @@ class Image:
 
 
 t = Image()
-urls: list = pd.read_csv('url.csv')
+urls: list = pd.read_csv('C:\\Users\\PC_User\\Documents\\GitHub\\DMM\\gurasen_pic_download\\url.csv')
 urls = urls.values
 for url in urls:
     t.image_url_parse(url[0])
-    t.chrome_quit
+
+t.chrome_quit

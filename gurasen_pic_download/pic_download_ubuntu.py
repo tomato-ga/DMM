@@ -28,7 +28,6 @@ class Image:
         self.driver = webdriver.Chrome(options=self.options)
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
 
-    @property
     def chrome_quit(self):
         self.driver.quit()
 
@@ -75,4 +74,5 @@ urls: list = pd.read_csv('url.csv')
 urls = urls.values
 for url in urls:
     t.image_url_parse(url[0])
-    t.chrome_quit
+
+t.chrome_quit()
