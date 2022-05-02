@@ -55,7 +55,7 @@ class Image:
             for img_url in self.img_urls:
                 image_get = requests.get(img_url)
                 time.sleep(0.3)
-                file_name = re.findall('([a-zA-z0-9_-]*)(.jpg)', img_url) # TODO ([a-zA-z0-9_-]*)(.[a-z]{3,4}$)
+                file_name = re.findall('([a-zA-z0-9_-]*)(.[a-z]{3,4}$)', img_url) # TODO ([a-zA-z0-9_-]*)(.[a-z]{3,4}$) ([a-zA-z0-9_-]*)(.jpg)
                 file_name = file_name[0][0]
                 file_name = file_name.replace('/', '')
                 file_ex =  '' # TODO 正規表現で拡張子取って、file_exにいれるところから
