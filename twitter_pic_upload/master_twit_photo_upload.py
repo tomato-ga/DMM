@@ -77,7 +77,7 @@ class Tweet:
 
             ################ 画像の場合 ################
 
-            pic_dir = '/mnt/hdd/don/files/' #'E:\\twit_photos_gurasen\\'
+            pic_dir = '/mnt/hdd/don/files/twitphotos_gurasen' #'E:\\twit_photos_gurasen\\'
             pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
             random.shuffle(pic_subdir) # サブディレクトリをランダム化
             photo_lists = os.listdir(pic_dir + pic_subdir[0]) # 画像ファイル一覧
