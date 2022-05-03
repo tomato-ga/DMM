@@ -16,7 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(5,10)
+wait_2 = random.randint(5,10) # TODO テスト中は短め
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -25,11 +25,11 @@ class Tweet:
 
     def __init__(self):
         self.options = Options()
-        #self.options.add_argument('--headless')
+        self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome('C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe', options=self.options)
+        self.driver = webdriver.Chrome(options=self.options)
         # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
         #self.driver.implicitly_wait(10)
 
@@ -77,12 +77,12 @@ class Tweet:
 
             ################ 画像の場合 ################
 
-            pic_dir = 'E:\\twit_photos_gurasen\\'
+            pic_dir = '/mnt/hdd/don/files/' #'E:\\twit_photos_gurasen\\'
             pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
             random.shuffle(pic_subdir) # サブディレクトリをランダム化
             photo_lists = os.listdir(pic_dir + pic_subdir[0]) # 画像ファイル一覧
             random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
-            up_photo = os.path.abspath(pic_dir + pic_subdir[0] + '\\' + photo_lists[0]) # アップするファイルパス取得
+            up_photo = os.path.abspath(pic_dir + pic_subdir[0] + '/' + photo_lists[0])  # Win (pic_dir + pic_subdir[0] + '\\' + photo_lists[0]) # アップするファイルパス取得
 
             if up_photo.endswith('.jpg'):
                 print('jpgです')
