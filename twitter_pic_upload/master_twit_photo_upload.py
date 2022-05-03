@@ -34,7 +34,7 @@ class Tweet:
         #self.driver.implicitly_wait(10)
 
         self.wait1 = random.random()
-        self.wait2 = random.randint(3,6)
+        self.wait2 = random.randint(40,465)
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
