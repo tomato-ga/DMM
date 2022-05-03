@@ -10,7 +10,7 @@ response_offset = 0
 media_offset = 0
 all_photo = {}
 all_photo['photo'] = []
-json_path = 'mizugazo_all_photos.json'
+json_path = './mizugazo_all_photos.json'
 
 while True:
     json_url = f'https://mizugazo.com/wp-json/wp/v2/media?per_page={count}&offset={response_offset}'
