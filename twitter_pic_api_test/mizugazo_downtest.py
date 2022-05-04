@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor
 import re
 
 
-json_f = open('/Users/ore/Documents/GitHub/DMM/twitter_pic_api_test/mizugazo_all_photos.json', 'r')
+json_f = open('./mizugazo_all_photos.json', 'r')
 load = json.load(json_f)
 loads = load['photo']
 
@@ -15,7 +15,7 @@ for zz in loads:
     try:
         tag = zz['tag']
         img_url = zz['imgs']
-        img_get = requests.get(img_url)
+        img_get = requests.get(img_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36'})
         time.sleep(0.3)
         print(tag, img_url)
 
