@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor
 import re
 
 
-json_f = open('./mizugazo_all_photos.json', 'r')
+json_f = open('/mizugazo_all_photos.json', 'r')
 load = json.load(json_f)
 loads = load['photo']
 
