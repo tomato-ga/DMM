@@ -1,4 +1,4 @@
-from master_twit_photo_upload import Tweet
+from master_mac import Tweet
 import meigen_jan
 import random
 
