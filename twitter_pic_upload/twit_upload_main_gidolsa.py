@@ -10,9 +10,9 @@ if __name__ == '__main__':
     for meigen in meigens:
         text = meigen
 
-        i = Tweet()
-        i.Uploads(account='gidolsa', text=f'{text}' + '\n' + '#グラビア' + '\n' + '#グラビアアイドル')
-        i.Quit()
+    i = Tweet()
+    i.Uploads(account='gidolsa', text=f'{text}' + '\n' + '#グラビア' + '\n' + '#グラビアアイドル')
+    i.Quit()
 
 
 
