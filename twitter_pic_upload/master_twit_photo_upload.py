@@ -102,7 +102,7 @@ class Tweet:
                 text = '' # f'{text}' テキストいれるとき
                 elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                 elem_text.click()
-                #elem_text.send_keys(text)
+                elem_text.send_keys(text)
                 time.sleep(1)
 
                 # 投稿
