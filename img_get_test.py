@@ -17,5 +17,6 @@ try:
 
         with open(f'/mnt/hdd/don/files/mizugazo/overf/{name_search[0][0]}{name_search[0][1]}', 'wb') as image:
             image.write(im_get.content)
+            print('保存完了')
 except Exception as ex:
     print(ex)
