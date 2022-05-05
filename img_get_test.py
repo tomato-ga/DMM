@@ -20,8 +20,8 @@ try:
 
         match im_get.status_code:
             case 200:
-                os.makedirs('/mnt/hdd/don/files/mizugazo/overf/', mode=0o777, exist_ok=True)
-                with open(f'/mnt/hdd/don/files/mizugazo/overf/{name_search[0][0]}{name_search[0][1]}', 'wb') as image:
+                os.makedirs('/mnt/hdd/don/files/overf/', mode=0o777, exist_ok=True)
+                with open(f'/mnt/hdd/don/files/overf/{name_search[0][0]}{name_search[0][1]}', 'wb') as image:
                     image.write(im_get.content)
                     print('保存完了')
             case _:
