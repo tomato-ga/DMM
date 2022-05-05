@@ -28,7 +28,7 @@ class Tweet:
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.options)
+        self.driver = webdriver.Chrome('/Volumes/SSD_1TB/Down/chromedriver', options=self.options)
         # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
         #self.driver.implicitly_wait(10)
 
@@ -42,8 +42,9 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            self.wait.until(EC.presence_of_all_elements_located)
-            time.sleep(3)
+            time.sleep(15)
+            self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
+
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
@@ -59,9 +60,9 @@ class Tweet:
             elem_pass.send_keys(password)
             time.sleep(3)
 
-            self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
             login.click()
+            self.wait.until(EC.presence_of_all_elements_located)
             time.sleep(3)
             print('ログインしました')
 
@@ -75,7 +76,7 @@ class Tweet:
 
             ################ 画像の場合 ################
 
-            pic_dir = '/Volumes/SSD_1TB/twitphotos_gurasen'  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
+            pic_dir = '/Volumes/SSD_1TB/twitphotos_gurasen/'  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
             pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
             random.shuffle(pic_subdir) # サブディレクトリをランダム化
             photo_lists = os.listdir(pic_dir + pic_subdir[0]) # 画像ファイル一覧
@@ -94,7 +95,7 @@ class Tweet:
                 upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
                 time.sleep(2)
-                assert upload_path == True
+                assert upload_path == up_photo
                 print(upload_path)
 
                 # テキスト入力
