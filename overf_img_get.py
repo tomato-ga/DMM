@@ -12,6 +12,7 @@ l = load['photo']
 try:
     for i in l:
         print(i['img'])
+        title = i['tag']
         img_url = i['img']
         im_get = requests.get(img_url)
         name_search = re.findall('([a-zA-z0-9_-]*)(.[a-z]{3,4}$)', im_get.url)
@@ -20,8 +21,8 @@ try:
 
         match im_get.status_code:
             case 200:
-                os.makedirs('/mnt/hdd/don/files/overf/', mode=0o777, exist_ok=True)
-                with open(f'/mnt/hdd/don/files/overf/{name_search[0][0]}{name_search[0][1]}', 'wb') as image:
+                os.makedirs(f'/mnt/hdd/don/files/overf/{title}', mode=0o777, exist_ok=True)
+                with open(f'/mnt/hdd/don/files/overf/{title}/{name_search[0][0]}{name_search[0][1]}', 'wb') as image:
                     image.write(im_get.content)
                     print('保存完了')
             case _:
