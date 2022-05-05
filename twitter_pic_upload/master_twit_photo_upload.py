@@ -43,8 +43,8 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            self.wait.until(EC.presence_of_all_elements_located)
-            time.sleep(3)
+            time.sleep(15)
+            self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
@@ -95,11 +95,12 @@ class Tweet:
                 upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
                 time.sleep(2)
-                assert upload_path == True
+                assert upload_path == up_photo
                 print(upload_path)
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
+                time.sleep(1)
                 text = text # f'{text}' テキストいれるとき
                 elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                 elem_text.click()
