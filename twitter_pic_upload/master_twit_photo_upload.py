@@ -64,6 +64,7 @@ class Tweet:
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
             login.click()
             time.sleep(3)
+            print('ログインしました')
 
             ################ 動画の場合 ################
             # df = self.db_read()
@@ -94,6 +95,8 @@ class Tweet:
                 upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
                 time.sleep(2)
+                assert upload_path == True
+                print(upload_path)
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
