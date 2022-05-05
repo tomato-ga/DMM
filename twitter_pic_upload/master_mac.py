@@ -109,7 +109,8 @@ class Tweet:
 
                 # 投稿
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
-                tweet_button.click()
+                self.driver.execute_script('arguments[0].click();', tweet_button)
+                #tweet_button.click()
                 time.sleep(20) #画像がアップロードされるまでの待機時間
                 self.wait.until(EC.presence_of_all_elements_located)
 
