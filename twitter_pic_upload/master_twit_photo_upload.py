@@ -16,7 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(5,10) # TODO テスト中は短め
+wait_2 = random.randint(40,450) # TODO テスト中は短め
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -99,7 +99,7 @@ class Tweet:
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
-                text = ''
+                text = f'{text}'
                 elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                 elem_text.click()
                 elem_text.send_keys(text)
