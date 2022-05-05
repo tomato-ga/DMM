@@ -13,10 +13,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome import service as fs
+from webdriver_manager.chrome import ChromeDriverManager
 
 wait_1 = random.random()
-wait_2 = random.randint(40,450) # TODO テスト中は短め
+wait_2 = random.randint(1,2) # TODO テスト中は短め
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -25,16 +25,14 @@ class Tweet:
 
     def __init__(self):
         self.options = Options()
-        self.options.add_argument('--headless')
+        #self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome(options=self.options)
+        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.options)
         # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
         #self.driver.implicitly_wait(10)
 
-        self.wait1 = random.random()
-        self.wait2 = random.randint(40,465)
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
@@ -99,7 +97,7 @@ class Tweet:
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
-                text = '' # f'{text}' テキストいれるとき
+                text = text # f'{text}' テキストいれるとき
                 elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                 elem_text.click()
                 elem_text.send_keys(text)

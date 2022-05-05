@@ -1,12 +1,18 @@
 from master_twit_photo_upload import Tweet
-
-
+import meigen_jan
+import random
 
 if __name__ == '__main__':
 
-    i = Tweet()
-    i.Uploads(account='gidolsa', text='#グラビア'+ '\n' + '#グラビアアイドル' + '\n' + '#グラビア画像')
-    i.Quit()
+    meigens: list[str] = meigen_jan.m
+    random.shuffle(meigens)
+
+    for meigen in meigens:
+        text = meigen
+
+        i = Tweet()
+        i.Uploads(account='gidolsa', text=f'{text}' + '\n' + '#グラビア' + '\n' + '#グラビアアイドル')
+        i.Quit()
 
 
 
