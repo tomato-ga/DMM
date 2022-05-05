@@ -16,7 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 wait_1 = random.random()
-wait_2 = random.randint(1,2) # TODO テスト中は短め
+wait_2 = random.randint(40,400) # TODO テスト中は短め
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -43,7 +43,7 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            time.sleep(15)
+            time.sleep(20)
             self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
@@ -96,6 +96,7 @@ class Tweet:
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
                 time.sleep(2)
                 assert upload_path == up_photo
+                assert len(text) < 140, '140文字以下じゃない'
                 print(upload_path)
 
                 # テキスト入力
