@@ -11,7 +11,7 @@ if __name__ == '__main__':
         text = meigen
 
     i = Tweet()
-    i.Uploads(account='gidolsa', text=f'{text}' + '\n' + '#グラビア' + '\n' + '#グラビアアイドル')
+    i.Uploads(account='gidolsa', text=f'{text}' + '\n' + '#グラビア')
     i.Quit()
 
 

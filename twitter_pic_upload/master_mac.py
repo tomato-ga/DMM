@@ -96,6 +96,7 @@ class Tweet:
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
                 time.sleep(2)
                 assert upload_path == up_photo
+                assert len(text) < 140
                 print(upload_path)
 
                 # テキスト入力
