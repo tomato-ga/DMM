@@ -93,11 +93,11 @@ class Tweet:
                 """
                 self.wait.until(EC.presence_of_all_elements_located)
                 time.sleep(3)
-                upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
-                self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
+                #upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
+                self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(up_photo)
                 time.sleep(2)
                 assert len(text) < 140, '140文字以下じゃない'
-                print(upload_path)
+                print(up_photo)
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
