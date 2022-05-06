@@ -36,7 +36,7 @@ class Tweet:
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
-    def Uploads(self, account: str, password: str, text: str, up_photo):
+    def Uploads(self, account: str, password: str, text: str):
         time.sleep(randomwait) #投稿時間をランダムにする時間
         account = account
         password = password
