@@ -83,7 +83,7 @@ class Tweet:
             # random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
             # up_photo = os.path.abspath(pic_dir + pic_subdir[0] + '/' + photo_lists[0])  # Win (pic_dir + pic_subdir[0] + '\\' + photo_lists[0]) # アップするファイルパス取得
 
-            if up_photo.endswith('.jpg'):
+            if up_photo.endswith('.jpg', '.jpeg'):
                 print('jpgです')
 
                 # ファイルパスを入力

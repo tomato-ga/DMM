@@ -18,7 +18,7 @@ if __name__ == '__main__':
     print(photo_lists)
     print(up_photo)
     i = Tweet()
-    i.Uploads(account='gidolsa', text='#雪平莉左' + '\n' + '#かわいいと思ったらいいね', up_photo=up_photo)
+    i.Uploads(account='gidolsa', text='#雪平莉左' + '\n' + '#かわいいと思ったらいいね',  up_photo=up_photo)
     i.Quit()
 
 
