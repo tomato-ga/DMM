@@ -7,5 +7,3 @@ if __name__ == '__main__':
     i.Uploads(account='gidolsa', password='asdflkjh', text='#雪平莉左' + '\n' + '#かわいいと思ったらいいね')
     i.Quit()
 
-
-
