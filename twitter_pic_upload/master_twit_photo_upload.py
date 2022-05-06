@@ -16,7 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 wait_1 = random.random()
-wait_2 = random.randint(1,5) # TODO テスト中は短め
+wait_2 = random.randint(40,450) # TODO テスト中は短め
 randomwait = round(wait_1 + wait_2, 5)
 
 
