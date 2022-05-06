@@ -16,7 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 wait_1 = random.random()
-wait_2 = random.randint(40,400) # TODO テスト中は短め
+wait_2 = random.randint(1,5) # TODO テスト中は短め
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -36,10 +36,10 @@ class Tweet:
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
-    def Uploads(self, account: str, text: str, up_photo):
+    def Uploads(self, account: str, password: str, text: str, up_photo):
         time.sleep(randomwait) #投稿時間をランダムにする時間
         account = account
-        password = 'asdflkjh'
+        password = password
 
         try:
             self.driver.get(self.twitter)
@@ -83,6 +83,19 @@ class Tweet:
             # random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
             # up_photo = os.path.abspath(pic_dir + pic_subdir[0] + '/' + photo_lists[0])  # Win (pic_dir + pic_subdir[0] + '\\' + photo_lists[0]) # アップするファイルパス取得
 
+            ############################ディレクトリ指定############################
+
+            pic_dir = '/mnt/hdd/don/files/twitphotos/yukihira/'  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
+            # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
+            # random.shuffle(pic_subdir) # サブディレクトリをランダム化
+            photo_lists = os.listdir(pic_dir) # 画像ファイル一覧
+            random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
+            up_photo = os.path.abspath(pic_dir + photo_lists[0])
+            print(up_photo)
+
+            ############################ディレクトリ指定############################
+
+
             if up_photo.endswith('.jpg', '.jpeg'):
                 print('jpgです')
 
@@ -97,7 +110,7 @@ class Tweet:
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(up_photo)
                 time.sleep(2)
                 assert len(text) < 140, '140文字以下じゃない'
-                print(up_photo)
+
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
