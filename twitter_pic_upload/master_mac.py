@@ -34,7 +34,7 @@ class Tweet:
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
-    def Uploads(self, account: str, text: str):
+    def Uploads(self, account: str, text: str, up_photo):
         time.sleep(randomwait) #投稿時間をランダムにする時間
         account = account
         password = 'asdflkjh'
@@ -75,12 +75,12 @@ class Tweet:
 
             ################ 画像の場合 ################
 
-            pic_dir = '/Volumes/SSD_1TB/twitphotos_gurasen/'  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
-            pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
-            random.shuffle(pic_subdir) # サブディレクトリをランダム化
-            photo_lists = os.listdir(pic_dir + pic_subdir[0]) # 画像ファイル一覧
-            random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
-            up_photo = os.path.abspath(pic_dir + pic_subdir[0] + '/' + photo_lists[0])  # Win (pic_dir + pic_subdir[0] + '\\' + photo_lists[0]) # アップするファイルパス取得
+            # pic_dir = '/Volumes/SSD_1TB/twitphotos_gurasen/'  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
+            # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
+            # random.shuffle(pic_subdir) # サブディレクトリをランダム化
+            # photo_lists = os.listdir(pic_dir + pic_subdir[0]) # 画像ファイル一覧
+            # random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
+            # up_photo = os.path.abspath(pic_dir + pic_subdir[0] + '/' + photo_lists[0])  # Win (pic_dir + pic_subdir[0] + '\\' + photo_lists[0]) # アップするファイルパス取得
 
             if up_photo.endswith('.jpg'):
                 print('jpgです')
@@ -91,10 +91,10 @@ class Tweet:
                 Ubuntuはos.path.abspath
                 """
                 self.wait.until(EC.presence_of_all_elements_located)
+                time.sleep(2)
                 upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
                 time.sleep(2)
-                assert upload_path == up_photo
                 assert len(text) < 140, '140文字以下じゃない'
                 print(upload_path)
 
