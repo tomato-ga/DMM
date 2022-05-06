@@ -18,7 +18,6 @@ class Get_follower:
         client = tweepy.Client(consumer_key=API.API_KEY, consumer_secret=API.API_SECRET, access_token=API.ACCESS_TOKEN, \
             access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token)
         return client
-
     """特定ユーザーからフォロー候補IDを取得"""
     def followers_recently(self, client, username, maxcount) -> list:
         targetid = client.get_user(username=username)
