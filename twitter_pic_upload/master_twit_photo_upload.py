@@ -29,8 +29,7 @@ class Tweet:
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome(options=self.options)
-        # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
+        self.driver = webdriver.Chrome(options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
         #self.driver.implicitly_wait(10)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
@@ -85,55 +84,54 @@ class Tweet:
 
             ############################ディレクトリ指定############################
 
-            pic_dir = '/mnt/hdd/don/files/twitphotos/yukihira/'  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
+            pic_dir = '/mnt/hdd/don/files/twitphotos/yukihira/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
             # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
             # random.shuffle(pic_subdir) # サブディレクトリをランダム化
             photo_lists = os.listdir(pic_dir) # 画像ファイル一覧
             random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
+            ext = os.path.splitext(photo_lists[0])
             up_photo = os.path.abspath(pic_dir + photo_lists[0])
             print(up_photo)
 
             ############################ディレクトリ指定############################
 
 
-            if up_photo.endswith('.jpg', '.jpeg'):
-                print('jpgです')
+            match ext[1]:
+                case '.jpg' | '.jpeg' | '.png':
+                    print('jpgです')
 
-                # ファイルパスを入力
-                """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!
-                Windowsはglob.glob
-                Ubuntuはos.path.abspath
-                """
-                self.wait.until(EC.presence_of_all_elements_located)
-                time.sleep(3)
-                upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
-                self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
-                time.sleep(2)
-                assert len(text) < 140, '140文字以下じゃない'
+                    # ファイルパスを入力
+                    """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!
+                    Windowsはglob.glob
+                    Ubuntuはos.path.abspath
+                    """
+                    self.wait.until(EC.presence_of_all_elements_located)
+                    time.sleep(3)
+                    upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
+                    self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
+                    time.sleep(2)
+                    assert len(text) < 140, '140文字以下じゃない'
 
 
-                # テキスト入力
-                self.wait.until(EC.presence_of_all_elements_located)
-                time.sleep(1)
-                text = text # f'{text}' テキストいれるとき
-                elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
-                elem_text.click()
-                elem_text.send_keys(text)
-                time.sleep(1)
+                    # テキスト入力
+                    self.wait.until(EC.presence_of_all_elements_located)
+                    time.sleep(1)
+                    text = text # f'{text}' テキストいれるとき
+                    elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
+                    elem_text.click()
+                    elem_text.send_keys(text)
+                    time.sleep(1)
 
-                # 投稿
-                tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
-                self.driver.execute_script('arguments[0].click();', tweet_button)
-                #tweet_button.click()
-                time.sleep(20) #画像がアップロードされるまでの待機時間
-                self.wait.until(EC.presence_of_all_elements_located)
+                    # 投稿
+                    tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
+                    self.driver.execute_script('arguments[0].click();', tweet_button)
+                    #tweet_button.click()
+                    time.sleep(20) #画像がアップロードされるまでの待機時間
+                    self.wait.until(EC.presence_of_all_elements_located)
 
-            elif up_photo.endswith('.png'):
-                print('pngです')
-                pass
-            else:
-                print('jpgとpng以外です')
-                pass
+                case _:
+                    print('jpgとpng以外です')
+                    pass
 
         except Exception as ex:
             print('[Uploads]:', ex)
