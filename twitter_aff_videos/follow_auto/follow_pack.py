@@ -18,8 +18,9 @@ class Get_follower:
         client = tweepy.Client(consumer_key=API.API_KEY, consumer_secret=API.API_SECRET, access_token=API.ACCESS_TOKEN, \
             access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token)
         return client
-    """特定ユーザーからフォロー候補IDを取得"""
+
     def followers_recently(self, client, username, maxcount) -> list:
+        """特定ユーザーからフォロー候補IDを取得"""
         targetid = client.get_user(username=username)
         followers = client.get_users_followers(id=targetid.data.id, max_results=maxcount, user_fields=["id", "name"])
         print(followers, type(followers))
@@ -29,13 +30,15 @@ class Get_follower:
         print(fid)
         return fid
 
-    """フォロー候補のIDをDBから読み込み"""
     def follow_kouho_db_read(self):
+        """フォロー候補のIDをDBから読み込み"""
+
         newfollow_db_collection = follow_db.follow_kouho_db_set()
         return newfollow_db_collection
 
-    """自分アカウントのフォローしてるIDを取得"""
     def followed_mine(self, client, my_id):
+        """自分アカウントのフォローしてるIDを取得"""
+
         followed = client.get_users_following(id=my_id, user_fields=["id", "name"])
         follow_id_list = [follow.id for follow in followed.data]
         # no_follow_id = list(set(fid + new_fid))
@@ -50,8 +53,9 @@ class Get_follower:
         return follower_id_list
 
 
-    """フォロー10人する"""
     def follow10(self,client, no_follow_id):
+        """フォロー10人する"""
+
         no_follow_id = no_follow_id
 
         count = 0
