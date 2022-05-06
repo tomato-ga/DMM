@@ -6,7 +6,7 @@ from tweepy import TweepyException
 
 # ここに自分のアカウントのID(@以降)とAPI鍵・アクセストークンを入力する
 api_dict = {
-            'my_account_id': 
+            'my_account_id':
                 [
                 'api_pub',
                 'api_sec',
