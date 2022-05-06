@@ -40,7 +40,7 @@ for tweet in tweets:
 
         if follows:
             for follow in follows:
-                client.follow_user(target_user_id=follow.id)
+                client.follow_user(target_user_id=follow.id) #TODO ここの動作がうまくいってない。 429 to manyが出てくる。明日試す
                 like_user_follow += 1
                 if like_user_follow == 2:
                     break
