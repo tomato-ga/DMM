@@ -1,4 +1,4 @@
-from master_mac import Tweet
+from master_twit_photo_upload import Tweet
 import random
 import os
 
