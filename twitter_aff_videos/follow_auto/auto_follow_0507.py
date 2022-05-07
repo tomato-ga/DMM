@@ -16,11 +16,8 @@ for tweet in tweets:
     tid = tweet.id
     like_users = client.get_liking_users(tid)
     follows = like_users.data
-
-
     if follows:
         print('follows（フォローする人）がいました')
-
         match follows:
             case follows if len(follows) > 0 :
                 for follow in follows:
