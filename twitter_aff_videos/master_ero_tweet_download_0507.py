@@ -14,12 +14,6 @@ class Tweet_get:
     auth.set_access_token(API_config_katudon.ACCESS_TOKEN, API_config_katudon.ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
-
-    # client = tweepy.Client(consumer_key=API_config_katudon.API_KEY, consumer_secret=API_config_katudon.API_SECRET, access_token=API_config_katudon.ACCESS_TOKEN, access_token_secret=API_config_katudon.ACCESS_TOKEN_SECRET, bearer_token=API_config_katudon.Bearer_token)
-
-    # search_result = tweepy.Cursor(api.user_timeline, screen_name=key_account, include_rts=False, include_entities=True, tweet_mode='extended', lang='ja').items(10)
-    # print(search_result)
-
     """
     1.投稿IDによってスレッドとスレッドじゃない場合がある
     最初に読み込むツイートでvideo URLを含まないツイートが存在するのでifできりわける？
@@ -37,19 +31,19 @@ class Tweet_get:
     26だと取れなかった。25にして、アンダーバーとイコールを削除
     """
 
-    def url_get(self, key_account) -> list:
+    def url_get(self, key_account: str) -> list:
+        """
+        key_account(str): twitter IDを解析する
 
-        """[Handle Rate Limits] wait_on_rate_limit https://docs.tweepy.org/en/stable/examples.html#examples
+        [Handle Rate Limits] wait_on_rate_limit https://docs.tweepy.org/en/stable/examples.html#examples
         これは、クエリ "Twitter" を含むツイートを検索し、最大で次のものを返します。
         Twitter APIへの1回のリクエストにつき最大100ツイートまで
         レートリミットに達すると、自動的に待機/スリープ状態になります。"""
 
-        count_no = 3
+        count_no = 3000
         video_urls_list = []
         af_urls_list = []
         comments_list = []
-
-
         account_id = str(key_account.replace('https://twitter.com/', ''))
 
         results: iter = tweepy.Cursor(self.api.user_timeline, # タイムラインの取得
@@ -73,7 +67,6 @@ class Tweet_get:
                     moto_tweet = self.api.get_status(moto_tweet_id, include_entities=True, tweet_mode='extended')
                     moto_medias = moto_tweet.extended_entities['media']
 
-
                     if 'video_info' in moto_medias[0]:
                         ex_media_video_variants = moto_medias[0]['video_info']['variants']
 
@@ -95,12 +88,6 @@ class Tweet_get:
 
                         yield (dict(video_url=movie_url, af_url=af_url, comment=comment, id=account_id))
 
-
-                # elif result.extended_entities['media']: # TODO 次回以降の課題
-                #     moto_tweet = result.id
-                #     moto_medias = result.extended_entities['media']
-                #     moto_tweet = self.client.hide_reply(moto_tweet)
-
                 else:
                     pass
 
@@ -109,11 +96,18 @@ class Tweet_get:
                 pass
 
 
-
-
     def video_af_url_get(self,movie_url, af_url, comment, account_id) -> list:
+        """動画のファイル名、アフィリエイトURL、ツイッターのテキスト、元のIDを保存する
 
-        # video_lists = []
+        Args:
+            movie_url (_type_): _description_
+            af_url (_type_): _description_
+            comment (_type_): _description_
+            account_id (_type_): _description_
+
+        Returns:
+            list: _description_
+        """
 
         response = requests.get(movie_url)
         v_url_file_name_list = re.findall('(/[a-zA-z0-9_-]*)(.mp4)', movie_url)
@@ -132,19 +126,19 @@ class Tweet_get:
         else:
             urls = ""
 
-
-
         now = datetime.datetime.today()
-        # video_lists.append(dict(video_file=f'{str(v_url_file_name)}.mp4', url=urls, comment=comment, id=account_id, time=now))
-
-        # return video_lists
-
         video_info = dict(video_file=f'{str(v_url_file_name)}.mp4', url=urls, comment=comment, id=account_id, time=now)
 
         self.save_db(video_info)
 
 
-    def info_matome(self, key_accounts):
+    def info_matome(self, key_accounts: list):
+        """
+        video_af_url_getにパース情報を渡す
+
+        Args:
+            key_accounts (list): TwitterアカウントをURLのリストで渡す
+        """
         for key_account in key_accounts:
             dicts = self.url_get(key_account)
             for info in dicts:
@@ -169,7 +163,6 @@ class Tweet_get:
         collection.insert_one(video_info)
 
 
-
 if __name__ == '__main__':
 
     key_accounts = [
@@ -183,8 +176,10 @@ if __name__ == '__main__':
         # 'https://twitter.com/Erotube081',
         # 'https://twitter.com/tmp_pnpk',
         # 'https://twitter.com/Spelunker1231',
-        'https://twitter.com/Mature_Milf_Mom',
-        'https://twitter.com/AV_honpo_kyonyu' #巨乳
+        # 'https://twitter.com/Mature_Milf_Mom',
+        # 'https://twitter.com/AV_honpo_kyonyu' #巨乳
+        'https://twitter.com/1919com1919',
+        'https://twitter.com/kekooharenchi'
     ]
 
     i = Tweet_get()
