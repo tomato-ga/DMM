@@ -18,16 +18,19 @@ for tweet in tweets:
     follows = like_users.data
 
 
-    match follows:
-        case follows if len(follows) > 0 :
-            for follow in follows:
-                follow_response = client.follow_user(target_user_id=follow.id) #MEMO ここの動作がうまくいってない。 429 to manyが出てくる。明日試す たぶんWhileで永遠ループになっていた
-                follow_response.status_code == 200
-                like_user_follow += 1
-                time.sleep(60)
-                if like_user_follow >= 40:
-                    break
+    if follows:
+        print('follows（フォローする人）がいました')
 
-        case _:
-            print('Exception')
-            raise Exception('error dasu')
+        match follows:
+            case follows if len(follows) > 0 :
+                for follow in follows:
+                    follow_response = client.follow_user(target_user_id=follow.id) #MEMO ここの動作がうまくいってない。 429 to manyが出てくる。明日試す たぶんWhileで永遠ループになっていた
+                    like_user_follow += 1
+                    print('フォロー完了')
+                    time.sleep(60)
+                    if like_user_follow >= 40:
+                        break
+
+            case _:
+                print('Exception')
+                raise Exception('error dasu')
