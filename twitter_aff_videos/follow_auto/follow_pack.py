@@ -19,10 +19,6 @@ class Get_follower:
             access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token)
         return client
 
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
     def followers_recently(self, client, username, maxcount) -> list:
         """特定ユーザーからフォロー候補IDを取得"""
         targetid = client.get_user(username=username)
@@ -34,7 +30,6 @@ class Get_follower:
         print(fid)
         return fid
 
-<<<<<<< HEAD
     def follow_kouho_db_read(self):
         """フォロー候補のIDをDBから読み込み"""
 
@@ -44,17 +39,6 @@ class Get_follower:
     def followed_mine(self, client, my_id):
         """自分アカウントのフォローしてるIDを取得"""
 
-=======
-
-    def follow_kouho_db_read(self):
-        """フォロー候補のIDをDBから読み込み"""
-        newfollow_db_collection = follow_db.follow_kouho_db_set()
-        return newfollow_db_collection
-
-
-    def followed_mine(self, client, my_id):
-        """自分アカウントのフォローしてるIDを取得"""
->>>>>>> develop
         followed = client.get_users_following(id=my_id, user_fields=["id", "name"])
         follow_id_list = [follow.id for follow in followed.data]
         # no_follow_id = list(set(fid + new_fid))
@@ -69,15 +53,9 @@ class Get_follower:
         return follower_id_list
 
 
-<<<<<<< HEAD
     def follow10(self,client, no_follow_id):
         """フォロー10人する"""
 
-=======
-
-    def follow10(self,client, no_follow_id):
-        """フォロー10人する"""
->>>>>>> develop
         no_follow_id = no_follow_id
 
         count = 0
