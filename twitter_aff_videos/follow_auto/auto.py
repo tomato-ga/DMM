@@ -24,9 +24,9 @@ for tweet in tweets:
         match follows:
             case follows if len(follows) > 0 :
                 for follow in follows:
-                    follow_response = client.follow_user(target_user_id=follow.id) #MEMO ここの動作がうまくいってない。 429 to manyが出てくる。明日試す たぶんWhileで永遠ループになっていた
+                    follow_response = client.follow_user(target_user_id=follow.id) #MEMO ここの動作がうまくいってない。 429 to manyが出てくる。 たぶんwhileで永遠ループになっていた
                     like_user_follow += 1
-                    print('フォロー完了')
+                    print(f'フォロー完了: {like_user_follow}人フォローしました')
                     time.sleep(60)
                     if like_user_follow >= 40:
                         break
@@ -34,3 +34,10 @@ for tweet in tweets:
             case _:
                 print('Exception')
                 raise Exception('error dasu')
+
+
+
+
+
+
+# TODO DBかjsonと連携させる

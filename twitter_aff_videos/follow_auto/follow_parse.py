@@ -2,9 +2,8 @@ import pandas as pd
 import follow_db
 
 
-
-"""フォローしてないID取得のため、差分取得=tweepyでフォローするIDの取得"""
 def follow_parse() -> list:
+    """フォローしてないID取得のため、差分取得=tweepyでフォローするIDの取得"""
     kouho_id =follow_db.follow_kouho_db_set() #フォロー候補ID取得
     following_id = follow_db.my_following_id_db_set() #フォローしたID取得
     follower_id = follow_db.my_follower_id_db_set() #フォロワーを取得
