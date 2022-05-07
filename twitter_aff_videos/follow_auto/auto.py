@@ -37,7 +37,4 @@ for tweet in tweets:
 
 
 
-
-
-
 # TODO DBかjsonと連携させる
