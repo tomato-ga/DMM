@@ -21,7 +21,7 @@ for tweet in tweets:
         match follows:
             case follows if len(follows) > 0 :
                 for follow in follows:
-                    follow_response = client.follow_user(target_user_id=follow.id) #MEMO ここの動作がうまくいってない。 429 to manyが出てくる。 たぶんwhileで永遠ループになっていた
+                    follow_response = client.follow_user(target_user_id=follow.id)
                     like_user_follow += 1
                     print(f'フォロー完了: {like_user_follow}人フォローしました')
                     time.sleep(60)

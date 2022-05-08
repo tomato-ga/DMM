@@ -3,8 +3,9 @@ import api_togsi7 as API
 import json
 import ujson
 import random
-
+import time
 import logging
+
 
 logger = logging.getLogger("tweepy")
 logger.setLevel(logging.DEBUG)
@@ -90,9 +91,10 @@ def follows(client, follow_list: list):
         client.follow_user(target_user_id=id)
         print('フォローしました')
         like_user_follow += 1
+        print(f'フォロー完了: {like_user_follow}人フォローしました')
+        time.sleep(60)
         if like_user_follow >= 40:
             break
-
 
 
 ### フォローしてる人をJSON保存
