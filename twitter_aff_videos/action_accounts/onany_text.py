@@ -18,7 +18,7 @@ matome = {
         }
     }
 
-
+'https://www.ressign.com/ja/masturbation-types/#lwptoc2'
 
 print(matome)
 
@@ -31,7 +31,3 @@ o2['text'] = '足ピンオナニー \n 足を伸ばせるところまで伸ば�
 o3 ={}
 o3['title'] = ''
 o3['text'] = ''
-
-
-dic = dict(o1, o2)
-print(dic)
