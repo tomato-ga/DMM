@@ -95,7 +95,7 @@ def new_follow_id(client) -> dict[str]:
     return new_follow_dict
 
 
-def follows(client, follow_list: list) -> list:
+def follows(client, follow_list: list, max_count) -> list:
     """_summary_
     フォロー実施関数
     最大40人まで
@@ -120,8 +120,8 @@ def follows(client, follow_list: list) -> list:
         elif follow_response.data['following'] == False:
             like_user_follow = like_user_follow
 
-        time.sleep(100)
-        if like_user_follow >= 5:
+        time.sleep(1)
+        if like_user_follow >= max_count:
             break
 
     return follow_done_list
@@ -147,15 +147,15 @@ def unfollows(client, unfollow_list: list) -> list:
     for id in unfollow_list:
         unfollow_response = client.unfollow_user(target_user_id=id)
         print('アンフォローしました')
-        if unfollow_response['following'] == False:
+        if unfollow_response.data['following'] == False:
             unfollow_user += 1
             print(f'アンフォロー完了:{unfollow_user}人アンフォローしました')
             unfollow_done_list.append(id)
-        elif unfollow_response['following'] == True:
+        elif unfollow_response.data['following'] == True:
             unfollow_user = unfollow_user
 
         time.sleep(100)
-        if unfollow_user >= 5:
+        if unfollow_user >= 3:
             break
 
     return unfollow_done_list
@@ -169,7 +169,7 @@ def following_json_save(client, my_id, name):
     my_id = my_id #togsi ID
     follow_dict = followed_mine(client, my_id)
     json_save(ids=follow_dict, json_name=f'{name}_following_id')
-
+    return follow_dict
 
 def new_follow_json_save(client, name):
     """新しくフォローする人をJSON保存"""
@@ -185,12 +185,12 @@ def new_follow_id_only(name) -> list:
         list: 新しくフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
-    following: json = ujson.load(open(f'{name}_following_id.json'))
+    following: json = ujson.load(open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{name}_following_id.json'))
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### new_follow_id フォローする人のJSONを読み込む
-    new_follow: json = ujson.load(open(f'{name}_new_follow_id.json'))
+    new_follow = ujson.load(open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{name}_new_follow_id.json'))
     new_follow_list = new_follow['id']
 
     ### 新しくフォローするIDだけ抽出
@@ -199,14 +199,14 @@ def new_follow_id_only(name) -> list:
     return follow_list
 
 
-def follower_json_save(client, my_id):
+def follower_json_save(client, my_id, name):
     """フォロワーをJSON保存"""
     my_id = my_id #togsi ID
     follower_dict = follower_mine(client, my_id)
-    json_save(ids=follower_dict, json_name='follower_id')
+    json_save(ids=follower_dict, json_name=f'{name}_follower_id')
 
 
-def unfollow_id_only() -> list:
+def unfollow_id_only(name) -> list:
     """_summary_
     JSONを読み込んでアンフォローする人だけのIDを作る
 
@@ -214,12 +214,12 @@ def unfollow_id_only() -> list:
         list: アンフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
-    following: json = ujson.load(open('following_id.json'))
+    following = ujson.load(open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{name}_following_id.json'))
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### new_follow_id フォローする人のJSONを読み込む
-    follower: json = ujson.load(open('./follower_id.json'))
+    follower = ujson.load(open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{name}_follower_id.json'))
     new_unfollow_list = follower['id']
 
     ### 新しくフォローするIDだけ抽出
