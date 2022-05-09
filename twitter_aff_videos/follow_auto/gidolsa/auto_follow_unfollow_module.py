@@ -79,7 +79,7 @@ def json_save(ids: dict[str], json_name: str) -> json:
         ids (dict[str]): フォロー or フォロワー候補のIDをdict ['id]で渡す
         json_name (_type_): strで渡すとファイル名に使われる
     """
-    with open(f'{json_name}.json', 'w', encoding='utf-8') as f:
+    with open(f'{json_name}.json', 'wb', encoding='utf-8') as f:
         json.dump(ids, f, indent=4, ensure_ascii=False)
 
     # Mac用ディレクトリ /Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/
