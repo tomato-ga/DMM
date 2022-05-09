@@ -12,6 +12,28 @@ handler = logging.FileHandler(filename="tweepy.log")
 logger.addHandler(handler)
 
 
+"""
+想定する流れ
+
+【auto_follow.py】
+1. 他人のツイートにいいねしているIDをリスト化
+2. フォローしてるIDをリスト化
+3. 新しくフォローするIDを抽出: 2-1（フォローしたことないID）のリストを作る
+4. 3のリストをフォロー実施
+5. フォロー実施したIDをJSONで保存しておく
+
+【auto_unfollow.py】
+6. フォローしているIDをリスト化
+7. フォロワーにいるIDをリスト化
+8. 一方的にフォローしているIDを抽出: 7-6（フォローだけにいるID）のリストを作る
+9. 8のリストをアンフォロー実施
+10. アンフォロー実施したIDをJSONで保存しておく
+
+11. 1に戻ってループ
+
+"""
+
+
 def apicall(API):
     client = tweepy.Client(consumer_key=API.API_KEY, consumer_secret=API.API_SECRET, access_token=API.ACCESS_TOKEN, \
         access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token, wait_on_rate_limit=True)
@@ -57,9 +79,10 @@ def json_save(ids: dict[str], json_name: str) -> json:
         ids (dict[str]): フォロー or フォロワー候補のIDをdict ['id]で渡す
         json_name (_type_): strで渡すとファイル名に使われる
     """
-    with open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{json_name}.json', 'w', encoding='utf-8') as f:
+    with open(f'{json_name}.json', 'w', encoding='utf-8') as f:
         json.dump(ids, f, indent=4, ensure_ascii=False)
 
+    # Mac用ディレクトリ /Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/
 
 def new_follow_id(client) -> dict[str]:
     """_summary_
@@ -184,12 +207,12 @@ def new_follow_id_only(name) -> list:
         list: 新しくフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
-    following: json = ujson.load(open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{name}_following_id.json'))
+    following: json = ujson.load(open(f'{name}_following_id.json'))
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### new_follow_id フォローする人のJSONを読み込む
-    new_follow = ujson.load(open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{name}_new_follow_id.json'))
+    new_follow = ujson.load(open(f'{name}_new_follow_id.json'))
     new_follow_list = new_follow['id']
 
     ### 新しくフォローするIDだけ抽出
@@ -213,63 +236,15 @@ def unfollow_id_only(name) -> list:
         list: アンフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
-    following = ujson.load(open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{name}_following_id.json'))
+    following = ujson.load(open(f'{name}_following_id.json'))
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### follower フォロワーのJSONを読み込む
-    follower = ujson.load(open(f'/Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/{name}_follower_id.json'))
+    follower = ujson.load(open(f'{name}_follower_id.json'))
     follower_list = follower['id']
 
     ### アンフォローするID（一方的にフォローしているID）だけ抽出
     unfollow_list = list(set(follower_list)- set(following_list))
     print(f'新しくアンフォロー（フォロー解除）する人は{len(unfollow_list)}人います')
     return unfollow_list
-
-
-#########################################フォローする実行スクリプト###########################################
-### フォロー実施 ###
-# follow_done_list = follows(client, follow_list)
-
-# ### フォローしたらJSONへ保存する
-# if follow_done_list:
-#     for i in follow_done_list:
-#         following_list.append(i)
-
-#     following_list = list(set(following_list)) #setはJSON保存できないのでリストにする
-#     new_following = {}
-#     new_following['id'] = following_list
-#     json_save(ids=new_following, json_name='following_id')
-# #########################################フォローする実行スクリプト###########################################
-
-
-
-
-
-
-
-
-
-
-# TODO フォロワーとフォローしてるリストをAPIで出して、リストを比較してアンフォローするIDを抽出するところから
-
-"""
-想定する流れ
-
-【auto_follow.py】
-1. 他人のツイートにいいねしているIDをリスト化
-2. フォローしてるIDをリスト化
-3. 新しくフォローするIDを抽出: 2-1（フォローしたことないID）のリストを作る
-4. 3のリストをフォロー実施
-5. フォロー実施したIDをJSONで保存しておく
-
-【auto_unfollow.py】
-6. フォローしているIDをリスト化
-7. フォロワーにいるIDをリスト化
-8. 一方的にフォローしているIDを抽出: 7-6（フォローだけにいるID）のリストを作る
-9. 8のリストをアンフォロー実施
-10. アンフォロー実施したIDをJSONで保存しておく
-
-11. 1に戻ってループ
-
-"""
