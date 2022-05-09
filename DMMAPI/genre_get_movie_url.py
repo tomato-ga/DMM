@@ -137,7 +137,7 @@ class Genre_read:
                 break
 
         with open('fanza_genre.json', 'w', encoding='utf-8') as f:
-            json.dump(all_genre_item, f, indent=4, ensure_ascii=False)
+            json.dump(f, indent=4, ensure_ascii=False)
 
 
 class video:
