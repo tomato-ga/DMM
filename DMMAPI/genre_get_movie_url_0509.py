@@ -35,10 +35,7 @@ class Genre_dmm:
 
         search_keyword_response = requests.get(f'https://api.dmm.com/affiliate/v3/ItemList?api_id={self.APIID}&affiliate_id={self.AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits=20&sort=rank&keyword={self.keyword}&output=json')
         search_json_box =Box.from_json(search_keyword_response.text)
-        
-        
-        items = [i.items for i in search_json_box.result['items']]
-    
+        items = [i.items for i in search_json_box.result['items']] # TODO ここから
         pprint.pprint(items)
 
 if __name__ == '__main__':
