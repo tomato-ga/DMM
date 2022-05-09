@@ -6,10 +6,10 @@ import time
 import logging
 
 
-logger = logging.getLogger("tweepy")
-logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename="tweepy.log")
-logger.addHandler(handler)
+# logger = logging.getLogger("tweepy")
+# logger.setLevel(logging.DEBUG)
+# handler = logging.FileHandler(filename="tweepy.log")
+# logger.addHandler(handler)
 
 
 """
