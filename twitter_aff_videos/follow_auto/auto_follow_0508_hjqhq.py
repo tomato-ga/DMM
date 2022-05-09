@@ -1,9 +1,12 @@
 import auto_follow_unfollow_module
 import api_OtxSf as API
+import os
 
 client = auto_follow_unfollow_module.apicall(API)
 my_id = 1515978583730458630 #←たまじろう  # 1515514246775582722 # ←動画かくさん野郎  # togsi ID 1515696887781015558
 name = 'OtxSf'
+get_dir = os.getcwd()
+
 
 ### 最新のJSONにする
 auto_follow_unfollow_module.following_json_save(client=client, my_id=my_id, name=name)
