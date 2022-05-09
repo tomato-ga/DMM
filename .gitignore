@@ -4,3 +4,6 @@ __pycache__
 .DS_Store
 .jpg
 .xz
+.DS_Store
+*.jpg
+

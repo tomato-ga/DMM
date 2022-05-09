@@ -167,7 +167,6 @@ if __name__ == '__main__':
 
     key_accounts = [
         # 'https://twitter.com/k9xypip',
-        # 'https://twitter.com/paipai1414',
         # 'https://twitter.com/cb_Eugene13',
         # 'https://twitter.com/penne27436851',
         # 'https://twitter.com/beauty_pretty_i',
@@ -180,6 +179,7 @@ if __name__ == '__main__':
         # 'https://twitter.com/AV_honpo_kyonyu' #巨乳
         'https://twitter.com/1919com1919',
         'https://twitter.com/kekooharenchi'
+        'https://twitter.com/er_oyaji' #次の候補
     ]
 
     i = Tweet_get()
