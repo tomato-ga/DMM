@@ -56,7 +56,7 @@ def My_rt(API, ids):
         try:
             timeline = client.get_users_tweets(id=id_mine, max_results=5, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"]) # context_annotations削除 tweet_fields=["text","source","entities"]
             name: list = [username_0.data['username'] for username_0 in timeline.includes['users']]
-            username =name[0]
+            username = name[0]
 
             rts_tweet = timeline.data
             random.shuffle(rts_tweet)
