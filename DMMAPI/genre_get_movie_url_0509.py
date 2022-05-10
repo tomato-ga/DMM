@@ -54,25 +54,26 @@ class Genre_dmm:
                         video_info = item.sampleMovieURL
                         del video_info.pc_flag, video_info.sp_flag
 
-                        size_array = []
-                        video_array = []
-                        for size, v_url in video_info.items():
+                        if video_info:
+                            size_array = []
+                            video_array = []
+                            for size, v_url in video_info.items():
 
-                            max_size_info = size.split('_')
-                            split_size = int(max_size_info[1])
-                            size_array.append(split_size)
-                            video_array.append(v_url)
+                                max_size_info = size.split('_')
+                                split_size = int(max_size_info[1])
+                                size_array.append(split_size)
+                                video_array.append(v_url)
 
-                        max_size = size_array.index(max(size_array))
-                        search_response['title'].append(item.to_dict())
+                            max_size = size_array.index(max(size_array))
+                            search_response['title'].append(item.to_dict())
 
-                        if str(size_array[max_size]) in v_url:
-                            if video_info:
-                                yield dict(
-                                    title=title,
-                                    aff_url=af_url,
-                                    video_url=v_url
-                            )
+                            if str(size_array[max_size]) in v_url:
+                                if video_info:
+                                    yield dict(
+                                        title=title,
+                                        aff_url=af_url,
+                                        video_url=v_url
+                                )
 
                 except Exception as ex:
                     print(ex)
