@@ -30,7 +30,7 @@ class Tweet:
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome(options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
+        self.driver = webdriver.Chrome('/Volumes/SSD_1TB/Down/chromedriver', options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
         self.driver.implicitly_wait(10)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
@@ -89,7 +89,7 @@ class Tweet:
 
             ############################ディレクトリ指定############################
 
-            pic_dir = '/mnt/hdd/don/files/twitphotos/yukihira/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
+            pic_dir = '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # Ubuntu'/mnt/hdd/don/files/twitphotos/yukihira/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
             # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
             # random.shuffle(pic_subdir) # サブディレクトリをランダム化
             photo_lists = os.listdir(pic_dir) # 画像ファイル一覧
