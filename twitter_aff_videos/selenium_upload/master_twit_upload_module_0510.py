@@ -70,12 +70,12 @@ class Tweet:
             time.sleep(40)
             print(self.driver.current_url)
 
-            self.wait.until(EC.visibility_of_element_located(By.NAME, "session[username_or_email]"))
+            self.wait.until(EC.visibility_of_element_located(By.CLASS_NAME, "input"))
             elem_account = self.driver.find_element(by=By.NAME, value="session[username_or_email]")
             elem_account.send_keys(account)
             time.sleep(6)
 
-            self.wait.until(EC.visibility_of_element_located(By.NAME, "session[password]"))
+            self.wait.until(EC.visibility_of_element_located(By.CLASS_NAME, "input"))
             next_button = self.driver.find_element(by=By.NAME, value="session[password]")
             next_button.click()
             time.sleep(10)
