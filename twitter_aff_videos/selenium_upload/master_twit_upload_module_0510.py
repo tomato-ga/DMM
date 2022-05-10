@@ -65,7 +65,7 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            time.sleep(10)
+            time.sleep(40)
             print(self.driver.current_url)
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[@name='text']")
@@ -75,7 +75,7 @@ class Tweet:
             self.wait.until(EC.presence_of_all_elements_located)
             next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
             next_button.click()
-            time.sleep(6)
+            time.sleep(10)
 
             print(self.driver.current_url)
             self.wait.until(EC.presence_of_all_elements_located)
