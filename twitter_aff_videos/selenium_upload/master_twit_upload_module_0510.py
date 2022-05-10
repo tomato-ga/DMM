@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(2,3) # 50, 670
+wait_2 = random.randint(50,650) # 50, 670
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -26,6 +26,7 @@ class Tweet:
     def __init__(self):
         self.options = Options()
         self.options.add_argument('--lang=ja-JP')
+        self.driver.set_window_size('1920', '1200')
         self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
