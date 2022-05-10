@@ -32,7 +32,7 @@ class Tweet:
         self.driver = webdriver.Chrome(options=self.options)
         # self.driver = webdriver.Chrome(options=self.options)  #options=self.options
         # Mac '/Volumes/SSD_1TB/Down/chromedriver'
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(20)
 
         self.wait1 = random.random()
         self.wait2 = random.randint(3,6)
