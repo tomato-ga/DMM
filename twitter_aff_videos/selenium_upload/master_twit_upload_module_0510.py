@@ -26,7 +26,6 @@ class Tweet:
     def __init__(self):
         self.options = Options()
         self.options.add_argument('--lang=ja-JP')
-        self.driver.set_window_size('1920', '1200')
         self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
@@ -35,6 +34,7 @@ class Tweet:
         # self.driver = webdriver.Chrome(options=self.options)  #options=self.options
         # Mac '/Volumes/SSD_1TB/Down/chromedriver'
         self.driver.implicitly_wait(20)
+        self.driver.set_window_size('1920', '1200')
 
         self.wait1 = random.random()
         self.wait2 = random.randint(3,6)
