@@ -65,10 +65,8 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            print(self.driver.current_url)
             time.sleep(20)
-            self.wait.until(EC.presence_of_all_elements_located)
-            time.sleep(6)
+            print(self.driver.current_url)
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
