@@ -57,7 +57,7 @@ class Tweet:
 
         return df
 
-
+    @retry(tries=7, delay=10)
     def Uploads(self, account: str, text: str):
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
@@ -105,7 +105,7 @@ class Tweet:
                 Ubuntuはos.path.abspath
                 """
                 self.wait.until(EC.presence_of_all_elements_located)
-                video_path = os.path.abspath(f'/Volumes/Xeon8TB/don/files/twitvideo/{upload_video_file_name}')   #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}') # Mac
+                video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')   #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}') # Mac
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
                 time.sleep(2)
 
