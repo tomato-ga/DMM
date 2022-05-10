@@ -57,7 +57,7 @@ class Tweet:
 
         return df
 
-    @retry(tries=7, delay=10)
+
     def Uploads(self, account: str, text: str):
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
@@ -140,4 +140,7 @@ sleep 20秒設定
 
 self.driver.get(self.twitter)
 time.sleep(20)
+
+リトライテスト
+@retry(tries=7, delay=10)
 """
