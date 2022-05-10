@@ -65,6 +65,7 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
+            print(self.driver.current_url)
             time.sleep(20)
             self.wait.until(EC.presence_of_all_elements_located)
             time.sleep(6)
@@ -78,6 +79,7 @@ class Tweet:
             next_button.click()
             time.sleep(6)
 
+            print(self.driver.current_url)
             self.wait.until(EC.presence_of_all_elements_located)
             elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocomplete, 'current-password')]")
             elem_pass.send_keys(password)
