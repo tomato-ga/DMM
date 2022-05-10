@@ -30,7 +30,7 @@ class Tweet:
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome(options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
-        #self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(10)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
@@ -47,22 +47,22 @@ class Tweet:
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
-            time.sleep(3)
+            time.sleep(6)
 
             self.wait.until(EC.presence_of_all_elements_located)
             next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
             next_button.click()
-            time.sleep(3)
+            time.sleep(6)
 
             self.wait.until(EC.presence_of_all_elements_located)
             elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@name, 'password')]")
             elem_pass.send_keys(password)
-            time.sleep(3)
+            time.sleep(6)
 
             self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
             login.click()
-            time.sleep(3)
+            time.sleep(6)
             print('ログインしました')
 
             ################ 動画の場合 ################

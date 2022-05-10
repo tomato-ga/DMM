@@ -16,7 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(50,670)
+wait_2 = random.randint(1,2) # 50, 670
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -26,13 +26,14 @@ class Tweet:
 
     def __init__(self):
         self.options = Options()
-        self.options.add_argument('--headless')
+        #self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome(options=self.options)
-        # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
-        #self.driver.implicitly_wait(10)
+        # self.driver = webdriver.Chrome(options=self.options)  #options=self.options
+        # Mac '/Volumes/SSD_1TB/Down/chromedriver'
+        self.driver.implicitly_wait(10)
 
         self.wait1 = random.random()
         self.wait2 = random.randint(3,6)
@@ -64,27 +65,28 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
+            time.sleep(20)
             self.wait.until(EC.presence_of_all_elements_located)
-            time.sleep(3)
+            time.sleep(6)
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
-            time.sleep(3)
+            time.sleep(6)
 
             self.wait.until(EC.presence_of_all_elements_located)
             next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
             next_button.click()
-            time.sleep(3)
+            time.sleep(6)
 
             self.wait.until(EC.presence_of_all_elements_located)
             elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocomplete, 'current-password')]")
             elem_pass.send_keys(password)
-            time.sleep(3)
+            time.sleep(6)
 
             self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
             login.click()
-            time.sleep(3)
+            time.sleep(6)
 
 
             df = self.db_read()
@@ -129,3 +131,10 @@ class Tweet:
 
 
 
+"""_summary_
+2022/05/10 21:59
+sleep 20秒設定
+
+self.driver.get(self.twitter)
+time.sleep(20)
+"""
