@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 wait_1 = random.random()
-wait_2 = random.randint(40,450) # TODO テスト中は短め
+wait_2 = random.randint(1,2) # TODO テスト中は短め
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -26,11 +26,12 @@ class Tweet:
 
     def __init__(self):
         self.options = Options()
+        self.options.add_argument('--lang=ja-JP')
         self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome('/Volumes/SSD_1TB/Down/chromedriver', options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
+        self.driver = webdriver.Chrome(options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
         self.driver.implicitly_wait(10)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
@@ -48,10 +49,11 @@ class Tweet:
             time.sleep(30)
             self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
             print(self.driver.current_url)
+            self.driver.save_screenshot('1.png')
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
-            time.sleep(6)
+            time.sleep(10)
 
             self.wait.until(EC.presence_of_all_elements_located)
             next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
@@ -59,6 +61,7 @@ class Tweet:
             time.sleep(6)
 
             print(self.driver.current_url)
+            self.driver.save_screenshot('2.png')
             self.wait.until(EC.presence_of_all_elements_located)
             elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@name, 'password')]")
             elem_pass.send_keys(password)
@@ -69,6 +72,7 @@ class Tweet:
             login.click()
             time.sleep(6)
             print('ログインしました')
+            self.driver.save_screenshot('3.png')
 
             ################ 動画の場合 ################
             # df = self.db_read()
@@ -89,7 +93,7 @@ class Tweet:
 
             ############################ディレクトリ指定############################
 
-            pic_dir = '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # Ubuntu'/mnt/hdd/don/files/twitphotos/yukihira/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
+            pic_dir = '/mnt/hdd/don/files/twitphotos/yukihira/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
             # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
             # random.shuffle(pic_subdir) # サブディレクトリをランダム化
             photo_lists = os.listdir(pic_dir) # 画像ファイル一覧

@@ -25,6 +25,7 @@ class Tweet:
 
     def __init__(self):
         self.options = Options()
+        self.options.add_argument('--lang=ja-JP')
         self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
