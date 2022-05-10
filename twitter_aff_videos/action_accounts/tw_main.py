@@ -17,7 +17,6 @@ tw_package.My_rt(api_togsi7, api_togsi7.ids)
 
 tw_package.My_rt(api_HjQhq, api_HjQhq.ids)
 
-
 """_summary_
 2022/05/10 21:02 他人のツイートのRTやめる
 
