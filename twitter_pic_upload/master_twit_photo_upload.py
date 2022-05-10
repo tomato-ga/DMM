@@ -38,6 +38,7 @@ class Tweet:
 
     @retry(tries=7, delay=10)
     def Uploads(self, account: str, password: str, text: str):
+        """2022/05/10雪平指定になってる"""
         time.sleep(randomwait) #投稿時間をランダムにする時間
         account = account
         password = password
