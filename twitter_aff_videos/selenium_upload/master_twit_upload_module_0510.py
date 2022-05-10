@@ -6,6 +6,7 @@ import random
 import pandas as pd
 import glob
 import os
+from retry import retry
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -56,6 +57,7 @@ class Tweet:
 
         return df
 
+    @retry(tries=7, delay=10)
     def Uploads(self, account: str, text: str):
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
@@ -65,7 +67,7 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            time.sleep(20)
+            time.sleep(10)
             print(self.driver.current_url)
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[@name='text']")
@@ -103,7 +105,7 @@ class Tweet:
                 Ubuntuはos.path.abspath
                 """
                 self.wait.until(EC.presence_of_all_elements_located)
-                video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
+                video_path = os.path.abspath(f'/Volumes/Xeon8TB/don/files/twitvideo/{upload_video_file_name}')   #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}') # Mac
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
                 time.sleep(2)
 
@@ -117,7 +119,8 @@ class Tweet:
 
                 # 投稿
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
-                tweet_button.click()
+                self.driver.execute_script('arguments[0].click();', tweet_button)
+                #tweet_button.click()
                 time.sleep(40) #動画がアップロードされるまでの待機時間
                 self.wait.until(EC.presence_of_all_elements_located)
 

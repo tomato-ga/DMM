@@ -6,6 +6,7 @@ import random
 import pandas as pd
 import glob
 import os
+from retry import retry
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -35,6 +36,7 @@ class Tweet:
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
+    @retry(tries=7, delay=10)
     def Uploads(self, account: str, password: str, text: str):
         time.sleep(randomwait) #投稿時間をランダムにする時間
         account = account
@@ -42,8 +44,9 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            time.sleep(20)
+            time.sleep(10)
             self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
+            print(self.driver.current_url)
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
@@ -54,6 +57,7 @@ class Tweet:
             next_button.click()
             time.sleep(6)
 
+            print(self.driver.current_url)
             self.wait.until(EC.presence_of_all_elements_located)
             elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@name, 'password')]")
             elem_pass.send_keys(password)
