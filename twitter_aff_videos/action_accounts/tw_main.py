@@ -9,10 +9,16 @@ import api_OtxSf # RT設定しない
 # tw_package.Thirdparty_rt(api_tomorrow_genkio)
 # tw_package.My_rt(api_tomorrow_genkio, api_tomorrow_genkio.ids)
 
-tw_package.Thirdparty_rt(api_1j_mc)
+#tw_package.Thirdparty_rt(api_1j_mc)
 tw_package.My_rt(api_1j_mc, api_1j_mc.ids)
 
-tw_package.Thirdparty_rt(api_togsi7)
+#tw_package.Thirdparty_rt(api_togsi7)
 tw_package.My_rt(api_togsi7, api_togsi7.ids)
 
 tw_package.My_rt(api_HjQhq, api_HjQhq.ids)
+
+
+"""_summary_
+2022/05/10 21:02 他人のツイートのRTやめる
+
+"""
