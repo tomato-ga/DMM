@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(50,650) # 50, 670
+wait_2 = random.randint(5,6) # 50, 670
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -26,18 +26,13 @@ class Tweet:
     def __init__(self):
         self.options = Options()
         self.options.add_argument('--lang=ja-JP')
-        self.options.add_argument('--headless')
+        #self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
-        self.driver = webdriver.Chrome(options=self.options)
-        # self.driver = webdriver.Chrome(options=self.options)  #options=self.options
-        # Mac '/Volumes/SSD_1TB/Down/chromedriver'
-        self.driver.implicitly_wait(20)
-        self.driver.set_window_size('1920', '1200')
+        self.driver = webdriver.Chrome('/Volumes/SSD_1TB/Down/chromedriver', options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
+        self.driver.implicitly_wait(10)
 
-        self.wait1 = random.random()
-        self.wait2 = random.randint(3,6)
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
@@ -67,22 +62,24 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            time.sleep(40)
+            time.sleep(30)
+            self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
             print(self.driver.current_url)
+            self.driver.save_screenshot('1.png')
 
-            self.wait.until(EC.visibility_of_element_located(By.CLASS_NAME, "input"))
-            elem_account = self.driver.find_element(by=By.NAME, value="session[username_or_email]")
+            elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
-            time.sleep(6)
-
-            self.wait.until(EC.visibility_of_element_located(By.CLASS_NAME, "input"))
-            next_button = self.driver.find_element(by=By.NAME, value="session[password]")
-            next_button.click()
             time.sleep(10)
 
-            print(self.driver.current_url)
             self.wait.until(EC.presence_of_all_elements_located)
-            elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocomplete, 'current-password')]")
+            next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
+            next_button.click()
+            time.sleep(6)
+
+            print(self.driver.current_url)
+            self.driver.save_screenshot('2.png')
+            self.wait.until(EC.presence_of_all_elements_located)
+            elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@name, 'password')]")
             elem_pass.send_keys(password)
             time.sleep(6)
 
@@ -90,6 +87,8 @@ class Tweet:
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
             login.click()
             time.sleep(6)
+            print('ログインしました')
+            self.driver.save_screenshot('3.png')
 
 
             df = self.db_read()
@@ -122,7 +121,7 @@ class Tweet:
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 self.driver.execute_script('arguments[0].click();', tweet_button)
                 #tweet_button.click()
-                time.sleep(40) #動画がアップロードされるまでの待機時間
+                time.sleep(20) #動画がアップロードされるまでの待機時間
                 self.wait.until(EC.presence_of_all_elements_located)
 
         except Exception as ex:

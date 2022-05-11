@@ -1,4 +1,4 @@
-from master_mac_test import Tweet
+from master_twit_upload_module_0510 import Tweet
 
 
 if __name__ == '__main__':
