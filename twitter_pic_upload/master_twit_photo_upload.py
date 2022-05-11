@@ -106,8 +106,11 @@ class Tweet:
 
 
             match ext[1]:
+                case '._' | '.DS_Store':
+                    pass
+
                 case '.jpg' | '.jpeg' | '.png':
-                    print('jpgです')
+                    print('jpgかpngです')
 
                     # ファイルパスを入力
                     """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!
