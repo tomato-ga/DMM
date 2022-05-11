@@ -33,7 +33,6 @@ class Tweet:
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome(options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
         self.driver.implicitly_wait(20)
-
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
@@ -57,7 +56,7 @@ class Tweet:
 
             self.wait.until(EC.presence_of_all_elements_located)
             next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
-            next_button.click()
+            self.driver.execute_script('arguments[0].click();', next_button)
             time.sleep(6)
 
             print(self.driver.current_url)
@@ -69,7 +68,7 @@ class Tweet:
 
             self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
-            login.click()
+            self.driver.execute_script('arguments[0].click();', login)
             time.sleep(10)
             print('ログインしました')
             self.driver.save_screenshot('3.png')
@@ -103,10 +102,7 @@ class Tweet:
             print(up_photo)
 
             ############################ディレクトリ指定############################
-
-
             match ext[1]:
-
                 case '.jpg' | '.jpeg' | '.png':
                     print('jpgかpngです')
 
@@ -124,7 +120,7 @@ class Tweet:
                     time.sleep(1)
                     text = text # f'{text}' テキストいれるとき
                     elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
-                    elem_text.click()
+                    self.driver.execute_script('arguments[0].click();', elem_text)
                     elem_text.send_keys(text)
                     time.sleep(1)
 
@@ -149,3 +145,9 @@ class Tweet:
 
 
 
+"""変更履歴
+
+2022/05/11 19:35
+click()からexecute_scriptへ変更
+解像度を縦1800へ変更
+"""
