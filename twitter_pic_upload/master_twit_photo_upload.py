@@ -93,7 +93,7 @@ class Tweet:
 
             ############################ディレクトリ指定############################
 
-            pic_dir = '/mnt/hdd/don/files/twitphotos_gurasen/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
+            pic_dir = '/mnt/hdd/don/files/twitphotos/yukihira/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
             # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
             # random.shuffle(pic_subdir) # サブディレクトリをランダム化
             photo_lists = os.listdir(pic_dir) # 画像ファイル一覧
