@@ -26,12 +26,13 @@ class Tweet:
     def __init__(self):
         self.options = Options()
         self.options.add_argument('--lang=ja-JP')
-        #self.options.add_argument('--headless')
+        self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome('/Volumes/SSD_1TB/Down/chromedriver', options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
-        self.driver.implicitly_wait(10)
+        self.driver.set_window_size('1200', '1800')
+        self.driver.implicitly_wait(20)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
@@ -52,7 +53,7 @@ class Tweet:
 
         return df
 
-    @retry(tries=7, delay=10)
+    @retry(tries=7, delay=10) #TODO 消す
     def Uploads(self, account: str, text: str):
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
@@ -73,7 +74,7 @@ class Tweet:
 
             self.wait.until(EC.presence_of_all_elements_located)
             next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
-            next_button.click()
+            self.driver.execute_script('arguments[0].click();', next_button)
             time.sleep(6)
 
             print(self.driver.current_url)
@@ -85,7 +86,7 @@ class Tweet:
 
             self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
-            login.click()
+            self.driver.execute_script('arguments[0].click();', login)
             time.sleep(6)
             print('ログインしました')
             self.driver.save_screenshot('3.png')
@@ -93,7 +94,6 @@ class Tweet:
 
             df = self.db_read()
             random_video = df.sample()
-            time.sleep(1)
             upload_video_file_name: str = random_video['video_file'].values[0]
             upload_url: str = random_video['url'].values[0]
             print(upload_video_file_name, ':', upload_url)
@@ -105,23 +105,25 @@ class Tweet:
                 Windowsはglob.glob
                 Ubuntuはos.path.abspath
                 """
-                video_path = os.path.abspath(f'/Volumes/Xeon8TB/don/files/twitvideo{upload_video_file_name}')   #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}') # Mac /Volumes/Xeon8TB/don/files/twitvideo
+                self.wait.until(EC.presence_of_all_elements_located)
+                video_path = os.path.abspath(f'/Volumes/Xeon8TB/don/files/twitvideo/{upload_video_file_name}')   #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}') # Mac /Volumes/Xeon8TB/don/files/twitvideo
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
-
+                time.sleep(2)
 
                 # テキスト入力
+                self.wait.until(EC.presence_of_all_elements_located)
                 text = f'{text}' + ' '+ f'{upload_url}'
                 elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
-                elem_text.click()
+                self.driver.execute_script('arguments[0].click();', elem_text)
                 elem_text.send_keys(text)
-
+                time.sleep(1)
 
                 # 投稿
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 self.driver.execute_script('arguments[0].click();', tweet_button)
                 #tweet_button.click()
-                # time.sleep(40) #動画がアップロードされるまでの待機時間
-                time.sleep(20)
+                time.sleep(20) #動画がアップロードされるまでの待機時間
+                self.wait.until(EC.presence_of_all_elements_located)
 
         except Exception as ex:
             print('[Uploads]:', ex)

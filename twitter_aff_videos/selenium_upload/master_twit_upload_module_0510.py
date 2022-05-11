@@ -31,6 +31,7 @@ class Tweet:
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome(options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
+        self.driver.set_window_size('1200', '1800')
         self.driver.implicitly_wait(20)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
@@ -52,7 +53,7 @@ class Tweet:
 
         return df
 
-    @retry(tries=7, delay=10)
+    @retry(tries=7, delay=10) #TODO 消す
     def Uploads(self, account: str, text: str):
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
@@ -73,7 +74,7 @@ class Tweet:
 
             self.wait.until(EC.presence_of_all_elements_located)
             next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
-            next_button.click()
+            self.driver.execute_script('arguments[0].click();', next_button)
             time.sleep(6)
 
             print(self.driver.current_url)
@@ -85,7 +86,7 @@ class Tweet:
 
             self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
-            login.click()
+            self.driver.execute_script('arguments[0].click();', login)
             time.sleep(6)
             print('ログインしました')
             self.driver.save_screenshot('3.png')
@@ -113,7 +114,7 @@ class Tweet:
                 self.wait.until(EC.presence_of_all_elements_located)
                 text = f'{text}' + ' '+ f'{upload_url}'
                 elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
-                elem_text.click()
+                self.driver.execute_script('arguments[0].click();', elem_text)
                 elem_text.send_keys(text)
                 time.sleep(1)
 
@@ -134,7 +135,7 @@ class Tweet:
 
 
 
-"""_summary_
+"""変更履歴
 2022/05/10 21:59
 sleep 20秒設定
 
@@ -143,4 +144,8 @@ time.sleep(20)
 
 リトライテスト
 @retry(tries=7, delay=10)
+
+2022/05/11 19:35
+click()からexecute_scriptへ変更
+解像度を縦1800へ変更
 """
