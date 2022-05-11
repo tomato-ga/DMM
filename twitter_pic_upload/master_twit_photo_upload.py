@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 wait_1 = random.random()
-wait_2 = random.randint(50,400) # TODO テスト中は短め
+wait_2 = random.randint(5,10) # TODO テスト中は短め
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -32,7 +32,7 @@ class Tweet:
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome(options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(20)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
@@ -70,7 +70,6 @@ class Tweet:
             self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
             login.click()
-            time.sleep(6)
             print('ログインしました')
             self.driver.save_screenshot('3.png')
 
@@ -106,23 +105,17 @@ class Tweet:
 
 
             match ext[1]:
-                case '._' | '.DS_Store':
-                    pass
 
                 case '.jpg' | '.jpeg' | '.png':
                     print('jpgかpngです')
 
                     # ファイルパスを入力
-                    """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!
-                    Windowsはglob.glob
-                    Ubuntuはos.path.abspath
-                    """
                     self.wait.until(EC.presence_of_all_elements_located)
                     time.sleep(3)
                     upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
                     self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
                     time.sleep(2)
-                    assert len(text) < 140, '140文字以下じゃない'
+                    #assert len(text) < 140, '140文字以下じゃない'
 
 
                     # テキスト入力
