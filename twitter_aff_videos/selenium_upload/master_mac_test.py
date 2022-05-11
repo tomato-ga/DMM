@@ -115,13 +115,13 @@ class Tweet:
                 elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                 self.driver.execute_script('arguments[0].click();', elem_text)
                 elem_text.send_keys(text)
-                time.sleep(1)
+                time.sleep(2)
 
                 # 投稿
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 self.driver.execute_script('arguments[0].click();', tweet_button)
                 #tweet_button.click()
-                time.sleep(20) #動画がアップロードされるまでの待機時間
+                time.sleep(30) #動画がアップロードされるまでの待機時間
                 self.wait.until(EC.presence_of_all_elements_located)
 
         except Exception as ex:
