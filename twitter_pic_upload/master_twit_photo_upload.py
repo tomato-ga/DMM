@@ -104,6 +104,9 @@ class Tweet:
             ############################ディレクトリ指定############################
             match ext[1]:
 
+                case '._':
+                    pass
+
                 case '.jpg' | '.jpeg' | '.png':
                     print('jpgかpngです')
 
@@ -129,7 +132,7 @@ class Tweet:
                     tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                     self.driver.execute_script('arguments[0].click();', tweet_button)
                     #tweet_button.click()
-                    time.sleep(20) #画像がアップロードされるまでの待機時間
+                    time.sleep(30) #画像がアップロードされるまでの待機時間
                     self.wait.until(EC.presence_of_all_elements_located)
 
                 case _:
