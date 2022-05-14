@@ -10,7 +10,7 @@ response_offset = 0
 media_offset = 0
 all_photo = {}
 all_photo['photo'] = []
-json_path = 'mizugazo_all_photos.json'
+json_path = 'new_mizugazo_all_photos.json'
 
 while True:
     json_url = f'https://mizugazo.com/wp-json/wp/v2/media?per_page={count}&offset={response_offset}'
@@ -43,6 +43,9 @@ while True:
 
             time.sleep(0.3)
 
+            old_json = json.load(open('old_mizugazo_all_photos.json', 'r'))
+
+
             all_photo['photo'].append(media_info)
             with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(all_photo, f, indent=4, ensure_ascii=False)
@@ -53,3 +56,8 @@ while True:
     if res.status_code != 200:
         break
 
+
+
+    """_summary_
+    更
+    """
