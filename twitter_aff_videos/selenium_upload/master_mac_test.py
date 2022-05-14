@@ -7,6 +7,7 @@ import glob
 import os
 from retry import retry
 
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -14,6 +15,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
+
+
+
 
 wait_1 = random.random()
 wait_2 = random.randint(5,6) # 50, 670
