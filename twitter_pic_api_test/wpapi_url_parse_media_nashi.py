@@ -12,11 +12,14 @@ media_offset = 0
 all_photo = {}
 all_photo['photo'] = []
 json_path = 'new_mizugazo_all_photos.json'
+<<<<<<< HEAD
 
 old_json = json.load(open('old_mizugazo_all_photos.json', 'r'))
 old_df = pd.DataFrame(old_json['photo'])
 old_imgs = old_df['imgs'].tolist()
 
+=======
+>>>>>>> bb7e9eddce72e78dfbc64a3ac167ae82a96d268e
 
 while True:
     json_url = f'https://mizugazo.com/wp-json/wp/v2/media?per_page={count}&offset={response_offset}'
@@ -47,10 +50,32 @@ while True:
                         'tag': load_json['alt_text'],
                         'imgs': load_json['source_url']
                     }
+<<<<<<< HEAD
                 time.sleep(0.3)
                 all_photo['photo'].append(media_info)
                 with open(json_path, 'w', encoding='utf-8') as f:
                     json.dump(all_photo, f, indent=4, ensure_ascii=False)
+=======
+                elif len(split_tag) == 3:
+                    media_info = {
+                        'tag': f'{split_tag[0]},{split_tag[1]},{split_tag[2]}',
+                        'imgs': load_json['source_url']
+                    }
+            else:
+                media_info = {
+                    'tag': load_json['alt_text'],
+                    'imgs': load_json['source_url']
+                }
+
+            time.sleep(0.3)
+
+            old_json = json.load(open('old_mizugazo_all_photos.json', 'r'))
+
+
+            all_photo['photo'].append(media_info)
+            with open(json_path, 'w', encoding='utf-8') as f:
+                json.dump(all_photo, f, indent=4, ensure_ascii=False)
+>>>>>>> bb7e9eddce72e78dfbc64a3ac167ae82a96d268e
 
         else:
             pass
@@ -60,6 +85,7 @@ while True:
 
 
 
+<<<<<<< HEAD
     """
     2022/05/14 23:38
     更新分だけJSON保存するようにする
@@ -67,4 +93,8 @@ while True:
     if load_json['source_url'] not in old_imgs:
 
     
+=======
+    """_summary_
+    更
+>>>>>>> bb7e9eddce72e78dfbc64a3ac167ae82a96d268e
     """
