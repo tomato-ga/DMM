@@ -17,8 +17,7 @@ class video:
         self.options.add_argument('--headless')
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         self.driver = webdriver.Chrome('/Users/ore/Documents/py_binary/chromedriver', options=self.options)
-        # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 'C:\\Users\\PC_User\\Documents\\GitHub\\kutikomi\\bakusai\\chromedriver.exe'
-        #self.driver.implicitly_wait(10)
+        # self.driver = webdriver.Chrome(options=self.options)  #options=self.options 
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
 
