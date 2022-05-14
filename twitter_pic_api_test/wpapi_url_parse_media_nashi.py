@@ -65,4 +65,6 @@ while True:
     更新分だけJSON保存するようにする
     old_json
     if load_json['source_url'] not in old_imgs:
+
+    push
     """
