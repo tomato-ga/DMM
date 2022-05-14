@@ -66,5 +66,5 @@ while True:
     old_json
     if load_json['source_url'] not in old_imgs:
 
-    push
+    
     """
