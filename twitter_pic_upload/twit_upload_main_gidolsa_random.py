@@ -1,14 +1,17 @@
 from master_twit_photo_upload import Tweet
 import random
+import os
 
 
 if __name__ == '__main__':
 
     photos = {
     '#今田美桜': '/mnt/hdd/don/files/twitphotos/_mio_mio_imada/',
-    '#馬場ふみか': '/mnt/hdd/don/files/twitphotos/HoretaFumika/'
+    '#馬場ふみか': '/mnt/hdd/don/files/twitphotos/HoretaFumika/',
+    '#横野すみれ': '/mnt/hdd/don/files/mizugazo/横野すみれ',
+    '#浅川梨奈': '/mnt/hdd/don/files/mizugazo/浅川梨奈',
+    '#新垣結衣': '/mnt/hdd/don/files/mizugazo/新垣結衣'
     }
-
 
     hashtag, pic_dir = random.choice(list(photos.items()))
     print(hashtag, pic_dir)
