@@ -37,7 +37,7 @@ class Tweet:
         self.twitter = 'https://twitter.com/login'
 
     @retry(tries=7, delay=10)
-    def Uploads(self, account: str, password: str, text: str):
+    def Uploads(self, account: str, password: str, text: str, pic_dir: str):
         """2022/05/10雪平指定になってる"""
         time.sleep(randomwait) #投稿時間をランダムにする時間
         account = account
@@ -73,28 +73,7 @@ class Tweet:
             print('ログインしました')
             self.driver.save_screenshot('3.png')
 
-            ################ 動画の場合 ################
-            # df = self.db_read()
-            # random_video = df.sample()
-            # upload_video_file_name: str = random_video['video_file'].values[0]
-            # upload_url: str = random_video['url'].values[0]
-            # print(upload_video_file_name, ':', upload_url)
-            ################ 動画の場合 ################
-
-            ################ 画像の場合 ################
-
-            # pic_dir = '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
-            # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
-            # random.shuffle(pic_subdir) # サブディレクトリをランダム化
-            # photo_lists = os.listdir(pic_dir + pic_subdir[0]) # 画像ファイル一覧
-            # random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
-            # up_photo = os.path.abspath(pic_dir + pic_subdir[0] + '/' + photo_lists[0])  # Win (pic_dir + pic_subdir[0] + '\\' + photo_lists[0]) # アップするファイルパス取得
-
-            ############################ディレクトリ指定############################
-
-            pic_dir = '/mnt/hdd/don/files/twitphotos/yukihira/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
-            # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
-            # random.shuffle(pic_subdir) # サブディレクトリをランダム化
+            pic_dir = pic_dir
             photo_lists = os.listdir(pic_dir) # 画像ファイル一覧
             random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
             ext = os.path.splitext(photo_lists[0])

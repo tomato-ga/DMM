@@ -36,7 +36,7 @@ class Tweet:
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
         self.twitter = 'https://twitter.com/login'
 
-    def Uploads(self, account: str, password: str, text: str):
+    def Uploads(self, account: str, password: str, text: str, pic_dir: str):
         """2022/05/10雪平指定になってる"""
         time.sleep(randomwait) #投稿時間をランダムにする時間
         account = account
@@ -91,9 +91,7 @@ class Tweet:
 
             ############################ディレクトリ指定############################
 
-            pic_dir = '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # Mac '/Volumes/Xeon8TB/don/files/twitphotos/yukihira/' # ubuntu  # '/mnt/hdd/don/files/twitphotos_gurasen/' #'E:\\twit_photos_gurasen\\'
-            # pic_subdir = os.listdir(pic_dir) # サブディレクトリ一覧
-            # random.shuffle(pic_subdir) # サブディレクトリをランダム化
+            pic_dir = pic_dir
             photo_lists = os.listdir(pic_dir) # 画像ファイル一覧
             random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
             ext = os.path.splitext(photo_lists[0])
