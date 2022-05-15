@@ -19,7 +19,7 @@ class Tweet_text:
     def text_image_get(self):
 
 
-        count_no = 4000
+        count_no = 5000
         tweet: dict[dict] = {}
         tweet['tweet'] = []
 
@@ -55,7 +55,33 @@ class Tweet_text:
                 with open(f'/home/don/py/DMM/twitter_pic_download/{self.__username}.json', 'w', encoding='utf-8') as f:
                     json.dump(tweet, f, indent=4, ensure_ascii=False)
 
-t = Tweet_text('rihochanhaahaa')
-t.text_image_get()
+
+
+ids = [
+    'keikooobot',
+    'kitagawa_kg',
+    'ayaaabot',
+    'ayase_haruka_ch',
+    'woqyvyqerixe',
+    'keiko_matome',
+    'keiko_gazou',
+    'kikktgw_info',
+    'Satomi_pic',
+    'LOVE39895347',
+    'tubasa_lovebot',
+    'kasumi_pic',
+    'kurasina_gazou',
+]
+
+for id in ids:
+    t = Tweet_text(id)
+
+#t = Tweet_text('hinachimuu_pic')
+    t.text_image_get()
+
+
+
+
+
 
 # erika_1837 裏垢
