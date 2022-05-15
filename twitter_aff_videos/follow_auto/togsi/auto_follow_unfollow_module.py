@@ -142,7 +142,7 @@ def follows(client, follow_list: list, max_count) -> list:
         elif follow_response.data['following'] == False:
             like_user_follow = like_user_follow
 
-        time.sleep(50)
+        time.sleep(100)
         if like_user_follow >= max_count:
             break
 
@@ -176,7 +176,7 @@ def unfollows(client, unfollow_list: list, max_count) -> list:
         elif unfollow_response.data['following'] == True:
             unfollow_user = unfollow_user
 
-        time.sleep(50)
+        time.sleep(100)
         if unfollow_user >= max_count:
             break
 
