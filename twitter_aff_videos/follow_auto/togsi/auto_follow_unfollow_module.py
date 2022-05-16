@@ -14,6 +14,8 @@ import logging
 
 """
 想定する流れ
+ツイートを取得するリストのIDを変える
+get_list_tweets(id=xxxxxxxxxxxxxxxxxxx)
 
 【auto_follow.py】
 1. 他人のツイートにいいねしているIDをリスト化
@@ -104,7 +106,7 @@ def new_follow_id(client) -> dict[str]:
 
     for tweet in tweets:
         tid = tweet.id
-        like_users = client.get_liking_users(tid)
+        like_users = client.get_liking_users(tid, max_results=100)
         follows = like_users.data
 
         if follows:

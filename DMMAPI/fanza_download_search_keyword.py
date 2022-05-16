@@ -19,7 +19,7 @@ class video:
         self.driver = webdriver.Chrome(options=self.options)
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
 
-    def down(self, index, video_info: dict):
+    def down(self, index, video_info: dict, file_name: str):
         print(video_info)
         try:
             self.driver.get(video_info['video_url'])
@@ -32,7 +32,7 @@ class video:
 
             video_response = requests.get(elem)
             time.sleep(0.3)
-            file_name = f'irama_{index}.mp4'
+            file_name = f'{file_name}_{index}.mp4'
             time.sleep(0.2)
             with open(f'/mnt/hdd/don/files/fanza/hazukasi/{file_name}', 'wb') as save_v:
                 save_v.write(video_response.content)
@@ -47,18 +47,24 @@ class video:
             pass
 
 
+"""
+流れ
+①fanzaから取ってきたvideo_url, aff_urlのJSONを読み込む
+②file_nameが入ったJSONを書き出すために、JSONファイル名にジャンルを含める
 
-load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genreイラマチオ.json'))
+"""
+load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genreスパンキング.json'))
 print(len(load_json['title']))
 
 save_json = {}
 save_json['title'] = []
+file_json_name = 'spanking'
 
 vv = video()
 for i, video_info in enumerate(load_json['title']):
     print(i, video_info)
     try:
-        file_name = vv.down(i, video_info)
+        file_name = vv.down(i, video_info, file_name=file_json_name)
         if file_name:
             video_info['file_name'] = file_name
             save_json['title'].append(video_info)
@@ -67,5 +73,5 @@ for i, video_info in enumerate(load_json['title']):
         print(ex)
         pass
 
-with open('/home/don/py/DMM/DMMAPI/fanza_genreイラマチオ_videofile.json', 'w+', encoding='utf-8') as f:
+with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{file_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
     json.dump(save_json, f, indent=4, ensure_ascii=False)

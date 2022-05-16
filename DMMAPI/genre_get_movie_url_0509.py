@@ -93,7 +93,7 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= 'レズ' # 不要→ keyword.encode('utf-8')
+    g.keyword= 'スパンキング' # 不要→ keyword.encode('utf-8')
     g.offset_count = 1
     g.hits_count = 20
 

@@ -11,12 +11,13 @@ def cut5secounds(directory):
         file = os.path.abspath(directory + v)
 
         #ビデオパスを入れる
-        save_file_name = f'/mnt/hdd/don/files/menes_fanza_video/cut{i}.mp4' #保存ファイル名
+        save_file_name = f'/mnt/hdd/don/files/fanza/cut_spanking/spanking_cut_{i}.mp4' #保存ファイル名
         start = 5
         try:
             videos = VideoFileClip(file).subclip(start)
             videos.write_videofile(save_file_name, fps=29, codec='libx264', audio_codec='aac', temp_audiofile='temp-audio.m4a', remove_temp=True)
-        except:
+        except Exception as ex:
+            print(ex)
             pass
 
 
@@ -30,5 +31,5 @@ def cut2min():
     videos.write_videofile(save_file_name, fps=29)
 
 
-dir = '/mnt/hdd/don/files/menes_fanza_video/'
+dir = '/mnt/hdd/don/files/fanza/spanking/'
 cut5secounds(dir)
