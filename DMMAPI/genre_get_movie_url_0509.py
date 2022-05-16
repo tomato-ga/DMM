@@ -50,7 +50,7 @@ class Genre_dmm:
             for item in items:
                 try:
                     average = item.review.average
-                    if float(average) >= 3.5:
+                    if float(average) >= 4:
                         af_url = item.affiliateURL
                         title = item.title
                         video_info = item.sampleMovieURL

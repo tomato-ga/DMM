@@ -2,7 +2,7 @@ import tweepy
 import time
 import random
 
-wait = random.uniform(10, 25)
+wait = random.uniform(30, 50)
 wait_long = random.uniform(30, 50)
 
 
@@ -41,15 +41,16 @@ def Thirdparty_rt(API):
                     print('RT完了')
 
 
-def My_rt(API, ids):
+def My_rt(API, ids, max_rt_count: int):
     """自分アカウント"""
 
     print('[My_rt]: 自分のアカウントのRTスタート')
 
     client = tweepy.Client(consumer_key=API.API_KEY, consumer_secret=API.API_SECRET, access_token=API.ACCESS_TOKEN, \
         access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token)
+    max_rt_count = max_rt_count
 
-    """もしAPIキーがこれだったらidを選んでidをforで回すという処理にしたい"""
+    # TODO : もしAPIキーがこれだったらidを選んでidをforで回すという処理にしたい"""
 
 
     for id_mine in ids:
@@ -65,7 +66,7 @@ def My_rt(API, ids):
             print(ex)
             pass
 
-
+        rt_count = 0
         for rt_tweet in rts_tweet:
             rttw = rt_tweet.data
             if 'attachments' in rttw:
@@ -73,10 +74,14 @@ def My_rt(API, ids):
                 time.sleep(wait)
                 try:
                     client.retweet(post_mine)
+                    rt_count += 1
                 except Exception as e:
                     print(e)
                 else:
                     print('[My_rt]: 自分のRTとReply完了!!')
+                    if rt_count == max_rt_count:
+                        break
+
 
 
 def My_new_rt(API, ids):
