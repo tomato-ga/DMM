@@ -5,7 +5,7 @@ import api_togsi7
 import api_OtxSf
 
 #メインアカ
-max_rt_count = 3 #最大RT数
+max_rt_count = 2 #最大RT数
 tw_package.My_rt(API=api_tomorrow_genkio, ids=api_tomorrow_genkio.ids, max_rt_count=max_rt_count)
 
 
