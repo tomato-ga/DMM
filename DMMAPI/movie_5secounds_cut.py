@@ -11,7 +11,7 @@ def cut5secounds(directory):
         file = os.path.abspath(directory + v)
 
         #ビデオパスを入れる
-        save_file_name = f'/mnt/hdd/don/files/fanza/cut_spanking/spanking_cut_{i}.mp4' #保存ファイル名
+        save_file_name = f'/mnt/hdd/don/files/fanza/kitiku/kitiku_cut_{i}.mp4' #保存ファイル名
         start = 5
         try:
             videos = VideoFileClip(file).subclip(start)
@@ -30,6 +30,12 @@ def cut2min():
     videos = VideoFileClip(video_path).subclip(start)
     videos.write_videofile(save_file_name, fps=29)
 
+"""
+使い方
+①動画があるディレクトリを指定（dir）最後スラッシュいれるの忘れずに
+②ファイル名を指定（save_file_name）
 
-dir = '/mnt/hdd/don/files/fanza/spanking/'
+"""
+
+dir = '/mnt/hdd/don/files/fanza/kitiku/'
 cut5secounds(dir)

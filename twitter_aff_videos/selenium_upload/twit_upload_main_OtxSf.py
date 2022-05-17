@@ -9,7 +9,7 @@ import random
 if __name__ == '__main__':
 
     load_json = [
-        json.load(open('/home/don/py/DMM/DMMAPI/fanza_genreイラマチオ_videofile.json')),
+        json.load(open('/home/don/py/DMM/DMMAPI/fanza_genre_irama_videofile.json')),
         json.load(open('/home/don/py/DMM/DMMAPI/fanza_genre_spanking_videofile.json'))
     ]
     l = random.sample(load_json, 1)
