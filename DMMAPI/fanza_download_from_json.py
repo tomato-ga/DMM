@@ -28,7 +28,7 @@ class video:
             iframe = self.driver.find_element(by=By.TAG_NAME, value='iframe')
             self.driver.switch_to.frame(iframe)
             elem = self.driver.find_element(by=By.XPATH, value="//main[contains(@id, 'dmmvideo-player')]/video").get_attribute('src')
-            # TODO elemから動画拡張子をreで取得し、サイズの大きい拡張子へ変更させてレスポンス確認してダウンロード
+            # TODO elemから動画拡張子をreで取得し、サイズの大きい拡張子へ変更させてレスポンス確認
             source = self.driver.page_source
             print(elem)
 
