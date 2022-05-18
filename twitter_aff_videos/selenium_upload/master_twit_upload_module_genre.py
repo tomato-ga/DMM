@@ -48,7 +48,7 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            time.sleep(30)
+            time.sleep(14) #TODO 30へ戻す
             self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
             print(self.driver.current_url)
             self.driver.save_screenshot('1.png')

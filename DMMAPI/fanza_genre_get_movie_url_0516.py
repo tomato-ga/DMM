@@ -104,3 +104,14 @@ if __name__ == '__main__':
         save_json['title'].append(video_info)
         with open(f'/home/don/py/DMM/DMMAPI/fanza_genre{g.keyword}.json', 'w+', encoding='utf-8') as f:
             json.dump(save_json, f, indent=4, ensure_ascii=False)
+
+
+
+"""
+課題
+JSONの順番がズレてる
+
+
+
+
+"""

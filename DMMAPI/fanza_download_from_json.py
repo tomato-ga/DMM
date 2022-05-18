@@ -28,6 +28,8 @@ class video:
             iframe = self.driver.find_element(by=By.TAG_NAME, value='iframe')
             self.driver.switch_to.frame(iframe)
             elem = self.driver.find_element(by=By.XPATH, value="//main[contains(@id, 'dmmvideo-player')]/video").get_attribute('src')
+            # TODO elemから動画拡張子をreで取得し、サイズの大きい拡張子へ変更させてレスポンス確認
+            source = self.driver.page_source
             print(elem)
 
             video_response = requests.get(elem)
@@ -76,3 +78,25 @@ for i, video_info in enumerate(load_json['title']):
         print(ex)
         pass
 
+
+"""
+課題
+ビットレート最大のファイルをダウンロードするようにする
+
+
+# TODO 一番大きいサイズの拡張子でダウンロードする
+上のサイズ拡張子から総当たりして、レスポンスがあったURLでダウンロードさせる
+
+_sm_s.mp4
+3	https://cc3001.dmm.co.jp/litevideo/freepv/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]_sm_w.mp4
+4	https://cc3001.dmm.co.jp/litevideo/freepv/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]_dmb_s.mp4
+5	https://cc3001.dmm.co.jp/litevideo/freepv/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]_dmb_w.mp4
+6	https://cc3001.dmm.co.jp/litevideo/freepv/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]_mhb_s.mp4
+7	https://cc3001.dmm.co.jp/litevideo/freepv/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]_mhb_w.mp4
+
+
+↓vr
+8	https://cc3001.dmm.co.jp/vrsample/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]vrlite.mp4
+
+
+"""
