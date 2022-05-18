@@ -81,11 +81,7 @@ def json_save(ids: dict[str], json_name: str) -> json:
         ids (dict[str]): フォロー or フォロワー候補のIDをdict ['id]で渡す
         json_name (_type_): strで渡すとファイル名に使われる
     """
-<<<<<<< HEAD
-    with open(f'/home/don/py/DMM/twitter_aff_videos/follow_auto/gidolsa/{json_name}.json', 'w', encoding='utf-8') as f:
-=======
     with open(f'./{json_name}.json', 'w+', encoding='utf-8') as f:
->>>>>>> origin
         json.dump(ids, f, indent=4, ensure_ascii=False)
 
     # Mac用ディレクトリ /Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/
@@ -148,11 +144,7 @@ def follows(client, follow_list: list, max_count) -> list:
         elif follow_response.data['following'] == False:
             like_user_follow = like_user_follow
 
-<<<<<<< HEAD
-        time.sleep(60)
-=======
         time.sleep(50)
->>>>>>> origin
         if like_user_follow >= max_count:
             break
 
@@ -186,11 +178,7 @@ def unfollows(client, unfollow_list: list, max_count) -> list:
         elif unfollow_response.data['following'] == True:
             unfollow_user = unfollow_user
 
-<<<<<<< HEAD
-        time.sleep(5)
-=======
         time.sleep(50)
->>>>>>> origin
         if unfollow_user >= max_count:
             break
 
@@ -221,20 +209,12 @@ def new_follow_id_only(name) -> list:
         list: 新しくフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
-<<<<<<< HEAD
-    following: json = ujson.load(open(f'{name}_following_id.json'))
-=======
     following: json = ujson.load(open(f'./{name}_following_id.json'))
->>>>>>> origin
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### new_follow_id フォローする人のJSONを読み込む
-<<<<<<< HEAD
-    new_follow = ujson.load(open(f'{name}_new_follow_id.json'))
-=======
     new_follow = ujson.load(open(f'./{name}_new_follow_id.json'))
->>>>>>> origin
     new_follow_list = new_follow['id']
 
     ### 新しくフォローするIDだけ抽出
@@ -258,20 +238,12 @@ def unfollow_id_only(name) -> list:
         list: アンフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
-<<<<<<< HEAD
-    following = ujson.load(open(f'/home/don/py/DMM/twitter_aff_videos/follow_auto/gidolsa/{name}_following_id.json'))
-=======
     following = ujson.load(open(f'./{name}_following_id.json'))
->>>>>>> origin
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### follower フォロワーのJSONを読み込む
-<<<<<<< HEAD
-    follower = ujson.load(open(f'/home/don/py/DMM/twitter_aff_videos/follow_auto/gidolsa/{name}_follower_id.json'))
-=======
     follower = ujson.load(open(f'./{name}_follower_id.json'))
->>>>>>> origin
     follower_list = follower['id']
 
     ### アンフォローするID（一方的にフォローしているID）だけ抽出

@@ -5,11 +5,7 @@ import os
 client = auto_follow_unfollow_module.apicall(API)
 my_id = 1514514623743291395
 name = 'gilodsa'
-<<<<<<< HEAD
-max_count = 30
-=======
 max_count = 15
->>>>>>> origin
 get_dir = os.getcwd()
 print(get_dir)
 
