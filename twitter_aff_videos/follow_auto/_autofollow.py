@@ -3,7 +3,7 @@ import follow_main
 import follow_parse
 import random
 
-import api_HjQhq as API
+import api_togsi7 as API
 
 pack = Get_follower()
 client = pack.apicall(API=API)
@@ -26,14 +26,14 @@ client = pack.apicall(API=API)
 
 ###################リストから最新ツイート取得してLIKEしてるユーザーをフォロー##########################
 
-response = client.get_list_tweets(id=1514978714572173313, max_results=15,  expansions=["attachments.media_keys","author_id","referenced_tweets.id"])
+response = client.get_list_tweets(id=1514978714572173313, max_results=15,  expansions=["attachments.media_keys","author_id","referenced_tweets.id"], tweet_fields=["entities"])
 tweets = response.data
 random.shuffle(tweets)
 
 like_user_follow = 0
 
 for tweet in tweets:
-    while like_user_follow < 2:
+    while like_user_follow < 30:
         tid = tweet.id
         like_users = client.get_liking_users(tid)
         follows = like_users.data
@@ -42,7 +42,8 @@ for tweet in tweets:
             for follow in follows:
                 client.follow_user(target_user_id=follow.id) #TODO ここの動作がうまくいってない。 429 to manyが出てくる。明日試す
                 like_user_follow += 1
-                if like_user_follow == 2:
-                    break
+                print(f'{like_user_follow}人フォローしました')
+            if like_user_follow == 30:
+                        break
 
 ###################リストから最新ツイート取得してLIKEしてるユーザーをフォロー##########################

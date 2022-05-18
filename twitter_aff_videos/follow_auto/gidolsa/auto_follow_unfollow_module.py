@@ -6,10 +6,34 @@ import time
 import logging
 
 
-logger = logging.getLogger("tweepy")
-logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename="tweepy.log")
-logger.addHandler(handler)
+# logger = logging.getLogger("tweepy")
+# logger.setLevel(logging.DEBUG)
+# handler = logging.FileHandler(filename="tweepy.log")
+# logger.addHandler(handler)
+
+
+"""
+想定する流れ
+ツイートを取得するリストのIDを変える
+get_list_tweets(id=xxxxxxxxxxxxxxxxxxx)
+
+【auto_follow.py】
+1. 他人のツイートにいいねしているIDをリスト化
+2. フォローしてるIDをリスト化
+3. 新しくフォローするIDを抽出: 2-1（フォローしたことないID）のリストを作る
+4. 3のリストをフォロー実施
+5. フォロー実施したIDをJSONで保存しておく
+
+【auto_unfollow.py】
+6. フォローしているIDをリスト化
+7. フォロワーにいるIDをリスト化
+8. 一方的にフォローしているIDを抽出: 6-7（フォローだけにいるID）のリストを作る
+9. 8のリストをアンフォロー実施
+10. アンフォロー実施したIDをJSONで保存しておく
+
+11. 1に戻ってループ
+
+"""
 
 
 def apicall(API):
@@ -57,9 +81,14 @@ def json_save(ids: dict[str], json_name: str) -> json:
         ids (dict[str]): フォロー or フォロワー候補のIDをdict ['id]で渡す
         json_name (_type_): strで渡すとファイル名に使われる
     """
+<<<<<<< HEAD
     with open(f'/home/don/py/DMM/twitter_aff_videos/follow_auto/gidolsa/{json_name}.json', 'w', encoding='utf-8') as f:
+=======
+    with open(f'./{json_name}.json', 'w+', encoding='utf-8') as f:
+>>>>>>> origin
         json.dump(ids, f, indent=4, ensure_ascii=False)
 
+    # Mac用ディレクトリ /Users/ore/Documents/GitHub/DMM/twitter_aff_videos/follow_auto/
 
 def new_follow_id(client) -> dict[str]:
     """_summary_
@@ -72,7 +101,7 @@ def new_follow_id(client) -> dict[str]:
         dict[str]: 新しくフォローするアカウントIDをdictで返す
     """
 
-    response = client.get_list_tweets(id=1514978714572173313, max_results=15,  expansions=["attachments.media_keys","referenced_tweets.id"])
+    response = client.get_list_tweets(id=1521876334074818560, max_results=15,  expansions=["attachments.media_keys","referenced_tweets.id"])
     tweets = response.data
     random.shuffle(tweets)
 
@@ -81,7 +110,7 @@ def new_follow_id(client) -> dict[str]:
 
     for tweet in tweets:
         tid = tweet.id
-        like_users = client.get_liking_users(tid)
+        like_users = client.get_liking_users(tid, max_results=100)
         follows = like_users.data
 
         if follows:
@@ -119,7 +148,11 @@ def follows(client, follow_list: list, max_count) -> list:
         elif follow_response.data['following'] == False:
             like_user_follow = like_user_follow
 
+<<<<<<< HEAD
         time.sleep(60)
+=======
+        time.sleep(50)
+>>>>>>> origin
         if like_user_follow >= max_count:
             break
 
@@ -153,7 +186,11 @@ def unfollows(client, unfollow_list: list, max_count) -> list:
         elif unfollow_response.data['following'] == True:
             unfollow_user = unfollow_user
 
+<<<<<<< HEAD
         time.sleep(5)
+=======
+        time.sleep(50)
+>>>>>>> origin
         if unfollow_user >= max_count:
             break
 
@@ -167,13 +204,13 @@ def following_json_save(client, my_id, name):
     """フォローしてる人をJSON保存"""
     my_id = my_id #togsi ID
     follow_dict = followed_mine(client, my_id)
-    json_save(ids=follow_dict, json_name=f'{name}_following_id')
+    json_save(ids=follow_dict, json_name=f'./{name}_following_id')
     return follow_dict
 
 def new_follow_json_save(client, name):
     """新しくフォローする人をJSON保存"""
     new_follow_dict = new_follow_id(client)
-    json_save(new_follow_dict, json_name=f'{name}_new_follow_id')
+    json_save(new_follow_dict, json_name=f'./{name}_new_follow_id')
 
 
 def new_follow_id_only(name) -> list:
@@ -184,12 +221,20 @@ def new_follow_id_only(name) -> list:
         list: 新しくフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
+<<<<<<< HEAD
     following: json = ujson.load(open(f'{name}_following_id.json'))
+=======
+    following: json = ujson.load(open(f'./{name}_following_id.json'))
+>>>>>>> origin
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### new_follow_id フォローする人のJSONを読み込む
+<<<<<<< HEAD
     new_follow = ujson.load(open(f'{name}_new_follow_id.json'))
+=======
+    new_follow = ujson.load(open(f'./{name}_new_follow_id.json'))
+>>>>>>> origin
     new_follow_list = new_follow['id']
 
     ### 新しくフォローするIDだけ抽出
@@ -213,64 +258,42 @@ def unfollow_id_only(name) -> list:
         list: アンフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
+<<<<<<< HEAD
     following = ujson.load(open(f'/home/don/py/DMM/twitter_aff_videos/follow_auto/gidolsa/{name}_following_id.json'))
+=======
+    following = ujson.load(open(f'./{name}_following_id.json'))
+>>>>>>> origin
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### follower フォロワーのJSONを読み込む
+<<<<<<< HEAD
     follower = ujson.load(open(f'/home/don/py/DMM/twitter_aff_videos/follow_auto/gidolsa/{name}_follower_id.json'))
+=======
+    follower = ujson.load(open(f'./{name}_follower_id.json'))
+>>>>>>> origin
     follower_list = follower['id']
 
     ### アンフォローするID（一方的にフォローしているID）だけ抽出
-    unfollow_list = list(set(follower_list)- set(following_list))
+    unfollow_list = list(set(following_list) - set(follower_list))
     print(f'新しくアンフォロー（フォロー解除）する人は{len(unfollow_list)}人います')
     return unfollow_list
 
 
-#########################################フォローする実行スクリプト###########################################
-### フォロー実施 ###
-# follow_done_list = follows(client, follow_list)
-
-# ### フォローしたらJSONへ保存する
-# if follow_done_list:
-#     for i in follow_done_list:
-#         following_list.append(i)
-
-#     following_list = list(set(following_list)) #setはJSON保存できないのでリストにする
-#     new_following = {}
-#     new_following['id'] = following_list
-#     json_save(ids=new_following, json_name='following_id')
-# #########################################フォローする実行スクリプト###########################################
-
-
-
-
-
-
-
-
-
-
-# TODO フォロワーとフォローしてるリストをAPIで出して、リストを比較してアンフォローするIDを抽出するところから
-
 """
-想定する流れ
+更新履歴
 
-【auto_follow.py】
-1. 他人のツイートにいいねしているIDをリスト化
-2. フォローしてるIDをリスト化
-3. 新しくフォローするIDを抽出: 2-1（フォローしたことないID）のリストを作る
-4. 3のリストをフォロー実施
-5. フォロー実施したIDをJSONで保存しておく
+更新履歴
+2022/05/15 16:01
+JSON保存場所がMacのディレクトリだったため、CRONが動いていなかった
+Macのディレクトリを削除
 
-【auto_unfollow.py】
-6. フォローしているIDをリスト化
-7. フォロワーにいるIDをリスト化
-8. 一方的にフォローしているIDを抽出: 7-6（フォローだけにいるID）のリストを作る
-9. 8のリストをアンフォロー実施
-10. アンフォロー実施したIDをJSONで保存しておく
+2022/05/15 16:37
 
-11. 1に戻ってループ
+フォロワーリスト引くフォローリストになっていたことで、アンフォローがされていなかった
+unfollow_list = list(set(follower_list) - set(following_list))
+↓
+unfollow_list = list(set(following_list) - set(follower_list))
 
 """
 

@@ -55,4 +55,11 @@ class Tweet_text:
 
 
 t = Tweet_text()
+<<<<<<< HEAD
 t.text_get
+=======
+t.text_get
+
+
+        # for tweets in tweepy.Paginator(self.client.get_users_tweets, target_response.data['id'], max_results=10, media_fields=['preview_image_url', 'url'], expansions=['attachments.media_keys'], tweet_fields=["entities"]).flatten(limit=250):
+>>>>>>> origin

@@ -1,10 +1,17 @@
 import auto_follow_unfollow_module
 import api_gidolsa as API
+import os
 
 client = auto_follow_unfollow_module.apicall(API)
 my_id = 1514514623743291395
 name = 'gilodsa'
+<<<<<<< HEAD
 max_count = 10
+=======
+max_count = 15
+get_dir = os.getcwd()
+print(get_dir)
+>>>>>>> origin
 
 ### 最新のJSONにする
 follow_dict = auto_follow_unfollow_module.following_json_save(client=client, my_id=my_id, name=name)
