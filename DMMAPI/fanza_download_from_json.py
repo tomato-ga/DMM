@@ -8,6 +8,9 @@ from dataclasses import dataclass
 import requests
 import json
 import time
+import re
+import os
+from concurrent.futures import ThreadPoolExecutor
 
 
 class video:
@@ -29,20 +32,31 @@ class video:
             self.driver.switch_to.frame(iframe)
             elem = self.driver.find_element(by=By.XPATH, value="//main[contains(@id, 'dmmvideo-player')]/video").get_attribute('src')
             # TODO elemから動画拡張子をreで取得し、サイズの大きい拡張子へ変更させてレスポンス確認
-            source = self.driver.page_source
-            print(elem)
 
-            video_response = requests.get(elem)
+
+            # サイズ変更
+            id_only_url = re.sub('(_[a-z]*)(_[a-z]+)(.mp4)', '', elem)
+            add_video = '_mhb_w'
+            new_urls = id_only_url + add_video + '.mp4'
+            video_response = requests.get(new_urls)
             time.sleep(0.3)
-            file_name = f'{file_name}_{index}.mp4'
-            time.sleep(0.2)
-            with open(f'/mnt/hdd/don/files/fanza/bust90to99/{file_name}', 'wb') as save_v:
-                save_v.write(video_response.content)
 
-            if file_name:
-                return file_name
-            else:
-                return None
+            if video_response.status_code == 200:
+                dir_name = file_name
+                file_name = f'{file_name}_{index}.mp4'
+                time.sleep(0.2)
+                os.makedirs(fr'/mnt/hdd/don/files/fanza/{dir_name}', mode=0o777, exist_ok=True)
+                with open(f'/mnt/hdd/don/files/fanza/{dir_name}/{file_name}', 'wb') as save_v:
+                    save_v.write(video_response.content)
+
+                if file_name:
+                    return file_name
+                else:
+                    return None
+
+
+            elif video_response.status_code != 200:
+                pass
 
         except Exception as ex:
             print(ex)
@@ -53,15 +67,18 @@ class video:
 流れ
 ①fanzaから取ってきたvideo_url, aff_urlのJSONを読み込む
 ②file_nameが入ったJSONを書き出すために、JSONファイル名にジャンルを含める
-③ダウンロードフォルダを設定する
+
+>ダウンロード後
+③movie_5secounds_cutでカット実施
+④カット後、videofile.jsonのfile_nameに_cutを付与
 
 """
-load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genre_actress_bust_90to99_videourl.json'))
+load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genreイラマチオ.json'))
 print(len(load_json['title']))
 
 save_json = {}
 save_json['title'] = []
-file_json_name = 'bust90to99'
+file_json_name = 'irama'
 
 vv = video()
 for i, video_info in enumerate(load_json['title']):
@@ -72,11 +89,12 @@ for i, video_info in enumerate(load_json['title']):
             video_info['file_name'] = file_name
             save_json['title'].append(video_info)
             time.sleep(0.2)
-            with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{file_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
-                json.dump(save_json, f, indent=4, ensure_ascii=False)
     except Exception as ex:
         print(ex)
         pass
+
+with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{file_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
+    json.dump(save_json, f, indent=4, ensure_ascii=False)
 
 
 """
