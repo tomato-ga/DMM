@@ -94,7 +94,6 @@ class Genre_dmm:
                 break
 
 
-
 if __name__ == '__main__':
 
     g = Genre_dmm()

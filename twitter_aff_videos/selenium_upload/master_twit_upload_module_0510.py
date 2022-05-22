@@ -54,7 +54,7 @@ class Tweet:
         return df
 
     @retry(tries=7, delay=10) #TODO 消す
-    def Uploads(self, account: str, text: str):
+    def Uploads(self, account: str):
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
 
@@ -98,7 +98,7 @@ class Tweet:
             upload_url: str = random_video['url'].values[0]
             print(upload_video_file_name, ':', upload_url)
 
-            if upload_url is not None:
+            if upload_url is not None: # TODO tomorro 1j_mcはupload_urlはあるままでOK DBからaff_urlを呼び出してるだけ
 
                 # ファイルパスを入力
                 """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!
@@ -112,11 +112,14 @@ class Tweet:
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
-                text = f'{text}' + ' '+ f'{upload_url}'
-                elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
-                self.driver.execute_script('arguments[0].click();', elem_text)
-                elem_text.send_keys(text)
-                time.sleep(1)
+
+                ########################################TODO 2022/05/23 0:02 テキストURL消す########################################
+                # text = f'{text}' + ' '+ f'{upload_url}'
+                # elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
+                # self.driver.execute_script('arguments[0].click();', elem_text)
+                # elem_text.send_keys(text)
+                # time.sleep(1)
+                ########################################TODO テキストURL消す########################################
 
                 # 投稿
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
@@ -148,4 +151,8 @@ time.sleep(20)
 2022/05/11 19:35
 click()からexecute_scriptへ変更
 解像度を縦1800へ変更
+
+2022/05/23 0:02
+テキストURL消す
+
 """

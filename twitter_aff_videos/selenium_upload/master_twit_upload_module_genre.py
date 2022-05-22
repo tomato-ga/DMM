@@ -39,7 +39,7 @@ class Tweet:
         self.twitter = 'https://twitter.com/login'
 
     @retry(tries=7, delay=10) #TODO 消す
-    def Uploads(self, account: str, text: str, up_url: str, up_file: str):
+    def Uploads(self, account: str, up_file: str):
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
 
@@ -76,33 +76,34 @@ class Tweet:
             print('ログインしました')
             self.driver.save_screenshot('3.png')
 
+            # TODO 2022/05/23 0:46 up_url削除に伴って消した
+            # if up_url and up_file is not None:
 
-            if up_url and up_file is not None:
+            # ファイルパスを入力
+            """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!
+            Windowsはglob.glob
+            Ubuntuはos.path.abspath
+            """
+            self.wait.until(EC.presence_of_all_elements_located)
+            video_path = os.path.abspath(up_file)   #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}') # Mac /Volumes/Xeon8TB/don/files/twitvideo
+            self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
+            time.sleep(2)
 
-                # ファイルパスを入力
-                """Ubuntuの場合、glob.globではなく、os.path.abspathにしたらアップできた!!
-                Windowsはglob.glob
-                Ubuntuはos.path.abspath
-                """
-                self.wait.until(EC.presence_of_all_elements_located)
-                video_path = os.path.abspath(up_file)   #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}') # Mac /Volumes/Xeon8TB/don/files/twitvideo
-                self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
-                time.sleep(2)
+            # テキスト入力
+            # TODO 2022/05/23 0:46 text: str, up_url: str削除
+            # self.wait.until(EC.presence_of_all_elements_located)
+            # text = f'{text}' + ' '+ f'{up_url}'
+            # elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
+            # self.driver.execute_script('arguments[0].click();', elem_text)
+            # elem_text.send_keys(text)
+            # time.sleep(1)
 
-                # テキスト入力
-                self.wait.until(EC.presence_of_all_elements_located)
-                text = f'{text}' + ' '+ f'{up_url}'
-                elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
-                self.driver.execute_script('arguments[0].click();', elem_text)
-                elem_text.send_keys(text)
-                time.sleep(1)
-
-                # 投稿
-                tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
-                self.driver.execute_script('arguments[0].click();', tweet_button)
-                #tweet_button.click()
-                time.sleep(20) #動画がアップロードされるまでの待機時間
-                self.wait.until(EC.presence_of_all_elements_located)
+            # 投稿
+            tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
+            self.driver.execute_script('arguments[0].click();', tweet_button)
+            #tweet_button.click()
+            time.sleep(20) #動画がアップロードされるまでの待機時間
+            self.wait.until(EC.presence_of_all_elements_located)
 
         except Exception as ex:
             print('[Uploads]:', ex)
@@ -127,4 +128,14 @@ time.sleep(20)
 2022/05/11 19:35
 click()からexecute_scriptへ変更
 解像度を縦1800へ変更
+
+
+2022/05/23 0:45
+Upload引数  text: str, up_url: str削除
+
+2022/05/23 0:46 up_url削除に伴って消した
+if up_url and up_file is not None:
+
+2022/05/23 0:46
+テキスト入力も削除
 """

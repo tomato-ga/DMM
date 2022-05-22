@@ -11,9 +11,9 @@ response_offset = 0
 media_offset = 0
 all_photo = {}
 all_photo['photo'] = []
-json_path = 'new_mizugazo_all_photos.json'
+json_path = '/home/don/py/DMM/twitter_pic_api_test/new_mizugazo_all_photos.json'
 
-old_json = json.load(open('old_mizugazo_all_photos.json', 'r'))
+old_json = json.load(open('/home/don/py/DMM/twitter_pic_api_test/old_mizugazo_all_photos.json', 'r'))
 old_df = pd.DataFrame(old_json['photo'])
 old_imgs = old_df['imgs'].tolist()
 
@@ -49,8 +49,7 @@ while True:
                     }
                 time.sleep(0.3)
                 all_photo['photo'].append(media_info)
-                with open(json_path, 'w', encoding='utf-8') as f:
-                    json.dump(all_photo, f, indent=4, ensure_ascii=False)
+                old_json['photo'].append(media_info)
 
         else:
             pass
@@ -58,13 +57,16 @@ while True:
     if res.status_code != 200:
         break
 
+with open(json_path, 'w', encoding='utf-8') as f:
+    json.dump(all_photo, f, indent=4, ensure_ascii=False)
+with open('/home/don/py/DMM/twitter_pic_api_test/old_mizugazo_all_photos.json', 'w', encoding='utf-8') as f:
+    json.dump(old_json, f, indent=4, ensure_ascii=False)
 
 
-    """
-    2022/05/14 23:38
-    更新分だけJSON保存するようにする
-    old_json
-    if load_json['source_url'] not in old_imgs:
 
-
-    """
+"""
+2022/05/14 23:38
+更新分だけJSON保存するようにする
+old_json
+if load_json['source_url'] not in old_imgs:
+"""

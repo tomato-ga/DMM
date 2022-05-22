@@ -24,5 +24,15 @@ if __name__ == '__main__':
     if is_file:
         print(upload_path_and_file_name, ':', upload_url)
         i = Tweet()
-        i.Uploads(account='togsi7', text='いいね！', up_url=upload_url, up_file=upload_path_and_file_name)
+        i.Uploads(account='togsi7', up_file=upload_path_and_file_name) #text='いいね！', up_url=upload_url,
         i.Quit()
+
+
+"""
+履歴
+2022/05/23 0:44
+textとup_urlを削除
+フォロワー増えるまで消しておく
+
+bust90to99のファイルがないので停止
+"""

@@ -43,14 +43,15 @@ class video:
 
             if video_response.status_code == 200:
                 dir_name = file_name
-                file_name = f'{file_name}_{index}.mp4'
+                file_name = f'{index}_{file_name}.mp4'
                 time.sleep(0.2)
                 os.makedirs(fr'/mnt/hdd/don/files/fanza/{dir_name}', mode=0o777, exist_ok=True)
                 with open(f'/mnt/hdd/don/files/fanza/{dir_name}/{file_name}', 'wb') as save_v:
                     save_v.write(video_response.content)
 
                 if file_name:
-                    return file_name
+                    video_info['file_name'] = file_name
+                    return video_info
                 else:
                     return None
 
@@ -73,21 +74,21 @@ class video:
 ④カット後、videofile.jsonのfile_nameに_cutを付与
 
 """
-load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genre巨乳.json'))
+load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genreイラマチオ.json'))
 print(len(load_json['title']))
 
 save_json = {}
 save_json['title'] = []
-file_and_json_name = 'kyonyu'
+file_and_json_name = 'irama'
 
 vv = video()
 for i, video_info in enumerate(load_json['title']):
     print(i, video_info)
     try:
-        file_name = vv.down(i, video_info, file_name=file_and_json_name)
-        if file_name:
-            video_info['file_name'] = file_name # TODO JSONから取り出したビデオ情報にファイル名を入れている メソッド内で全部実行して整合性をとったほうがよさそう
-            save_json['title'].append(video_info)
+        new_video_info = vv.down(index=i, video_info=video_info, file_name=file_and_json_name)
+        if new_video_info:
+            # TODO JSONから取り出したビデオ情報にファイル名を入れている メソッド内で全部実行して整合性をとったほうがよさそう
+            save_json['title'].append(new_video_info)
             time.sleep(0.2)
     except Exception as ex:
         print(ex)
@@ -98,11 +99,9 @@ with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{file_and_json_name}_videofile.j
 
 
 """
-課題
+【課題】
 ビットレート最大のファイルをダウンロードするようにする
-
-
-# TODO 一番大きいサイズの拡張子でダウンロードする
+一番大きいサイズの拡張子でダウンロードする処理を追加
 上のサイズ拡張子から総当たりして、レスポンスがあったURLでダウンロードさせる
 
 _sm_s.mp4
@@ -112,9 +111,13 @@ _sm_s.mp4
 6	https://cc3001.dmm.co.jp/litevideo/freepv/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]_mhb_s.mp4
 7	https://cc3001.dmm.co.jp/litevideo/freepv/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]_mhb_w.mp4
 
-
 ↓vr
 8	https://cc3001.dmm.co.jp/vrsample/[content_id[1]]/[content_id[1:3]]/[content_id]/[content_id]vrlite.mp4
 
+# TODO ファイル名とURL先が同じか確認する
+
+
+【履歴】
+・ビデオ解像度最高のファイルしかダウンロードしないように変更
 
 """

@@ -1,29 +1,45 @@
 from moviepy.editor import *
 import os
+import json
 from concurrent.futures import ThreadPoolExecutor
 
-def cut5secounds(file_directory, cut_file_directory, cut_file_name):
 
-    vs = os.listdir(file_directory)
-    for i, v in enumerate(vs):
-    # random.shuffle(vs)
-        file = os.path.abspath(file_directory + v)
 
-        #ビデオパスを入れる
 
-        save_file_name = f'{cut_file_directory}{cut_file_name}{i}.mp4' #保存ファイル名
+def cut5secounds(file_directory, cut_file_directory, cut_file_name, load_json_dict, names):
+    """_summary_
+
+    Args:
+        file_directory (_type_): ファイルパス取得時に使用
+        cut_file_directory (_type_): カットしたファイルの保存ディレクトリ
+        cut_file_name (_type_): カットしたファイルの名前
+        load_json_dict (_type_): jsonを読み込んでファイル名を取得
+        names (_type_): master json保存に使用
+    """
+    save_json = {}
+    save_json['title'] = []
+    for i, video_info in enumerate(load_json_dict, start=1): # TODO JSONをforで回してファイル名取得→os.pathでファイル名を取得してcut処理をするように変更する
+
+        file = os.path.abspath(file_directory + video_info['file_name'])
+        #ビデオパスを入れる（保存先パスとファイル名になる）
+        save_file_name = f'{cut_file_directory}{i}_{cut_file_name}.mp4'
         start = 5
 
         try:
             videos = VideoFileClip(file).subclip(start)
             videos.write_videofile(save_file_name, fps=29, codec='libx264', audio_codec='aac', temp_audiofile='temp-audio.m4a', remove_temp=True)
+            video_info['cut_file_name'] = f'{i}_{cut_file_name}.mp4'
+            save_json['title'].append(video_info)
+            print(f'カット完了', {video_info['title']})
         except Exception as ex:
             print(ex)
             pass
 
+    with open(f'/home/don/py/DMM/DMMAPI/master_fanza_genre_{names}_videofile.json', 'w+', encoding='utf-8') as f:
+        json.dump(save_json, f, indent=4, ensure_ascii=False)
+
 
 def cut2min():
-
     video_path = '/Users/ore/Downloads/[FRIDAY] Risa Yukihira 雪平莉左 - Do you like a beautiful older sister 綺麗なお姉さんは、好きですか？ (2021-11-18)/yukihira.ts' #ビデオパスを入れる
     save_file_name = 'cuttest.mp4' #保存ファイル名
     start = 5
@@ -37,7 +53,12 @@ def cut2min():
 ②ファイル名を指定（save_file_name）
 """
 
-file_dir = '/mnt/hdd/don/files/fanza/irama/'
-cut_file_dir = '/mnt/hdd/don/files/fanza/cut_irama/'
-cut_file_name = 'irama_cut_'
-cut5secounds(file_dir, cut_file_dir, cut_file_name)
+names = 'spanking'
+file_dir = f'/mnt/hdd/don/files/fanza/{names}/'
+cut_file_dir = f'/mnt/hdd/don/files/fanza/cut_{names}/'
+cut_file_name = f'{names}_cut'
+
+load_json_dict = json.load(open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{names}_videofile.json'))
+print(len(load_json_dict['title']))
+
+cut5secounds(file_dir, cut_file_dir, cut_file_name, load_json_dict['title'], names)
