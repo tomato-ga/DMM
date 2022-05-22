@@ -2,15 +2,16 @@ from moviepy.editor import *
 import os
 from concurrent.futures import ThreadPoolExecutor
 
-def cut5secounds(directory):
+def cut5secounds(file_directory, cut_file_directory, cut_file_name):
 
-    vs = os.listdir(directory)
+    vs = os.listdir(file_directory)
     for i, v in enumerate(vs):
     # random.shuffle(vs)
-        file = os.path.abspath(directory + v)
+        file = os.path.abspath(file_directory + v)
 
         #ビデオパスを入れる
-        save_file_name = f'/mnt/hdd/don/files/fanza/cut_spanking/spanking_cut_{i}.mp4' #保存ファイル名
+
+        save_file_name = f'{cut_file_directory}{cut_file_name}{i}.mp4' #保存ファイル名
         start = 5
 
         try:
@@ -36,6 +37,7 @@ def cut2min():
 ②ファイル名を指定（save_file_name）
 """
 
-dir = '/mnt/hdd/don/files/fanza/spanking/'
-with ThreadPoolExecutor(50) as executor:
-    executor.submit(cut5secounds(dir))
+file_dir = '/mnt/hdd/don/files/fanza/irama/'
+cut_file_dir = '/mnt/hdd/don/files/fanza/cut_irama/'
+cut_file_name = 'irama_cut_'
+cut5secounds(file_dir, cut_file_dir, cut_file_name)

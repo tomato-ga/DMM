@@ -73,27 +73,27 @@ class video:
 ④カット後、videofile.jsonのfile_nameに_cutを付与
 
 """
-load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genreイラマチオ.json'))
+load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genre巨乳.json'))
 print(len(load_json['title']))
 
 save_json = {}
 save_json['title'] = []
-file_json_name = 'irama'
+file_and_json_name = 'kyonyu'
 
 vv = video()
 for i, video_info in enumerate(load_json['title']):
     print(i, video_info)
     try:
-        file_name = vv.down(i, video_info, file_name=file_json_name)
+        file_name = vv.down(i, video_info, file_name=file_and_json_name)
         if file_name:
-            video_info['file_name'] = file_name
+            video_info['file_name'] = file_name # TODO JSONから取り出したビデオ情報にファイル名を入れている メソッド内で全部実行して整合性をとったほうがよさそう
             save_json['title'].append(video_info)
             time.sleep(0.2)
     except Exception as ex:
         print(ex)
         pass
 
-with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{file_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
+with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{file_and_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
     json.dump(save_json, f, indent=4, ensure_ascii=False)
 
 
