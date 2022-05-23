@@ -93,7 +93,7 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= '巨乳' # 不要→ keyword.encode('utf-8')
+    g.keyword= '爆乳' # 不要→ keyword.encode('utf-8')
     g.offset_count = 1
     g.hits_count = 20
 
@@ -102,16 +102,12 @@ if __name__ == '__main__':
     for i, video_info in enumerate(g.search_keyword):
         print(i, video_info)
         save_json['title'].append(video_info)
-        with open(f'/home/don/py/DMM/DMMAPI/fanza_genre{g.keyword}.json', 'w+', encoding='utf-8') as f:
-            json.dump(save_json, f, indent=4, ensure_ascii=False)
+
+    with open(f'/home/don/py/DMM/DMMAPI/fanza_genre{g.keyword}.json', 'w+', encoding='utf-8') as f:
+        json.dump(save_json, f, indent=4, ensure_ascii=False)
 
 
 
 """
-課題
-JSONの順番がズレてる
-
-
-
 
 """
