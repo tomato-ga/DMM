@@ -49,11 +49,13 @@ def cut2min():
 
 """
 使い方
-①動画があるディレクトリを指定（dir）最後スラッシュいれるの忘れずに
-②ファイル名を指定（save_file_name）
+①namesに名前をテーマっぽいのをいれる
+②file_dirに動画保存してるディレクトリをいれる
+③cut_file_dirにカットした動画の保存先ディレクトリを入れる
+
 """
 
-names = 'spanking'
+names = 'irama'
 file_dir = f'/mnt/hdd/don/files/fanza/{names}/'
 cut_file_dir = f'/mnt/hdd/don/files/fanza/cut_{names}/'
 cut_file_name = f'{names}_cut'
