@@ -120,6 +120,7 @@ if __name__ == '__main__':
     save_json['title'] = []
     for i, video_info in enumerate(g.search_keyword):
         print(i, video_info)
+        # TODO ここでif not in でなかったら追加する形にする
         save_json['title'].append(video_info)
         with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{g.keyword}.json', 'w+', encoding='utf-8') as f:
             json.dump(save_json, f, indent=4, ensure_ascii=False)

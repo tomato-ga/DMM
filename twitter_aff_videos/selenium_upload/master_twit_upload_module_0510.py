@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(50,670) # 50, 670
+wait_2 = random.randint(5,6) # 50, 670
 randomwait = round(wait_1 + wait_2, 5)
 
 

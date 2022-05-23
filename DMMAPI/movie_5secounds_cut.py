@@ -55,9 +55,9 @@ def cut2min():
 
 """
 
-names = 'irama'
+names = 'bust90to99'
 file_dir = f'/mnt/hdd/don/files/fanza/{names}/'
-cut_file_dir = f'/mnt/hdd/don/files/fanza/cut_{names}/'
+cut_file_dir = f'/mnt/hdd/don/files/fanza/{names}_cut/'
 cut_file_name = f'{names}_cut'
 
 load_json_dict = json.load(open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{names}_videofile.json'))

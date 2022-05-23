@@ -95,7 +95,7 @@ class Genre_dmm:
                 pass
 
             finally:
-                with open(f'/home/don/py/DMM/DMMAPI/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
+                with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
                     json.dump(search_response, f, indent=4, ensure_ascii=False)
 
 
@@ -110,14 +110,25 @@ if __name__ == '__main__':
     g.hits_count = 20
     g.actress_offset_count = 1
     g.actress_hits_count = 100
-
     g.gte_date = '2016-04-01T00:00:00'
     g.gte_birth = '2000-01-01'
 
     save_json = {}
     save_json['title'] = []
+
+
+    try:
+        old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{g.keyword}.json'))
+        if old_json:
+            print(old_json['title'])
+    except Exception as e:
+        print(e)
+        pass
+
     for i, video_info in enumerate(g.search_keyword):
         print(i, video_info)
-        save_json['title'].append(video_info)
-        with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{g.keyword}.json', 'w+', encoding='utf-8') as f:
-            json.dump(save_json, f, indent=4, ensure_ascii=False)
+        if video_info not in old_json: # TODO unhashable←
+            save_json['title'].append(video_info)
+
+    with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{g.keyword}.json', 'w+', encoding='utf-8') as f:
+        json.dump(save_json, f, indent=4, ensure_ascii=False)
