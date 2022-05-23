@@ -55,12 +55,15 @@ def cut2min():
 
 """
 
-names = 'bust90to99'
+names = 'g_cup'
 file_dir = f'/mnt/hdd/don/files/fanza/{names}/'
 cut_file_dir = f'/mnt/hdd/don/files/fanza/{names}_cut/'
 cut_file_name = f'{names}_cut'
 
-load_json_dict = json.load(open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{names}_videofile.json'))
+if os.path.exists(cut_file_dir) is False:
+    os.makedirs(cut_file_dir, exist_ok=True)
+
+load_json_dict = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{names}_videofile.json'))
 print(len(load_json_dict['title']))
 
 cut5secounds(file_dir, cut_file_dir, cut_file_name, load_json_dict['title'], names)
