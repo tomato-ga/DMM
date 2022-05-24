@@ -35,7 +35,7 @@ def cut5secounds(file_directory, cut_file_directory, cut_file_name, load_json_di
             print(ex)
             pass
 
-    with open(f'/home/don/py/DMM/DMMAPI/master_fanza_genre_{names}_videofile.json', 'w+', encoding='utf-8') as f:
+    with open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{names}_videofile.json', 'w+', encoding='utf-8') as f:
         json.dump(save_json, f, indent=4, ensure_ascii=False)
 
 
@@ -55,7 +55,7 @@ def cut2min():
 
 """
 
-names = 'g_cup'
+names = '2000'
 file_dir = f'/mnt/hdd/don/files/fanza/{names}/'
 cut_file_dir = f'/mnt/hdd/don/files/fanza/{names}_cut/'
 cut_file_name = f'{names}_cut'

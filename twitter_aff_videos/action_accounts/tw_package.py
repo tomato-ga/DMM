@@ -50,9 +50,6 @@ def My_rt(API, ids, max_rt_count: int):
         access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token)
     max_rt_count = max_rt_count
 
-    # TODO : もしAPIキーがこれだったらidを選んでidをforで回すという処理にしたい"""
-
-
     for id_mine in ids:
         try:
             timeline = client.get_users_tweets(id=id_mine, max_results=5, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"]) # context_annotations削除 tweet_fields=["text","source","entities"]
