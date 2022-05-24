@@ -74,12 +74,12 @@ class video:
 ④カット後、videofile.jsonのfile_nameに_cutを付与
 
 """
-load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genreGカップ.json'))
+load_json = json.load(open('/home/don/py/DMM/DMMAPI/JSON/fanza_genreHカップ.json'))
 print(len(load_json['title']))
 
 save_json = {}
 save_json['title'] = []
-file_and_json_name = 'g_cup'
+file_and_json_name = 'h_cup'
 
 vv = video()
 for i, video_info in enumerate(load_json['title']):
@@ -94,7 +94,7 @@ for i, video_info in enumerate(load_json['title']):
         print(ex)
         pass
 
-with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{file_and_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
+with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{file_and_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
     json.dump(save_json, f, indent=4, ensure_ascii=False)
 
 
