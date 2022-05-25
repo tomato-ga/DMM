@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor
 import re
 
 
-json_f = open('old_mizugazo_all_photos.json', 'r')
+json_f = open('/home/don/py/DMM/twitter_pic_api_test/new_mizugazo_all_photos.json', 'r')
 load = json.load(json_f)
 loads = load['photo']
 

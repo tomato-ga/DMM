@@ -55,7 +55,7 @@ def cut2min():
 
 """
 
-names = '2000'
+names = 'e_cup'
 file_dir = f'/mnt/hdd/don/files/fanza/{names}/'
 cut_file_dir = f'/mnt/hdd/don/files/fanza/{names}_cut/'
 cut_file_name = f'{names}_cut'
