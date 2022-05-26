@@ -10,6 +10,8 @@ import api_OtxSf # RT設定しない
 # tw_package.My_rt(api_tomorrow_genkio, api_tomorrow_genkio.ids)
 
 #tw_package.Thirdparty_rt(api_1j_mc)
+max_rt_count = 1
+
 tw_package.My_rt(api_1j_mc, api_1j_mc.ids)
 
 #tw_package.Thirdparty_rt(api_togsi7)
@@ -17,7 +19,14 @@ tw_package.My_rt(api_togsi7, api_togsi7.ids)
 
 tw_package.My_rt(api_HjQhq, api_HjQhq.ids)
 
+tw_package.My_rt(api_OtxSf, api_OtxSf.ids)
+
 """_summary_
-2022/05/10 21:02 他人のツイートのRTやめる
+2022/05/10 21:02
+他人のツイートのRTやめる
+
+2022/05/26 19:49
+OtxでRT実施
+エロアカであやのRTといいね実施
 
 """

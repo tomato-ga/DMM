@@ -71,6 +71,8 @@ def My_rt(API, ids, max_rt_count: int):
                 time.sleep(wait)
                 try:
                     client.retweet(post_mine)
+                    client.like(post_mine)
+                    time.sleep(wait_long)
                     rt_count += 1
                 except Exception as e:
                     print(e)
