@@ -12,14 +12,14 @@ import api_OtxSf # RT設定しない
 #tw_package.Thirdparty_rt(api_1j_mc)
 max_rt_count = 1
 
-tw_package.My_rt(api_1j_mc, api_1j_mc.ids)
+tw_package.My_rt(API=api_1j_mc, ids=api_1j_mc.ids, max_rt_count=max_rt_count)
 
 #tw_package.Thirdparty_rt(api_togsi7)
-tw_package.My_rt(api_togsi7, api_togsi7.ids)
+tw_package.My_rt(API=api_togsi7, ids=api_togsi7.ids, max_rt_count=max_rt_count)
 
-tw_package.My_rt(api_HjQhq, api_HjQhq.ids)
+tw_package.My_rt(API=api_HjQhq, ids=api_HjQhq.ids, max_rt_count=max_rt_count)
 
-tw_package.My_rt(api_OtxSf, api_OtxSf.ids)
+tw_package.My_rt(API=api_OtxSf, ids=api_OtxSf.ids, max_rt_count=max_rt_count)
 
 """_summary_
 2022/05/10 21:02
