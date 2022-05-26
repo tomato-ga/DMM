@@ -1,10 +1,5 @@
-from bs4 import BeautifulSoup
-import pandas as pd
 import time
-import pymongo
 import random
-import pandas as pd
-import glob
 import os
 from retry import retry
 
@@ -17,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 wait_1 = random.random()
-wait_2 = random.randint(50,400) # TODO テスト中は短め
+wait_2 = random.randint(50,400)
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -73,13 +68,14 @@ class Tweet:
             print('ログインしました')
             self.driver.save_screenshot('3.png')
 
+
+            ############################ディレクトリ指定############################
             pic_dir = pic_dir
             photo_lists = os.listdir(pic_dir) # 画像ファイル一覧
             random.shuffle(photo_lists) # 画像ファイル一覧をランダム化
             ext = os.path.splitext(photo_lists[0])
             up_photo = os.path.abspath(pic_dir + photo_lists[0])
             print(up_photo)
-
             ############################ディレクトリ指定############################
             match ext[1]:
 
@@ -92,16 +88,15 @@ class Tweet:
                     # ファイルパスを入力
                     self.wait.until(EC.presence_of_all_elements_located)
                     time.sleep(3)
-                    upload_path = os.path.abspath(up_photo)     # Windows (f'X:\\don\\files\\twitvideo\\{upload_video_file_name}') #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
+                    upload_path = os.path.abspath(up_photo)
                     self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(upload_path)
                     time.sleep(2)
                     #assert len(text) < 140, '140文字以下じゃない'
 
-
                     # テキスト入力
                     self.wait.until(EC.presence_of_all_elements_located)
                     time.sleep(1)
-                    text = text # f'{text}' テキストいれるとき
+                    text = text
                     elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                     self.driver.execute_script('arguments[0].click();', elem_text)
                     elem_text.send_keys(text)
@@ -110,7 +105,6 @@ class Tweet:
                     # 投稿
                     tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                     self.driver.execute_script('arguments[0].click();', tweet_button)
-                    #tweet_button.click()
                     time.sleep(30) #画像がアップロードされるまでの待機時間
                     self.wait.until(EC.presence_of_all_elements_located)
 
