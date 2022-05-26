@@ -1,5 +1,5 @@
 import auto_follow_unfollow_module
-import api_gidolsa as API
+import api_1j_mc as API
 import os
 
 
@@ -8,8 +8,8 @@ my_idとnameにアカウントIDと名前を入れる
 """
 
 client = auto_follow_unfollow_module.apicall(API)
-my_id = 1514514623743291395
-name = 'gilodsa'
+my_id = 1515697390480945160
+name = '1j_mc'
 max_count = 15
 get_dir = os.getcwd()
 print(get_dir)
