@@ -2,8 +2,8 @@ import tweepy
 import time
 import random
 
-wait = random.uniform(30, 50)
-wait_long = random.uniform(30, 50)
+wait = random.uniform(50, 700)
+wait_long = random.uniform(50, 700)
 
 
 def Thirdparty_rt(API):
@@ -64,7 +64,10 @@ def My_rt(API, ids, max_rt_count: int):
             pass
 
         rt_count = 0
+
         for rt_tweet in rts_tweet:
+            if rt_count == max_rt_count:
+                break
             rttw = rt_tweet.data
             if 'attachments' in rttw:
                 post_mine = rt_tweet.id
@@ -74,12 +77,24 @@ def My_rt(API, ids, max_rt_count: int):
                     client.like(post_mine)
                     time.sleep(wait_long)
                     rt_count += 1
+                    print('[My_rt]: 自分のRTとReply完了!!')
                 except Exception as e:
                     print(e)
-                else:
+                    pass
+
+            elif '1522927470231670784' in rttw['author_id']:
+                post_mine = rt_tweet.id
+                time.sleep(wait)
+                try:
+                    client.retweet(post_mine)
+                    client.like(post_mine)
+                    time.sleep(wait_long)
+                    rt_count += 1
                     print('[My_rt]: 自分のRTとReply完了!!')
-                    if rt_count == max_rt_count:
-                        break
+                except Exception as e:
+                    print(e)
+                    pass
+
 
 
 
