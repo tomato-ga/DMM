@@ -82,7 +82,7 @@ def My_rt(API, ids, max_rt_count: int):
                     print(e)
                     pass
 
-            elif '1522927470231670784' in rttw['author_id']:
+            elif '1522927470231670784' in rttw['author_id']: # 1522927470231670784←あや
                 post_mine = rt_tweet.id
                 time.sleep(wait)
                 try:
