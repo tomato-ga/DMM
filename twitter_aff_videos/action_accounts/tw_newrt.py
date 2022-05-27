@@ -5,7 +5,7 @@ import api_togsi7
 import api_OtxSf
 
 #メインアカ
-max_rt_count = 2 #最大RT数
+max_rt_count = 1 #最大RT数
 tw_package.My_rt(API=api_tomorrow_genkio, ids=api_tomorrow_genkio.ids, max_rt_count=max_rt_count)
 
 ####################TODO 2022/05/23 0:01 新規動画投稿RTを一時停止###############################

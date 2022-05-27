@@ -2,7 +2,7 @@ import tweepy
 import time
 import random
 
-wait = random.uniform(50, 700)
+wait = random.uniform(30, 40)
 wait_long = random.uniform(50, 700)
 
 
@@ -75,7 +75,6 @@ def My_rt(API, ids, max_rt_count: int):
                 try:
                     client.retweet(post_mine)
                     client.like(post_mine)
-                    time.sleep(wait_long)
                     rt_count += 1
                     print('[My_rt]: 自分のRTとReply完了!!')
                 except Exception as e:
@@ -88,7 +87,6 @@ def My_rt(API, ids, max_rt_count: int):
                 try:
                     client.retweet(post_mine)
                     client.like(post_mine)
-                    time.sleep(wait_long)
                     rt_count += 1
                     print('[My_rt]: 自分のRTとReply完了!!')
                 except Exception as e:
