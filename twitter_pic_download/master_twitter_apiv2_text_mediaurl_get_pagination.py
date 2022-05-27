@@ -4,6 +4,7 @@ import json
 
 
 class Tweet_text:
+    """v2"""
 
     def __init__(self):
 
@@ -44,20 +45,20 @@ class Tweet_text:
                         img_url = tweets_img['url']
                         print(img_url)
 
-                    tweet['tweet'].append({"img": img_url})
-                    print(tweet)
+                        tweet['tweet'].append({"img": img_url})
+                        print(tweet)
 
                 target_tweets = self.client.get_users_tweets(target_response.data['id'], expansions=["attachments.media_keys"], max_results=10, media_fields=['preview_image_url', 'url'], exclude=['retweets', 'replies'], pagination_token=next_token)
                 next_token = target_tweets.meta['next_token']
             except KeyError as e:
-                print(e)
+                print(f'[text_media_get] Exception: {e}')
                 break
 
 
         return tweet
 
 
-username = 'sumire_ma2'
+username = 'saaya_saaya1201'
 t = Tweet_text()
 tweet = t.text_media_get(username)
 

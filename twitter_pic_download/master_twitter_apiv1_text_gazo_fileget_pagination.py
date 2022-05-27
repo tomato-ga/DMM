@@ -16,7 +16,7 @@ class Tweet_text:
         self.api = tweepy.API(auth, wait_on_rate_limit=True)
         self.__username = username
 
-    def text_image_get(self):
+    def text_image_get_tojson(self):
 
 
         count_no = 5000
@@ -77,7 +77,7 @@ for id in ids:
     t = Tweet_text(id)
 
 #t = Tweet_text('hinachimuu_pic')
-    t.text_image_get()
+    t.text_image_get_tojson()
 
 
 
