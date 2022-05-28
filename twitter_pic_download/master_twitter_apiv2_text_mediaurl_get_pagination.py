@@ -58,12 +58,10 @@ class Tweet_text:
         return tweet
 
 
-username = 'saaya_saaya1201'
+username = 'poyopoyoman88'
 t = Tweet_text()
 tweet = t.text_media_get(username)
 
 with open(f'/home/don/py/DMM/twitter_pic_download/tweet_{username}.json', 'w', encoding='utf-8') as f:
             json.dump(tweet, f, indent=4, ensure_ascii=False)
 
-
-        # for tweets in tweepy.Paginator(self.client.get_users_tweets, target_response.data['id'], max_results=10, media_fields=['preview_image_url', 'url'], expansions=['attachments.media_keys'], tweet_fields=["entities"]).flatten(limit=250):

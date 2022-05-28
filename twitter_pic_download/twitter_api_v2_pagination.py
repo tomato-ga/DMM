@@ -1,12 +1,12 @@
 import tweepy
-import API_config_katudon
+import API_config_1oku
 import json
 
 
 class Tweet_text:
 
     def __init__(self):
-        self.client = tweepy.Client(consumer_key=API_config_katudon.API_KEY, consumer_secret=API_config_katudon.API_SECRET, access_token=API_config_katudon.ACCESS_TOKEN, access_token_secret=API_config_katudon.ACCESS_TOKEN_SECRET, bearer_token=API_config_katudon.Bearer_token, wait_on_rate_limit=True)
+        self.client = tweepy.Client(consumer_key=API_config_1oku.API_KEY, consumer_secret=API_config_1oku.API_SECRET, access_token=API_config_1oku.ACCESS_TOKEN, access_token_secret=API_config_1oku.ACCESS_TOKEN_SECRET, bearer_token=API_config_1oku.Bearer_token, wait_on_rate_limit=True)
 
     def text_get(self, username):
         tweet = {}
