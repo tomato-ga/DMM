@@ -20,6 +20,7 @@ if __name__ == '__main__':
     '#本郷柚巴': '/mnt/hdd/don/files/mizugazo/本郷柚巴/',
     '#小芝風花': '/mnt/hdd/don/files/mizugazo/小芝風花/',
     # '#山本舞香': '/mnt/hdd/don/files/mizugazo/山本舞香/',
+    # TODO 追加する？
     }
 
     hashtag, pic_dir = random.choice(list(photos.items()))
