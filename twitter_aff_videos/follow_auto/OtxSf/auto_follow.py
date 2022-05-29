@@ -10,7 +10,7 @@ my_idとnameにアカウントIDと名前を入れる
 client = auto_follow_unfollow_module.apicall(API)
 my_id = 1515978583730458630
 name = 'OtxSf'
-max_count = 15
+max_count = 2
 get_dir = os.getcwd()
 print(get_dir)
 
@@ -28,4 +28,4 @@ if follow_done_list:
         follow_dict['id'].append(i)
 
         # following_list = list(set(follow_list)) #setはJSON保存できないのでリストにする
-        auto_follow_unfollow_module.json_save(ids=follow_dict, json_name=f'{name}_following_id')
+        auto_follow_unfollow_module.json_save(ids=follow_dict, json_name=f'/home/don/py/DMM/twitter_aff_videos/follow_auto/{name}/{name}_following_id')

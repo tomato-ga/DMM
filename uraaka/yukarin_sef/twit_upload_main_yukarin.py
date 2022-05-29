@@ -8,4 +8,3 @@ if __name__ == '__main__':
     i = Tweet()
     i.Uploads(account='yukarin_sef', password='asdflkjh', pic_dir=pic_dir)
     i.Quit()
-
