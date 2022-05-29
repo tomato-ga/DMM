@@ -3,7 +3,7 @@ import pymongo
 
 def follow_kouho_db_set():
     """フォロー候補IDを格納するDB読み込み"""
-    db_url = 'mongodb://pyton:radioipad1215@192.168.0.23:27017'
+    db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
     client = pymongo.MongoClient(db_url)
     db = client.twitter
     collection = db.newfollowtomorrow
@@ -19,7 +19,7 @@ def follow_kouho_id_save_db(new_follower: list):
 
 def my_following_id_db_set():
     """自分のフォローIDのDB読み込み"""
-    db_url = 'mongodb://pyton:radioipad1215@192.168.0.23:27017'
+    db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
     client = pymongo.MongoClient(db_url)
     db = client.twitter
     collection = db.myfollowtomorrow
@@ -35,7 +35,7 @@ def my_following_id_save_db(my_following_ids: list):
 
 def my_follower_id_db_set():
     """自分のフォロワーIDのDB読み込み"""
-    db_url = 'mongodb://pyton:radioipad1215@192.168.0.23:27017'
+    db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
     client = pymongo.MongoClient(db_url)
     db = client.twitter
     collection = db.myfollowertomorrow

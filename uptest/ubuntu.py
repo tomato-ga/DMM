@@ -35,7 +35,7 @@ class Tweet:
 
 
     def db_set(self):
-        db_url = 'mongodb://pyton:radioipad1215@192.168.0.23:27017'
+        db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
         client = pymongo.MongoClient(db_url)
         db = client.twitter
         collection = db.videos
