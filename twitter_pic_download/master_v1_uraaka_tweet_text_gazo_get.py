@@ -40,13 +40,16 @@ class Tweet_text:
                 text = texts.split()
                 tweet_text = text[0]
 
+                name_search = re.findall('([a-zA-z0-9_-]*)(.[a-z]{3,4}$)', image_url)
+                file_ex =  name_search[0][1]
+
                 print(tweet)
 
                 img_response = requests.get(image_url)
                 match img_response.status_code:
                     case 200:
                         os.makedirs(f'/home/don/py/DMM/twitter_pic_download/{self.__username}', mode=0o777, exist_ok=True)
-                        with open(f'/home/don/py/DMM/twitter_pic_download/{self.__username}/{index}.jpg', 'wb') as image:
+                        with open(f'/home/don/py/DMM/twitter_pic_download/{self.__username}/{index}{file_ex}', 'wb') as image:
                             image.write(img_response.content)
 
                         tweet['tweet'].append({"text": tweet_text, 'img': image_url, 'img_file': f'{index}.jpg'})
@@ -64,9 +67,12 @@ class Tweet_text:
                 tweet['tweet'].append({"text": tweet_text})
                 index += 1
 
+            else:
+                pass
+
         with open(f'/home/don/py/DMM/twitter_pic_download/{self.__username}.json', 'w', encoding='utf-8') as f:
             json.dump(tweet, f, indent=4, ensure_ascii=False)
 
 # ID入れる
-t = Tweet_text('poyopoyoman88')
+t = Tweet_text('yukarinn_0214')
 t.text_image_get_tojson()
