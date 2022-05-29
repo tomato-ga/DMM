@@ -2,8 +2,8 @@ import tweepy
 import time
 import random
 
-wait = random.uniform(30, 50)
-wait_long = random.uniform(30, 50)
+wait = random.uniform(30, 40)
+wait_long = random.uniform(50, 700)
 
 
 def Thirdparty_rt(API):
@@ -50,9 +50,6 @@ def My_rt(API, ids, max_rt_count: int):
         access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token)
     max_rt_count = max_rt_count
 
-    # TODO : もしAPIキーがこれだったらidを選んでidをforで回すという処理にしたい"""
-
-
     for id_mine in ids:
         try:
             timeline = client.get_users_tweets(id=id_mine, max_results=5, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"]) # context_annotations削除 tweet_fields=["text","source","entities"]
@@ -67,20 +64,35 @@ def My_rt(API, ids, max_rt_count: int):
             pass
 
         rt_count = 0
+
         for rt_tweet in rts_tweet:
+            if rt_count == max_rt_count:
+                break
             rttw = rt_tweet.data
             if 'attachments' in rttw:
                 post_mine = rt_tweet.id
                 time.sleep(wait)
                 try:
                     client.retweet(post_mine)
+                    client.like(post_mine)
                     rt_count += 1
+                    print('[My_rt]: 自分のRTとReply完了!!')
                 except Exception as e:
                     print(e)
-                else:
+                    pass
+
+            elif '1522927470231670784' in rttw['author_id']: # 1522927470231670784←あや
+                post_mine = rt_tweet.id
+                time.sleep(wait)
+                try:
+                    client.retweet(post_mine)
+                    client.like(post_mine)
+                    rt_count += 1
                     print('[My_rt]: 自分のRTとReply完了!!')
-                    if rt_count == max_rt_count:
-                        break
+                except Exception as e:
+                    print(e)
+                    pass
+
 
 
 

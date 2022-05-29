@@ -14,10 +14,16 @@ if __name__ == '__main__':
     '#宮脇咲良': '/mnt/hdd/don/files/mizugazo/宮脇咲良/',
     '#岸明日香': '/mnt/hdd/don/files/mizugazo/岸明日香/',
     '#貴島明日香': '/mnt/hdd/don/files/mizugazo/貴島明日香/',
-    '#佐野ひなこ': '/mnt/hdd/don/files/mizugazo/佐野ひなこ/'
+    '#井川遥': '/mnt/hdd/don/files/mizugazo/井川遥/',
+    '#桃月なしこ': '/mnt/hdd/don/files/mizugazo/桃月なしこ/',
+    '#福田ルミカ': '/mnt/hdd/don/files/mizugazo/福田ルミカ/',
+    '#本郷柚巴': '/mnt/hdd/don/files/mizugazo/本郷柚巴/',
+    '#小芝風花': '/mnt/hdd/don/files/mizugazo/小芝風花/',
+    # '#山本舞香': '/mnt/hdd/don/files/mizugazo/山本舞香/',
     }
 
     hashtag, pic_dir = random.choice(list(photos.items()))
+    assert os.path.isdir(pic_dir)
     print(hashtag, pic_dir)
 
 

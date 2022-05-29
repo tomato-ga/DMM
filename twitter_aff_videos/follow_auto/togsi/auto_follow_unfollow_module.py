@@ -97,6 +97,7 @@ def new_follow_id(client) -> dict[str]:
         dict[str]: 新しくフォローするアカウントIDをdictで返す
     """
 
+    # 1514978714572173313 ボスのリスト 
     response = client.get_list_tweets(id=1514978714572173313, max_results=15,  expansions=["attachments.media_keys","referenced_tweets.id"])
     tweets = response.data
     random.shuffle(tweets)

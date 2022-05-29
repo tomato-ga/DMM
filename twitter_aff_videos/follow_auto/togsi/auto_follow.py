@@ -2,10 +2,16 @@ import auto_follow_unfollow_module
 import api_togsi7 as API
 import os
 
+
+"""
+my_idとnameにアカウントIDと名前を入れる
+"""
+
+
 client = auto_follow_unfollow_module.apicall(API)
 my_id = 1515696887781015558
 name = 'togsi'
-max_count = 2
+max_count = 13
 get_dir = os.getcwd()
 print(get_dir)
 

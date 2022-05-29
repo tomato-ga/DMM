@@ -41,7 +41,7 @@ class Genre_dmm:
 
         while True:
             search_keyword_response = requests.get(f'https://api.dmm.com/affiliate/v3/ItemList?api_id={self.APIID}&affiliate_id={self.AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits={self.hits_count}&sort=rank&keyword={self.keyword}&offset={self.offset_count}&output=json')
-            time.sleep(0.3)
+            time.sleep(0.2)
             search_json_box = Box.from_json(search_keyword_response.text)
             items = search_json_box.result['items']
             print(type(items))
@@ -54,6 +54,7 @@ class Genre_dmm:
                         af_url = item.affiliateURL
                         title = item.title
                         video_info = item.sampleMovieURL
+                        video_date = item.date
                         del video_info.pc_flag, video_info.sp_flag
 
                         if video_info:
@@ -74,7 +75,8 @@ class Genre_dmm:
                                     yield dict(
                                         title=title,
                                         aff_url=af_url,
-                                        video_url=v_url
+                                        video_url=v_url,
+                                        date=video_date
                                 )
 
                 except Exception as ex:
@@ -93,7 +95,7 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= '巨乳' # 不要→ keyword.encode('utf-8')
+    g.keyword= 'メンズエステ' # 不要→ keyword.encode('utf-8')
     g.offset_count = 1
     g.hits_count = 20
 
@@ -102,16 +104,12 @@ if __name__ == '__main__':
     for i, video_info in enumerate(g.search_keyword):
         print(i, video_info)
         save_json['title'].append(video_info)
-        with open(f'/home/don/py/DMM/DMMAPI/fanza_genre{g.keyword}.json', 'w+', encoding='utf-8') as f:
-            json.dump(save_json, f, indent=4, ensure_ascii=False)
+
+    with open(f'/home/don/py/DMM/DMMAPI/fanza_genre{g.keyword}.json', 'w+', encoding='utf-8') as f:
+        json.dump(save_json, f, indent=4, ensure_ascii=False)
 
 
 
 """
-課題
-JSONの順番がズレてる
-
-
-
 
 """

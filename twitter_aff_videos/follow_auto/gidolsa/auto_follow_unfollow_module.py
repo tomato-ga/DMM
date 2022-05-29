@@ -96,7 +96,7 @@ def new_follow_id(client) -> dict[str]:
     Returns:
         dict[str]: 新しくフォローするアカウントIDをdictで返す
     """
-
+    # 1521876334074818560 グラビアアイドルのリスト
     response = client.get_list_tweets(id=1521876334074818560, max_results=15,  expansions=["attachments.media_keys","referenced_tweets.id"])
     tweets = response.data
     random.shuffle(tweets)
@@ -227,7 +227,7 @@ def follower_json_save(client, my_id, name):
     """フォロワーをJSON保存"""
     my_id = my_id #togsi ID
     follower_dict = follower_mine(client, my_id)
-    json_save(ids=follower_dict, json_name=f'{name}_follower_id')
+    json_save(ids=follower_dict, json_name=f'/home/don/py/DMM/twitter_aff_videos/follow_auto/gidolsa/{name}_follower_id')
     return follower_dict
 
 def unfollow_id_only(name) -> list:
@@ -267,4 +267,10 @@ unfollow_list = list(set(follower_list) - set(following_list))
 ↓
 unfollow_list = list(set(following_list) - set(follower_list))
 
+"""
+
+"""
+更新履歴
+2022/05/15 16:01
+JSON保存場所がMacのディレクトリだったため、削除
 """

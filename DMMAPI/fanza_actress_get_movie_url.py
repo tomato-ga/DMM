@@ -91,7 +91,6 @@ class Genre_dmm:
                                         video_url=v_url
                                 ))
 
-
                 except Exception as ex:
                     print(ex)
                     pass
@@ -117,5 +116,4 @@ if __name__ == '__main__':
     actress_json = load_json['title']
     for actress in actress_json:
         g.search_keyword(actress['actress_id'])
-
 
