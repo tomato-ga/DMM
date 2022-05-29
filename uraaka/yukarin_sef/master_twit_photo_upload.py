@@ -12,7 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 wait_1 = random.random()
-wait_2 = random.randint(50,400)
+wait_2 = random.randint(5,6)
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -68,10 +68,6 @@ class Tweet:
             print('ログインしました')
             self.driver.save_screenshot('3.png')
 
-            ###########JSON読み込み################
-            jsonload = json.load(open('/home/don/py/DMM/uraaka/yukarin_sef/master_yukarinn_0214.json'))
-
-
             ############################ディレクトリ指定############################
             pic_dir = pic_dir
             photo_lists = os.listdir(pic_dir) # 画像ファイル一覧
@@ -88,6 +84,22 @@ class Tweet:
                 case '.jpg' | '.jpeg' | '.png':
                     print('jpgかpngです')
 
+
+                    ###########JSON読み込み################
+                    jsonload = json.load(open('/home/don/py/DMM/uraaka/yukarin_sef/master_yukarinn_0214.json'))
+                    l = random.choice(jsonload['tweet'])
+                    print(l)
+
+                    match l:
+                        case {'text': x} if len(l) == 1:
+                            print(x)
+                        case {'text': x, 'img': z, 'img_file': y} if len(l) == 3:
+                            print(f'text:{x}')
+                            print(f'img:{z}')
+                            print(f'img_file:{y}')
+                    ###########JSON読み込み################
+
+
                     # ファイルパスを入力
                     self.wait.until(EC.presence_of_all_elements_located)
                     time.sleep(3)
@@ -99,7 +111,7 @@ class Tweet:
                     # テキスト入力
                     self.wait.until(EC.presence_of_all_elements_located)
                     time.sleep(1)
-                    text = text
+                    text = x
                     elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                     self.driver.execute_script('arguments[0].click();', elem_text)
                     elem_text.send_keys(text)
@@ -130,4 +142,9 @@ class Tweet:
 2022/05/11 19:35
 click()からexecute_scriptへ変更
 解像度を縦1800へ変更
+
+
+2022/05/29 22:30
+裏垢用にJSON読み込みとテキスト選択のmatch case文追加
+
 """
