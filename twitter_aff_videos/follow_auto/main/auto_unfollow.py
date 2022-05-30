@@ -9,7 +9,7 @@ import api_1j_mc
 my_idとnameにアカウントIDと名前を入れる
 """
 
-max_count = 2
+max_count = 30
 get_dir = os.getcwd()
 print(get_dir)
 

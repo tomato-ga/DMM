@@ -102,7 +102,7 @@ def new_follow_id(client) -> dict[str]:
     random.shuffle(tweets)
 
     follow_id_lists = []
-    max_count= 40
+    max_count= 50
 
     for tweet in tweets:
         tid = tweet.id
