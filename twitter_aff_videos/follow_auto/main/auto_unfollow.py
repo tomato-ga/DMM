@@ -1,0 +1,60 @@
+import auto_follow_unfollow_module
+import os
+import api_OtxSf
+import api_togsi7
+import api_HjQhq
+import api_1j_mc
+
+"""
+my_idとnameにアカウントIDと名前を入れる
+"""
+
+max_count = 2
+get_dir = os.getcwd()
+print(get_dir)
+
+id_name_listdict = [
+    {
+        'my_id': 1515978583730458630,
+        'name': 'OtxSf',
+        },
+    {
+        'my_id': 1515697390480945160,
+        'name': '1j_mc',
+        },
+    {
+        'my_id': 1515514246775582722,
+        'name': 'HjQhq',
+        },
+    {
+        'my_id': 1515696887781015558,
+        'name': 'togsi',
+        }
+    ]
+
+
+for ids, APIs in zip(id_name_listdict, [api_OtxSf, api_1j_mc, api_HjQhq, api_togsi7]):
+    print(ids['my_id'])
+    print(ids['name'])
+    print(APIs)
+
+    client = auto_follow_unfollow_module.apicall(APIs)
+
+    ### 最新のJSONにする
+    follower_dict = auto_follow_unfollow_module.follower_json_save(client=client, my_id=ids['my_id'], name=ids['name'])
+    unfollow_list = auto_follow_unfollow_module.unfollow_id_only(name=ids['name'])
+
+    ### アンフォロー実施 ###
+    unfollow_done_list = auto_follow_unfollow_module.unfollows(client=client, unfollow_list=unfollow_list, max_count=max_count)
+
+
+    ### アンフォローしたらJSONへ保存する
+    unfollow_done = []
+    if unfollow_done_list:
+        for i in unfollow_done_list:
+            unfollow_done.append(i)
+
+        unfollowing_list = list(set(unfollow_list)) #setはJSON保存できないのでリストにする
+        new_unfollowing = {}
+        new_unfollowing['id'] = unfollow_done
+        auto_follow_unfollow_module.json_save(ids=new_unfollowing, json_name=f'{ids["name"]}_unfollow_done_id')

@@ -167,9 +167,10 @@ def unfollows(client, unfollow_list: list, max_count) -> list:
 
     unfollow_user = 0
     unfollow_done_list = []
+    random.shuffle(unfollow_list)
 
     for id in unfollow_list:
-        unfollow_response = client.unfollow_user(target_user_id=id)
+        unfollow_response = client.unfollow_user(target_user_id=id) # TODO アンフォローできないときがある unfollow_listのidが原因なのはわかるけど、原因特定させる
         print('アンフォローしました')
         if unfollow_response.data['following'] == False:
             unfollow_user += 1
@@ -238,12 +239,12 @@ def unfollow_id_only(name) -> list:
         list: アンフォローするIDのリスト
     """
     ### following フォローしてる人のJSONを読み込む
-    following = ujson.load(open(f'{name}_following_id.json'))
+    following = ujson.load(open(f'/home/don/py/DMM/twitter_aff_videos/follow_auto/main/{name}_following_id.json'))
     following_list = following['id']
     print(f"JSONに保存されているフォローした人は{len(following_list)}人います")
 
     ### follower フォロワーのJSONを読み込む
-    follower = ujson.load(open(f'{name}_follower_id.json'))
+    follower = ujson.load(open(f'/home/don/py/DMM/twitter_aff_videos/follow_auto/main/{name}_follower_id.json'))
     follower_list = follower['id']
 
     ### アンフォローするID（一方的にフォローしているID）だけ抽出
