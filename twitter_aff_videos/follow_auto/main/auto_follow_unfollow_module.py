@@ -254,7 +254,6 @@ def unfollow_id_only(name) -> list:
 
 
 """
-更新履歴
 
 更新履歴
 2022/05/15 16:01
@@ -268,10 +267,9 @@ unfollow_list = list(set(follower_list) - set(following_list))
 ↓
 unfollow_list = list(set(following_list) - set(follower_list))
 
-"""
 
-"""
-更新履歴
-2022/05/15 16:01
-JSON保存場所がMacのディレクトリだったため、削除
+2022/05/30 20:28
+1.jsonの保存場所を絶対パスへ変更
+2.unfollowのリストをshuffleへ変更
+
 """

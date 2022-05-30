@@ -32,4 +32,4 @@ if unfollow_done_list:
     unfollowing_list = list(set(unfollow_list)) #setはJSON保存できないのでリストにする
     new_unfollowing = {}
     new_unfollowing['id'] = unfollow_done
-    auto_follow_unfollow_module.json_save(ids=new_unfollowing, json_name=f'{name}_unfollow_done_id')
+    auto_follow_unfollow_module.json_save(ids=new_unfollowing, json_name=f'/home/don/py/DMM/twitter_aff_videos/follow_auto/gidolsa/{name}_unfollow_done_id')
