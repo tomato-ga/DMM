@@ -2,8 +2,8 @@ import tweepy
 import time
 import random
 
-wait = random.uniform(30, 40)
-wait_long = random.uniform(50, 700)
+wait = random.uniform(3, 4)
+wait_long = random.uniform(5, 7)
 
 
 def Thirdparty_rt(API):
@@ -58,6 +58,7 @@ def My_rt(API, ids, max_rt_count: int):
 
             rts_tweet = timeline.data
             random.shuffle(rts_tweet)
+            print(f'{username}のアクションをスタートします！')
             print(rts_tweet)
         except Exception as ex:
             print(ex)
@@ -69,39 +70,41 @@ def My_rt(API, ids, max_rt_count: int):
             if rt_count == max_rt_count:
                 break
             rttw = rt_tweet.data
-            if 'attachments' in rttw:
-                post_mine = rt_tweet.id
-                time.sleep(wait)
-                try:
-                    client.retweet(post_mine)
-                    client.like(post_mine)
-                    rt_count += 1
-                    print('[My_rt]: 自分のRTとReply完了!!')
-                except Exception as e:
-                    print(e)
-                    pass
+            match rttw['author_id']:
+                case '1515696887781015558' | '1514977383216205834' | '1515978583730458630' | '1515697390480945160':
+                    post_mine = rt_tweet.id
+                    time.sleep(wait)
+                    try:
+                        client.retweet(post_mine)
+                        client.like(post_mine)
+                        rt_count += 1
+                        print('[My_rt]: 自分のRTとReply完了!!')
+                    except Exception as e:
+                        print(e)
+                        pass
 
-            elif '1522927470231670784' or '1530817733243588608' in rttw['author_id']: # 1522927470231670784←あやとゆかり
-                post_mine = rt_tweet.id
-                time.sleep(wait)
-                try:
-                    client.retweet(post_mine)
-                    client.like(post_mine)
-                    rt_count += 1
-                    print('[My_rt]: 自分のRTとReply完了!!')
-                except Exception as e:
-                    print(e)
-                    pass
-            elif '1514514623743291395' in rttw['author_id']: # 1522927470231670784←あや
-                post_mine = rt_tweet.id
-                time.sleep(wait)
-                try:
-                    client.like(post_mine)
-                    rt_count += 1
-                    print('[My_rt]: 自分のRTとReply完了!!')
-                except Exception as e:
-                    print(e)
-                    pass
+                case '1522927470231670784' | '1530817733243588608': # 1522927470231670784←あやとゆかり
+                    post_mine = rt_tweet.id
+                    time.sleep(wait)
+                    try:
+                        client.retweet(post_mine)
+                        client.like(post_mine)
+                        rt_count += 1
+                        print('[My_rt]: 自分のRTとReply完了!!')
+                    except Exception as e:
+                        print(e)
+                        pass
+
+                case '1514514623743291395': # グラビア太郎
+                    post_mine = rt_tweet.id
+                    time.sleep(wait)
+                    try:
+                        client.like(post_mine)
+                        rt_count += 1
+                        print('[My_rt]: 自分のRTとReply完了!!')
+                    except Exception as e:
+                        print(e)
+                        pass
 
 
 
