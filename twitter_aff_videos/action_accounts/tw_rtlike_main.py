@@ -12,7 +12,7 @@ import api_OtxSf # RT設定しない
 3. max_rt_countで最大いいね数とRT数を入れる
 """
 
-max_rt_count = 1
+max_rt_count = 2
 
 tw_package.My_rt(API=api_HjQhq, ids=api_HjQhq.ids, max_rt_count=max_rt_count)
 

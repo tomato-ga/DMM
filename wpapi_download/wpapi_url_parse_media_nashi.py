@@ -11,9 +11,9 @@ response_offset = 0
 media_offset = 0
 all_photo = {}
 all_photo['photo'] = []
-json_path = '/home/don/py/DMM/twitter_pic_api_test/new_mizugazo_all_photos.json'
+json_path = '/home/don/py/DMM/wpapi_download/new_mizugazo_all_photos.json'
 
-old_json = json.load(open('/home/don/py/DMM/twitter_pic_api_test/old_mizugazo_all_photos.json', 'r'))
+old_json = json.load(open('/home/don/py/DMM/wpapi_download/old_mizugazo_all_photos.json', 'r'))
 old_df = pd.DataFrame(old_json['photo'])
 old_imgs = old_df['imgs'].tolist()
 get_count = 0
@@ -61,7 +61,7 @@ while True:
             print('取得完了')
             with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(all_photo, f, indent=4, ensure_ascii=False)
-            with open('/home/don/py/DMM/twitter_pic_api_test/old_mizugazo_all_photos.json', 'w', encoding='utf-8') as f:
+            with open('/home/don/py/DMM/wpapi_download/old_mizugazo_all_photos.json', 'w', encoding='utf-8') as f:
                 json.dump(old_json, f, indent=4, ensure_ascii=False)
             break
 
@@ -69,7 +69,7 @@ while True:
             print('取得完了')
             with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(all_photo, f, indent=4, ensure_ascii=False)
-            with open('/home/don/py/DMM/twitter_pic_api_test/old_mizugazo_all_photos.json', 'w', encoding='utf-8') as f:
+            with open('/home/don/py/DMM/wpapi_download/old_mizugazo_all_photos.json', 'w', encoding='utf-8') as f:
                 json.dump(old_json, f, indent=4, ensure_ascii=False)
             break
 

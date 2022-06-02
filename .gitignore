@@ -11,3 +11,4 @@ __pycache__
 *.png
 *.m4a
 nohup.out
+*.mp3
