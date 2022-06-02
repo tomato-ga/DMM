@@ -81,7 +81,7 @@ def My_rt(API, ids, max_rt_count: int):
                     print(e)
                     pass
 
-            elif '1522927470231670784' in rttw['author_id']: # 1522927470231670784←あや
+            elif '1522927470231670784' or '1530817733243588608' in rttw['author_id']: # 1522927470231670784←あやとゆかり
                 post_mine = rt_tweet.id
                 time.sleep(wait)
                 try:
@@ -92,7 +92,16 @@ def My_rt(API, ids, max_rt_count: int):
                 except Exception as e:
                     print(e)
                     pass
-
+            elif '1514514623743291395' in rttw['author_id']: # 1522927470231670784←あや
+                post_mine = rt_tweet.id
+                time.sleep(wait)
+                try:
+                    client.like(post_mine)
+                    rt_count += 1
+                    print('[My_rt]: 自分のRTとReply完了!!')
+                except Exception as e:
+                    print(e)
+                    pass
 
 
 
