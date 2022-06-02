@@ -9,7 +9,7 @@ import api_1j_mc
 my_idとnameにアカウントIDと名前を入れる
 """
 
-max_count = 30
+max_count = 35
 get_dir = os.getcwd()
 print(get_dir)
 
@@ -57,4 +57,4 @@ for ids, APIs in zip(id_name_listdict, [api_OtxSf, api_1j_mc, api_HjQhq, api_tog
         unfollowing_list = list(set(unfollow_list)) #setはJSON保存できないのでリストにする
         new_unfollowing = {}
         new_unfollowing['id'] = unfollow_done
-        auto_follow_unfollow_module.json_save(ids=new_unfollowing, json_name=f'{ids["name"]}_unfollow_done_id')
+        auto_follow_unfollow_module.json_save(ids=new_unfollowing, json_name=f'/home/don/py/DMM/twitter_aff_videos/follow_auto/main/{ids["name"]}_unfollow_done_id')

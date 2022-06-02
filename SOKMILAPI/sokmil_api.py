@@ -95,9 +95,9 @@ s = Sokmil()
 d = Down()
 s.APIKEY = 'f5fa0b38192389bb264ad32bdb80c802'
 s.AFFILIATEID = 24353
-s.hits_count = 20
+s.hits_count = 100
 s.offset_count = 1
-s.keyword = 'MEGUMI'
+s.keyword = '木嶋のりこ'
 
 save_json = {}
 save_json['title'] = []
