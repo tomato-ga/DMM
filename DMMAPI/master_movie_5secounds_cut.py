@@ -3,6 +3,7 @@ import os
 import json
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
+import shutil
 
 @dataclass
 class Cut:
@@ -30,7 +31,7 @@ class Cut:
 
             try:
                 videos = VideoFileClip(file).subclip(start)
-                videos.write_videofile(save_file_name, fps=29, codec='libx264', audio_codec='aac', temp_audiofile='temp-audio.m4a', remove_temp=True)
+                a = videos.write_videofile(save_file_name, fps=29, codec='libx264', audio_codec='aac', temp_audiofile='temp-audio.m4a', remove_temp=True)
                 video_info['cut_file_name'] = f'{i}_{cut_file_name}.mp4'
                 save_json['title'].append(video_info)
                 print(f'カット完了', {video_info['title']})
@@ -42,6 +43,9 @@ class Cut:
             json.dump(save_json, f, indent=4, ensure_ascii=False)
 
         # TODO もしカットしたら、ダウンロードフォルダを削除する。カット終了の値を取得する↑
+        if os.path.isfile(f'{cut_file_directory}{i}_{cut_file_name}.mp4'):
+            shutil.rmtree(file_directory)
+
 
     def cut2min():
         video_path = '/Users/ore/Downloads/[FRIDAY] Risa Yukihira 雪平莉左 - Do you like a beautiful older sister 綺麗なお姉さんは、好きですか？ (2021-11-18)/yukihira.ts' #ビデオパスを入れる

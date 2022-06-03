@@ -98,7 +98,7 @@ class Genre_dmm:
             if search_keyword_response.next == None:
                 break
 
-        with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{g.keyword}_videourl.json', 'w+', encoding='utf-8') as f:
+        with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{g.keyword}_videourl.json', 'w+', encoding='utf-8') as f:
             json.dump(self.save_json, f, indent=4, ensure_ascii=False)
 
 
@@ -107,12 +107,12 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= 'fanza_genre_actress_2000gen' # 不要→ keyword.encode('utf-8')
+    g.keyword= 'actress_bust_90to99'
     g.offset_count = 1
     g.hits_count = 20
 
 
-    load_json = json.load(open('/home/don/py/DMM/DMMAPI/fanza_genre_actress_2000gen.json'))
+    load_json = json.load(open('/home/don/py/DMM/DMMAPI/JSON/fanza_genre_actress_bust_90to99.json'))
     actress_json = load_json['title']
     for actress in actress_json:
         g.search_keyword(actress['actress_id'])

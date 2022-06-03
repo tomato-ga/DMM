@@ -12,7 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 wait_1 = random.random()
-wait_2 = random.randint(5,6)
+wait_2 = random.randint(50,600)
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -111,7 +111,7 @@ class Tweet:
                     # テキスト入力
                     self.wait.until(EC.presence_of_all_elements_located)
                     time.sleep(1)
-                    text = x
+                    text = str(x)
                     elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                     self.driver.execute_script('arguments[0].click();', elem_text)
                     elem_text.send_keys(text)

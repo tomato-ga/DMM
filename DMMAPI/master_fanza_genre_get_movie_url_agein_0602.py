@@ -6,7 +6,7 @@ import datetime
 from box import Box
 from dataclasses import dataclass
 import pandas as pd
-import shutil
+
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -109,8 +109,8 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= 'イラマチオ'
-    file_and_json_name = 'irama'
+    g.keyword= 'Fカップ'
+    file_and_json_name = 'f_cup'
     g.offset_count = 1
     g.hits_count = 50
 

@@ -2,8 +2,8 @@ import tweepy
 import time
 import random
 
-wait = random.uniform(3, 4)
-wait_long = random.uniform(5, 7)
+wait = random.uniform(30, 40)
+wait_long = random.uniform(50, 70)
 
 
 def Thirdparty_rt(API):
@@ -41,14 +41,14 @@ def Thirdparty_rt(API):
                     print('RT完了')
 
 
-def My_rt(API, ids, max_rt_count: int):
+def My_rt(API, ids, max_rt_like_count: int):
     """自分アカウント"""
 
     print('[My_rt]: 自分のアカウントのRTスタート')
 
     client = tweepy.Client(consumer_key=API.API_KEY, consumer_secret=API.API_SECRET, access_token=API.ACCESS_TOKEN, \
         access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token)
-    max_rt_count = max_rt_count
+    max_rt_like_count = max_rt_like_count
 
     for id_mine in ids:
         try:
@@ -65,13 +65,12 @@ def My_rt(API, ids, max_rt_count: int):
             pass
 
         rt_count = 0
-
         for rt_tweet in rts_tweet:
-            if rt_count == max_rt_count:
+            if rt_count == max_rt_like_count:
                 break
             rttw = rt_tweet.data
             match rttw['author_id']:
-                case '1515696887781015558' | '1514977383216205834' | '1515978583730458630' | '1515697390480945160':
+                case '1515696887781015558' | '1514977383216205834' | '1515978583730458630' | '1515697390480945160' | '1529779842702798848':
                     post_mine = rt_tweet.id
                     time.sleep(wait)
                     try:
