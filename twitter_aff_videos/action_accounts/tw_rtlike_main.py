@@ -15,7 +15,6 @@ import api_antenna
 
 max_rt_like_count = 1
 
-tw_package.My_rt(API=api_antenna, ids=api_antenna.ids, max_rt_like_count=max_rt_like_count)
 
 tw_package.My_rt(API=api_HjQhq, ids=api_HjQhq.ids, max_rt_like_count=max_rt_like_count)
 
