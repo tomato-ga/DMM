@@ -6,6 +6,7 @@ import datetime
 from box import Box
 from dataclasses import dataclass
 import pandas as pd
+import shutil
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -108,12 +109,13 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= 'メンズエステ'
+    g.keyword= 'イラマチオ'
+    file_and_json_name = 'irama'
     g.offset_count = 1
-    g.hits_count = 20
-    file_and_json_name = 'menes'
+    g.hits_count = 50
 
-    old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_old_{g.keyword}.json', 'r'))
+
+    old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre{g.keyword}.json', 'r'))
     old_df = pd.DataFrame(old_json['title'])
     old_titles = old_df['title'].tolist()
     g.old_titles_json = old_titles

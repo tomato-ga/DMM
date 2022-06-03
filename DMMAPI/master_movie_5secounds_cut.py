@@ -41,6 +41,7 @@ class Cut:
         with open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{self.name}_videofile.json', 'w+', encoding='utf-8') as f:
             json.dump(save_json, f, indent=4, ensure_ascii=False)
 
+        # TODO もしカットしたら、ダウンロードフォルダを削除する。カット終了の値を取得する↑
 
     def cut2min():
         video_path = '/Users/ore/Downloads/[FRIDAY] Risa Yukihira 雪平莉左 - Do you like a beautiful older sister 綺麗なお姉さんは、好きですか？ (2021-11-18)/yukihira.ts' #ビデオパスを入れる
