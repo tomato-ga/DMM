@@ -5,7 +5,7 @@ import api_togsi7
 import api_HjQhq
 import api_OtxSf
 import api_popo5ppo
-import api_antenna
+
 
 """
 1.API読み込み
