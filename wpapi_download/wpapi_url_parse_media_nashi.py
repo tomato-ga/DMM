@@ -5,6 +5,7 @@ import json
 import time
 import pandas as pd
 
+import mizugazo_img_get
 
 count = 100
 response_offset = 0
@@ -79,6 +80,9 @@ while True:
         break
 
 
+mizugazo_img_get.image_get()
+
+
 """
 2022/05/14 23:38
 更新分だけJSON保存するようにする
@@ -89,4 +93,9 @@ if load_json['source_url'] not in old_imgs:
 2022/05/25 15:29
 →動作確認中→whileの外だとJSON保存できてない
 →breakする前にJSON書き込むように変更
+
+
+2022/06/04 15:46
+import mizugazo_img_get追加
+
 """

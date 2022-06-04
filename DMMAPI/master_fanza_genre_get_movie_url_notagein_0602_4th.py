@@ -83,13 +83,9 @@ class Genre_dmm:
                     except Exception as ex:
                         print(ex)
 
-
-
             self.offset_count = self.hits_count + self.offset_count
 
-
-
-            if len(items) == 0:
+            if search_keyword_response.status_code != 200:
                 with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
                     json.dump(search_response, f, indent=4, ensure_ascii=False)
                 break
