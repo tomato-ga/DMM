@@ -101,10 +101,10 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= 'メンズエステ'
+    g.keyword= ' モデル'
     g.offset_count = 1
-    g.hits_count = 20
-    file_and_json_name = 'menes0602'
+    g.hits_count = 80
+    file_and_json_name = 'model'
 
 
     save_json = {}
@@ -113,7 +113,6 @@ if __name__ == '__main__':
         print(i, video_info)
         save_json['title'].append(video_info)
 
-        # todo old_jsonにvideo_infoを追加する↑ save_jsonみたいなやつ
 
     with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_new_{g.keyword}.json', 'w+', encoding='utf-8') as f:
         json.dump(save_json, f, indent=4, ensure_ascii=False)
