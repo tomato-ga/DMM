@@ -1,7 +1,7 @@
 import tweepy
 import time
 import random
-import api_1j_mc
+import api_ntr
 
 
 def tweet():
@@ -11,10 +11,10 @@ def tweet():
     wait = round(wait1 + wait2,3)
 
 
-    client = tweepy.Client(consumer_key=api_1j_mc.API_KEY, consumer_secret=api_1j_mc.API_SECRET, access_token=api_1j_mc.ACCESS_TOKEN, access_token_secret=api_1j_mc.ACCESS_TOKEN_SECRET, bearer_token=api_1j_mc.Bearer_token)
+    client = tweepy.Client(consumer_key=api_ntr.API_KEY, consumer_secret=api_ntr.API_SECRET, access_token=api_ntr.ACCESS_TOKEN, access_token_secret=api_ntr.ACCESS_TOKEN_SECRET, bearer_token=api_ntr.Bearer_token)
 
 
-    for id_mine in api_1j_mc.ids:
+    for id_mine in api_ntr.ids:
         match id_mine:
             case 1514514623743291395:
 
@@ -43,6 +43,7 @@ def tweet():
                         pass
 
                 print('いいねRT完了')
+
 
 tweet()
 

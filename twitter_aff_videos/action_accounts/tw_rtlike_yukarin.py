@@ -7,7 +7,7 @@ import API_config_yukarin
 def tweet():
 
     wait1 = random.random()
-    wait2 = random.randint(50,400)
+    wait2 = random.randint(40, 60)
     wait = round(wait1 + wait2,3)
 
 

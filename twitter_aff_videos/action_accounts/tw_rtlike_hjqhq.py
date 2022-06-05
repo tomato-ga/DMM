@@ -7,7 +7,7 @@ import api_HjQhq
 def tweet():
 
     wait1 = random.random()
-    wait2 = random.randint(50,400)
+    wait2 = random.randint(40, 60)
     wait = round(wait1 + wait2,3)
 
 
@@ -15,19 +15,34 @@ def tweet():
 
 
     for id_mine in api_HjQhq.ids:
+        match id_mine:
+            case 1514514623743291395:
 
-        tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=5, expansions=["attachments.media_keys"])
-        print(tweets_get)
+                tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=5, expansions=["attachments.media_keys"])
+                print(tweets_get)
 
-        for t in tweets_get.data:
-            try:
-                client.like(t.id)
-                client.retweet(t.id)
-                time.sleep(wait)
-            except:
-                pass
+                for t in tweets_get.data:
+                    try:
+                        client.like(t.id)
+                        time.sleep(wait)
+                    except:
+                        pass
 
-        print('いいねRT完了')
+                print('いいねRT完了')
+
+            case _:
+                tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=5, expansions=["attachments.media_keys"])
+                print(tweets_get)
+
+                for t in tweets_get.data:
+                    try:
+                        client.like(t.id)
+                        client.retweet(t.id)
+                        time.sleep(wait)
+                    except:
+                        pass
+
+                print('いいねRT完了')
 
 
 tweet()
