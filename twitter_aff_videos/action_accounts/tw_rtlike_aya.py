@@ -26,7 +26,7 @@ def tweet():
             except:
                 pass
 
-        print('いいねRT完了')
+        print('いいね完了')
 
 
 tweet()
