@@ -22,7 +22,7 @@ def tweet():
         for t in tweets_get.data:
             try:
                 client.like(t.id)
-                client.retweet(t.id)
+                #client.retweet(t.id) 2022/06/05 10:15 いいねだけにする
                 time.sleep(wait)
             except:
                 pass

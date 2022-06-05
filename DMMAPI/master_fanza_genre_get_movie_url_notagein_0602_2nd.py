@@ -92,7 +92,6 @@ class Genre_dmm:
             self.offset_count = self.hits_count + self.offset_count
 
 
-
 if __name__ == '__main__':
 
     g = Genre_dmm()
