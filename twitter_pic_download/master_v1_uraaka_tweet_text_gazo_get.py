@@ -7,7 +7,7 @@ import os
 
 
 class Tweet_text:
-    """v1"""
+    """API v1"""
 
     def __init__(self, username):
 
@@ -20,7 +20,7 @@ class Tweet_text:
 
 
         count_no = 5000
-        tweet: dict[dict] = {}
+        tweet: dict[list] = {}
         tweet['tweet'] = []
 
         results: iter = tweepy.Cursor(self.api.user_timeline, # タイムラインの取得
@@ -70,9 +70,9 @@ class Tweet_text:
             else:
                 pass
 
-        with open(f'/home/don/py/DMM/twitter_pic_download/{self.__username}.json', 'w', encoding='utf-8') as f:
+        with open(f'/home/don/py/DMM/twitter_pic_download/{self.__username}/{self.__username}.json', 'w', encoding='utf-8') as f:
             json.dump(tweet, f, indent=4, ensure_ascii=False)
 
 # ID入れる
-t = Tweet_text('yukarinn_0214')
+t = Tweet_text('sayurihappy200')
 t.text_image_get_tojson()
