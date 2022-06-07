@@ -65,7 +65,7 @@ class Image:
                     name_search = re.findall('([a-zA-z0-9_-]*)(.[a-z]{3,4}$)', img_url)
                     file_name = name_search[0][0]
                     file_ex =  name_search[0][1]
-                    with open(f'E:\\twit_photos_gurasen\\{count}\\{str(file_name)}{file_ex}', 'wb') as image: #Win f'E:\\twit_photos\\{title}\\{str(file_name)}.jpg', 'wb' # Ubuntu f'/mnt/hdd/don/files/twitphotos/{title}/{str(file_name)}.jpg', 'wb'
+                    with open(f'E:\\twit_photos_gurasen\\{count}\\{str(file_name)}{file_ex}', 'wb') as image:
                         image.write(image_get.content)
                         time.sleep(0.4)
 

@@ -112,7 +112,7 @@ if __name__ == '__main__':
     g.keyword= 'Fカップ'
     file_and_json_name = 'f_cup'
     g.offset_count = 1
-    g.hits_count = 50
+    g.hits_count = 80
 
 
     old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre{g.keyword}.json', 'r'))

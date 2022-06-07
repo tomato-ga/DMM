@@ -42,7 +42,7 @@ class Cut:
         with open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{self.name}_videofile.json', 'w+', encoding='utf-8') as f:
             json.dump(save_json, f, indent=4, ensure_ascii=False)
 
-        # TODO もしカットしたら、ダウンロードフォルダを削除する。カット終了の値を取得する↑
+        # もしカットしたら、ダウンロードフォルダを削除する。カット終了の値を取得する↑
         if os.path.isfile(f'{cut_file_directory}{i}_{cut_file_name}.mp4'):
             shutil.rmtree(file_directory)
 
@@ -81,5 +81,8 @@ class Cut:
 履歴
 2022/06/02 22:06
 クラス化して、処理をmaster_fanza_genre_get_movie_urlにimportさせた
+
+2022/06/06 23:05
+カット終了後、ダウンロードフォルダを削除
 
 """

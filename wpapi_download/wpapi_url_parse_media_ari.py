@@ -5,12 +5,13 @@ import json
 import time
 
 
+name = 'idle-girl'
 count = 100
 response_offset = 0
 media_offset = 0
 all_photo = {}
 all_photo['photo'] = []
-json_path = './overf_all_photos.json'
+json_path = f'/home/don/py/DMM/wpapi_download/{name}_all_photos.json'
 
 medias_param = {
     'per_page': count,
@@ -19,12 +20,12 @@ medias_param = {
 
 
 while True:
-    json_url = f'http://overf.wp.xdomain.jp/wp-json/wp/v2/posts?per_page={count}&offset={response_offset}'
+    json_url = f'https://idle-girl.com/wp-json/wp/v2/posts?per_page={count}&offset={response_offset}'
     res = requests.get(json_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36'})
     load_jsons = json.loads(res.text)
     response_offset += 100
 
-    for load_json in load_jsons: #TODO ここから処理書く
+    for load_json in load_jsons:
         if not load_json:
             break
         elif load_json:
@@ -32,7 +33,6 @@ while True:
                 title: str = load_json['title']['rendered']
                 wp_attachment_url: str = load_json['_links']['wp:attachment'][0]['href']
                 medias_get: json = requests.get(wp_attachment_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36'}, params=medias_param)
-
 
                 match medias_get.status_code:
                     case 200:
