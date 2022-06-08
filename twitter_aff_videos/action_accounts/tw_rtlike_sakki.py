@@ -16,7 +16,7 @@ def tweet():
 
     for id_mine in API_config_sakki.ids:
 
-        tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=40, expansions=["attachments.media_keys"])
+        tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=20, expansions=["attachments.media_keys"])
         print(tweets_get)
 
         for t in tweets_get.data:
