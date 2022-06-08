@@ -1,6 +1,6 @@
 
 import tweepy
-import API_config_katudon
+import API_config_1oku
 import requests
 import re
 import pymongo
@@ -10,8 +10,8 @@ import datetime
 
 class Tweet_get:
     #WARN katudonのAPI使ってるのに注意する 200万/月アクセス可能 Elevated
-    auth = tweepy.OAuthHandler(API_config_katudon.API_KEY, API_config_katudon.API_SECRET)
-    auth.set_access_token(API_config_katudon.ACCESS_TOKEN, API_config_katudon.ACCESS_TOKEN_SECRET)
+    auth = tweepy.OAuthHandler(API_config_1oku.API_KEY, API_config_1oku.API_SECRET)
+    auth.set_access_token(API_config_1oku.ACCESS_TOKEN, API_config_1oku.ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
     """
@@ -179,8 +179,10 @@ if __name__ == '__main__':
         # 'https://twitter.com/AV_honpo_kyonyu' #巨乳
         # 'https://twitter.com/1919com1919',
         # 'https://twitter.com/kekooharenchi',
-        'https://twitter.com/er_oyaji',
-        'https://twitter.com/moemoelover_s' #次の候補
+        # 'https://twitter.com/er_oyaji', #取得済み
+        # 'https://twitter.com/moemoelover_s' #取得済み
+        'https://twitter.com/jueryero',
+        'https://twitter.com/ellosapo'
     ]
 
     i = Tweet_get()
