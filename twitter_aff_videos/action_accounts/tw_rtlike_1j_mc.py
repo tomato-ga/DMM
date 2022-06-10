@@ -7,7 +7,7 @@ import api_1j_mc
 def tweet():
 
     wait1 = random.random()
-    wait2 = random.randint(40, 60)
+    wait2 = random.randint(25, 30)
     wait = round(wait1 + wait2,3)
 
 

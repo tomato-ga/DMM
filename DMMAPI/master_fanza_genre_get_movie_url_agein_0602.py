@@ -109,13 +109,12 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= 'Fカップ'
-    file_and_json_name = 'f_cup'
+    g.keyword= 'イラマチオ'
+    file_and_json_name = 'irama'
     g.offset_count = 1
     g.hits_count = 80
 
-
-    old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre{g.keyword}.json', 'r'))
+    old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{file_and_json_name}_videofile.json', 'r')) #TODO old_jsonをmasterへ切り替える
     old_df = pd.DataFrame(old_json['title'])
     old_titles = old_df['title'].tolist()
     g.old_titles_json = old_titles
@@ -162,6 +161,8 @@ if __name__ == '__main__':
     file_dir = f'/mnt/hdd/don/files/fanza/{file_and_json_name}/'
     cut_file_dir = f'/mnt/hdd/don/files/fanza/{file_and_json_name}_cut/'
     cut_file_name = f'{file_and_json_name}_cut_{str(datetime.date.today())}'
+    c.name = g.keyword
+    c.json_name = file_and_json_name
 
     if os.path.exists(cut_file_dir) is False:
         os.makedirs(cut_file_dir, exist_ok=True)
@@ -171,4 +172,13 @@ if __name__ == '__main__':
     load_json_cut = load_json_dict['title']
     assert type(load_json_cut) == list
 
-    c.cut5secounds(file_dir, cut_file_dir, cut_file_name, load_json_cut)
+    c.again_cut5secounds(file_dir, cut_file_dir, cut_file_name, load_json_cut)
+
+
+"""
+履歴
+2022/06/10 20:21
+定期取得のために、①old_jsonをmasterへ変更②Cutクラスでagain用のメソッド追加
+
+# TODO ビデオサイズが小さいファイルを再度ダウンロードしているため、notdownload_jsonなどを作って待避させるようにする
+"""
