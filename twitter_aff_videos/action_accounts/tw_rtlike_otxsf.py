@@ -16,7 +16,7 @@ def tweet():
 
     for id_mine in api_OtxSf.ids:
         match id_mine:
-            case 1514514623743291395:
+            case 1514514623743291395 | 1498937221344563206:
 
                 tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=20, expansions=["attachments.media_keys"])
                 print(tweets_get)
