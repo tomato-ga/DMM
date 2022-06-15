@@ -48,7 +48,7 @@ class Cut:
             shutil.rmtree(file_directory)
 
 
-    def again_cut5secounds(self, file_directory, cut_file_directory, cut_file_name, load_json_dict):
+    def again_cut5seconds(self, file_directory, cut_file_directory, cut_file_name, load_json_dict):
         """_summary_
 
         Args:
