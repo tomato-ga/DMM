@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 wait_1 = random.random()
-wait_2 = random.randint(50,400)
+wait_2 = random.randint(50,460) # 50, 460
 randomwait = round(wait_1 + wait_2, 5)
 
 
