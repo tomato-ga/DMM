@@ -18,7 +18,7 @@ def tweet():
         match id_mine:
             case 1514514623743291395 | 1498937221344563206:
 
-                tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=50, expansions=["attachments.media_keys"])
+                tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=100, expansions=["attachments.media_keys"])
                 print(tweets_get)
 
                 for t in tweets_get.data:
@@ -31,7 +31,7 @@ def tweet():
                 print('いいねRT完了')
 
             case _:
-                tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=50, expansions=["attachments.media_keys"])
+                tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=100, expansions=["attachments.media_keys"])
                 print(tweets_get)
 
                 for t in tweets_get.data:

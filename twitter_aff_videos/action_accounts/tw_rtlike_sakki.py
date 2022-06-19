@@ -16,15 +16,16 @@ def tweet():
 
     for id_mine in API_config_sakki.ids:
 
-        tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=50, expansions=["attachments.media_keys"])
-        print(tweets_get)
+        try:
+            tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=100, expansions=["attachments.media_keys"])
+            print(tweets_get)
 
-        for t in tweets_get.data:
-            try:
-                client.like(t.id)
-                time.sleep(wait)
-            except:
-                pass
+            for t in tweets_get.data:
+                    client.like(t.id)
+                    time.sleep(wait)
+
+        except:
+            pass
 
         print('いいね完了')
 
