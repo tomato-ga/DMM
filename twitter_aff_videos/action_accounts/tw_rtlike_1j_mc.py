@@ -19,7 +19,7 @@ def tweet():
             case 1514514623743291395 | 1498937221344563206:
 
                 try:
-                    tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=10, expansions=["attachments.media_keys"])
+                    tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=20, expansions=["attachments.media_keys"])
                     print(tweets_get)
 
                     for t in tweets_get.data:
@@ -30,9 +30,10 @@ def tweet():
                     pass
 
             case _:
-                tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=10, expansions=["attachments.media_keys"])
-                print(tweets_get)
                 try:
+                    tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=20, expansions=["attachments.media_keys"])
+                    print(tweets_get)
+
                     for t in tweets_get.data:
                             client.like(t.id)
                             client.retweet(t.id)
@@ -40,8 +41,6 @@ def tweet():
                             time.sleep(wait)
                 except:
                     pass
-
-                print('いいねRT完了')
 
 tweet()
 
