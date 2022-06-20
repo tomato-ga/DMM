@@ -7,7 +7,7 @@ import API_config_yukarin
 def tweet():
 
     wait1 = random.random()
-    wait2 = random.randint(25, 30)
+    wait2 = random.randint(15, 20)
     wait = round(wait1 + wait2,3)
 
 
@@ -15,20 +15,16 @@ def tweet():
 
 
     for id_mine in API_config_yukarin.ids:
+        try:
+            tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=10, expansions=["attachments.media_keys"])
+            print(tweets_get)
 
-        tweets_get = client.get_users_tweets(id=id_mine, exclude=['retweets', 'replies'], max_results=100, expansions=["attachments.media_keys"])
-        print(tweets_get)
-
-        for t in tweets_get.data:
-            try:
-                client.like(t.id)
-                time.sleep(wait)
-            except:
-                pass
-
-        print('いいね完了')
+            for t in tweets_get.data:
+                    client.like(t.id)
+                    print('いいね完了')
+                    time.sleep(wait)
+        except:
+            pass
 
 
 tweet()
-
-
