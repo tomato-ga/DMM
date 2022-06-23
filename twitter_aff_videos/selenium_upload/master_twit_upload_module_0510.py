@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(50,670) # 50, 670
+wait_2 = random.randint(5,6) # 50, 670
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -106,20 +106,20 @@ class Tweet:
                 Ubuntuはos.path.abspath
                 """
                 self.wait.until(EC.presence_of_all_elements_located)
-                video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')   #Ubuntu (f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}') # Mac /Volumes/Xeon8TB/don/files/twitvideo
+                video_path = os.path.abspath(f'/mnt/hdd/don/files/twitvideo/{upload_video_file_name}')
                 self.driver.find_element(by=By.XPATH, value="//input[@type='file']").send_keys(video_path)
                 time.sleep(2)
 
                 # テキスト入力
                 self.wait.until(EC.presence_of_all_elements_located)
 
-                ########################################TODO 2022/05/23 0:02 テキストURL消す########################################
+                ######################################## 2022/05/23 0:02 テキストURL消す
                 # text = f'{text}' + ' '+ f'{upload_url}'
                 # elem_text = self.driver.find_element(by=By.CLASS_NAME, value='notranslate')
                 # self.driver.execute_script('arguments[0].click();', elem_text)
                 # elem_text.send_keys(text)
                 # time.sleep(1)
-                ########################################TODO テキストURL消す########################################
+                ########################################テキストURL消す########################################
 
                 # 投稿
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
