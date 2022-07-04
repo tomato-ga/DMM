@@ -131,7 +131,7 @@ if __name__ == '__main__':
     save_json['title'] = []
     for i, video_info in enumerate(g.search_keyword):
         print(i, video_info)
-        # TODO ここでif not in でなかったら追加する形にする
+        ## TODO ここでif not in でなかったら追加する形にする
         save_json['title'].append(video_info)
         old_json['title'].append(video_info)
         with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_old_{g.keyword}.json', 'w+', encoding='utf-8') as f:
@@ -141,7 +141,6 @@ if __name__ == '__main__':
 
 """
 メモ
-女優の数は増えないが、女優が出ているビデオは増える
-
+女優の数はそこまで増えないが、女優が出ているビデオは増える
 
 """

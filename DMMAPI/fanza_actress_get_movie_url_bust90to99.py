@@ -117,4 +117,6 @@ if __name__ == '__main__':
     for actress in actress_json:
         g.search_keyword(actress['actress_id'])
 
+##############################
+## TODO 新規追加分だけのnew JSONを作ってダウンロードさせる
 

@@ -56,12 +56,22 @@ class Genre_dmm:
         search_response['actress'] = []
 
         while True:
-            search_keyword_response = requests.get(f'https://api.dmm.com/affiliate/v3/ActressSearch?api_id={self.APIID}&affiliate_id={self.AFFILIATEID}&gte_bust={self.gte_bust}&lte_bust={self.lte_bust}&gte_waist={self.gte_waist}&lte_waist={self.lte_waist}&gte_hip={self.gte_hip}&lte_hip={self.lte_hip}&gte_height={self.gte_height}&lte_height={self.lte_height}&sort=-bust&hits={self.hits_count}&offset={self.offset_count}&gte_birthday={self.gte_birth}&output=json')
-            time.sleep(0.3)
-            search_json_box = Box.from_json(search_keyword_response.text)
-            items = search_json_box.result['actress']
-            print(type(items))
-            print(dir(items))
+
+            try:
+                search_keyword_response = requests.get(f'https://api.dmm.com/affiliate/v3/ActressSearch?api_id={self.APIID}&affiliate_id={self.AFFILIATEID}&gte_bust={self.gte_bust}&lte_bust={self.lte_bust}&gte_waist={self.gte_waist}&lte_waist={self.lte_waist}&gte_hip={self.gte_hip}&lte_hip={self.lte_hip}&gte_height={self.gte_height}&lte_height={self.lte_height}&sort=-bust&hits={self.hits_count}&offset={self.offset_count}&gte_birthday={self.gte_birth}&output=json')
+                time.sleep(0.3)
+                search_json_box = Box.from_json(search_keyword_response.text)
+                result_count = search_json_box.result['result_count']
+                items = search_json_box.result['actress']
+
+                print(type(items))
+                print(dir(items))
+            except Exception as e:
+                print(e)
+                if result_count == 0:
+                    with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
+                        json.dump(search_response, f, indent=4, ensure_ascii=False)
+                    break
 
 
             for item in items:
@@ -88,10 +98,7 @@ class Genre_dmm:
 
 
             self.offset_count = self.hits_count + self.offset_count
-            if len(items) == 0:
-                with open(f'/home/don/py/DMM/DMMAPI/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
-                    json.dump(search_response, f, indent=4, ensure_ascii=False)
-                break
+
 
 
 if __name__ == '__main__':
@@ -108,7 +115,7 @@ if __name__ == '__main__':
     g.gte_bust = 90
     g.lte_bust = 99
     g.gte_waist = 50
-    g.lte_waist = 65
+    g.lte_waist = 64
     g.gte_hip = 80
     g.lte_hip = 95
     g.gte_height = 140
@@ -122,5 +129,5 @@ if __name__ == '__main__':
         print(i, video_info)
         # TODO ここでif not in でなかったら追加する形にする
         save_json['title'].append(video_info)
-        with open(f'/home/don/py/DMM/DMMAPI/fanza_genre_{g.keyword}.json', 'w+', encoding='utf-8') as f:
+        with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{g.keyword}.json', 'w+', encoding='utf-8') as f:
             json.dump(save_json, f, indent=4, ensure_ascii=False)
