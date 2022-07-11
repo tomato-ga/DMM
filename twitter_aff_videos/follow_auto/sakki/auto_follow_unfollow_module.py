@@ -96,8 +96,8 @@ def new_follow_id(client) -> dict[str]:
     Returns:
         dict[str]: 新しくフォローするアカウントIDをdictで返す
     """
-    # 1521876334074818560 グラビアアイドルのリスト 1532272699044937728 裏垢
-    response = client.get_list_tweets(id=1532272699044937728, max_results=15,  expansions=["attachments.media_keys","referenced_tweets.id"])
+    # 1521876334074818560 グラビアアイドルのリスト 1532272699044937728 裏垢 2022/07/09 1545662000629710848 あやのリストのかわり
+    response = client.get_list_tweets(id=1545662000629710848, max_results=15,  expansions=["attachments.media_keys","referenced_tweets.id"])
     tweets = response.data
     random.shuffle(tweets)
 

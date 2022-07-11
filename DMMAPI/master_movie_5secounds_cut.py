@@ -92,7 +92,7 @@ class Cut:
                 if os.path.isfile(f'{cut_file_directory}{i}_{cut_file_name}.mp4'):
                     shutil.rmtree(file_directory)
 
-            except Exception as e:
+            except Exception as ex:
                 print('cut', ex)
                 pass
 
