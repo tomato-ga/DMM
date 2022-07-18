@@ -25,7 +25,7 @@ if __name__ == '__main__':
     print(upload_path_and_file_name, ':', upload_url, upload_title)
 
     i = Tweet()
-    i.Uploads(account='rankoduga', up_file=upload_path_and_file_name, text=upload_title)
+    i.Uploads(account='jdlovedoga', up_file=upload_path_and_file_name, text=upload_title)
     i.Quit()
 
 
