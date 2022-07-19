@@ -2,13 +2,9 @@ import tweepy
 import time
 import random
 import api_after2000
-from log_create import getMyLogger
 
 
 def tweet():
-
-    logger = getMyLogger(__file__)
-    logger.debug('デバッグ')
 
     wait1 = random.random()
     wait2 = random.randint(15, 20)

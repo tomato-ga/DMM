@@ -9,7 +9,6 @@ import os
 jsonとファイルディレクトリとaccountを指定する
 """
 
-
 if __name__ == '__main__':
     load_json = json.load(open('/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_jd_videofile.json')),
     l = random.sample(load_json, 1)
