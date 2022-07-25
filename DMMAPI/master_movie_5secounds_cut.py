@@ -40,7 +40,7 @@ class Cut:
                 print(ex)
                 pass
 
-        with open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{self.name}_videofile.json', 'w+', encoding='utf-8') as f:
+        with open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{self.json_name}_videofile.json', 'w+', encoding='utf-8') as f:
             json.dump(save_json, f, indent=4, ensure_ascii=False)
 
         # もしカットしたら、ダウンロードフォルダを削除する。カット終了の値を取得する↑
@@ -140,4 +140,8 @@ class Cut:
 2022/06/06 23:05
 カット終了後、ダウンロードフォルダを削除
 
+
+2022/07/26
+ダウンロードフォルダ削除を常に実行するようにした
+jsonファイル名がカナになっていたため、アルファベットにするようにself.nameをself.json_nameへ変更した
 """

@@ -103,10 +103,10 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= 'イラマチオ'
+    g.keyword= 'スパンキング'
     g.offset_count = 1
     g.hits_count = 80
-    file_and_json_name = 'irama'
+    file_and_json_name = 'spanking'
 
 
     save_json = {}

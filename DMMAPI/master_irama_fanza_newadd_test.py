@@ -112,8 +112,8 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= ''
-    file_and_json_name = 'compa'
+    g.keyword= 'イラマチオ'
+    file_and_json_name = 'irama'
     g.offset_count = 1
     g.hits_count = 80
 
