@@ -44,7 +44,7 @@ class Cut:
             json.dump(save_json, f, indent=4, ensure_ascii=False)
 
         # もしカットしたら、ダウンロードフォルダを削除する。カット終了の値を取得する↑
-        if os.path.isfile(f'{cut_file_directory}{i}_{cut_file_name}.mp4'):
+        if os.path.exists(file_directory):
             shutil.rmtree(file_directory)
 
 
@@ -89,7 +89,7 @@ class Cut:
                     json.dump(master_json, f, indent=4, ensure_ascii=False)
 
                 # もしカットしたら、ダウンロードフォルダを削除する。カット終了の値を取得する↑
-                if os.path.isfile(f'{cut_file_directory}{i}_{cut_file_name}.mp4'):
+                if os.path.exists(file_directory):
                     shutil.rmtree(file_directory)
 
             except Exception as ex:
@@ -99,6 +99,7 @@ class Cut:
         else:
             print("カットファイルはありません。終了しました")
             pass
+
 
 
     def cut2min():

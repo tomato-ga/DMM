@@ -49,10 +49,16 @@ class Genre_dmm:
                     json.dump(search_response, f, indent=4, ensure_ascii=False)
                 break
 
+
             search_json_box = Box.from_json(search_keyword_response.text)
             items = search_json_box.result['items']
             print(type(items))
             print(dir(items))
+
+            if len(items) == 0:
+                with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
+                    json.dump(search_response, f, indent=4, ensure_ascii=False)
+                break
 
             for item in items:
                     try:
@@ -97,10 +103,10 @@ if __name__ == '__main__':
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= '3P'
+    g.keyword= 'イラマチオ'
     g.offset_count = 1
     g.hits_count = 80
-    file_and_json_name = '3p'
+    file_and_json_name = 'irama'
 
 
     save_json = {}

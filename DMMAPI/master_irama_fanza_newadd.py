@@ -43,6 +43,8 @@ class Genre_dmm:
         search_response = {}
         search_response['title'] = []
 
+        limits = 0
+
         while True:
             search_keyword_response = requests.get(f'https://api.dmm.com/affiliate/v3/ItemList?api_id={self.APIID}&affiliate_id={self.AFFILIATEID}&site=FANZA&service=digital&floor=videoa&hits={self.hits_count}&sort=rank&keyword={self.keyword}&offset={self.offset_count}&output=json')
             time.sleep(0.2)
@@ -50,6 +52,11 @@ class Genre_dmm:
             items = search_json_box.result['items']
             print(type(items))
             print(dir(items))
+
+            if len(items) == 0:
+                with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
+                    json.dump(search_response, f, indent=4, ensure_ascii=False)
+                break
 
             for item in items:
                 if item['title'] not in self.old_titles_json:
@@ -74,6 +81,9 @@ class Genre_dmm:
 
                                 max_size = size_array.index(max(size_array))
                                 search_response['title'].append(item.to_dict())
+                                limits += 1
+                                if limits > 100:
+                                    break
 
                                 if str(size_array[max_size]) in v_url:
                                     if video_info:
@@ -92,16 +102,7 @@ class Genre_dmm:
                     print('JSONにあるitemです')
                     pass
 
-
             self.offset_count = self.hits_count + self.offset_count
-
-
-
-            if len(items) == 0:
-                with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
-                    json.dump(search_response, f, indent=4, ensure_ascii=False)
-                break
-
 
 
 if __name__ == '__main__':
