@@ -7,6 +7,10 @@ import pandas as pd
 import glob
 import os
 from retry import retry
+import datetime
+from record_log import getMyLogger
+
+
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -17,7 +21,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(5,6) # 50, 670
+wait_2 = random.randint(5,600) # 50, 670
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -55,6 +59,10 @@ class Tweet:
 
     @retry(tries=7, delay=10) #TODO 消す
     def Uploads(self, account: str):
+
+        today = datetime.datetime.now()
+        logger = getMyLogger(str(today)).getChild(__file__)
+        logger.warning(f"{account}スタート")
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
 
@@ -130,6 +138,7 @@ class Tweet:
 
         except Exception as ex:
             print('[Uploads]:', ex)
+            logger.exception(ex)
             pass
 
 
