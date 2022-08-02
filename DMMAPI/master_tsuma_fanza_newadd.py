@@ -1,3 +1,4 @@
+from record_log import getMyLogger
 import os
 import json
 from re import search
@@ -109,6 +110,9 @@ class Genre_dmm:
 
 if __name__ == '__main__':
 
+
+    # TODO __name__ にstr(datetime.date.today()とfile_and_json_nameを入れる→下に移動させる
+
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
     g.AFFILIATEID = 'kamipanmen-990'
@@ -116,6 +120,9 @@ if __name__ == '__main__':
     file_and_json_name = 'tsuma'
     g.offset_count = 1
     g.hits_count = 80
+
+    logger = getMyLogger(file_and_json_name)
+    logger.debug('デバッグ')
 
     old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{file_and_json_name}_videofile.json', 'r'))
     old_df = pd.DataFrame(old_json['title'])
@@ -153,6 +160,7 @@ if __name__ == '__main__':
                 time.sleep(0.2)
         except Exception as ex:
             print(ex)
+            logger.exception(ex)
             pass
 
     with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{file_and_json_name}_videofile.json', 'w+', encoding='utf-8') as f:

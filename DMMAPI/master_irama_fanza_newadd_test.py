@@ -106,7 +106,6 @@ class Genre_dmm:
 
 
 
-
 if __name__ == '__main__':
 
     g = Genre_dmm()

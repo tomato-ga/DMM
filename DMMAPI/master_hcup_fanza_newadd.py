@@ -1,3 +1,4 @@
+from record_log import getMyLogger
 import os
 import json
 import requests
@@ -105,6 +106,9 @@ class Genre_dmm:
 
 
 if __name__ == '__main__':
+
+    logger = getMyLogger(__name__)
+    logger.debug('デバッグ')
 
     g = Genre_dmm()
     g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'

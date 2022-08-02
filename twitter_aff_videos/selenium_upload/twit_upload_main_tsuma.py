@@ -3,6 +3,8 @@ import json
 import pandas as pd
 import random
 import os
+from record_log import getMyLogger
+import datetime
 
 """
 【使い方】
@@ -10,6 +12,7 @@ jsonとファイルディレクトリとaccountを指定する
 """
 
 if __name__ == '__main__':
+
     load_json = json.load(open('/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_tsuma_videofile.json')),
     l = random.sample(load_json, 1)
 

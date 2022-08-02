@@ -29,12 +29,6 @@ class Genre_dmm:
     hits_count = 0
     old_titles_json = None
 
-    # floor =  requests.get(f'https://api.dmm.com/affiliate/v3/FloorList?api_id={APIID}&affiliate_id={AFFILIATEID}&output=json')
-
-    #pprint.pprint(Box.from_json(floor.text))
-    # json_box = Box.from_json(floor.text)
-    # print(json_box)
-
 
     @property
     def search_keyword(self):
@@ -114,6 +108,7 @@ if __name__ == '__main__':
     g.offset_count = 1
     g.hits_count = 80
 
+    #master JSON読み込み
     old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{file_and_json_name}_videofile.json', 'r'))
     old_df = pd.DataFrame(old_json['title'])
     old_titles = old_df['title'].tolist()

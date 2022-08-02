@@ -8,6 +8,8 @@ import glob
 import os
 import json
 from retry import retry
+from record_log import getMyLogger
+import datetime
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -18,7 +20,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(50,600) # 50, 600
+wait_2 = random.randint(50,60) # 50, 600
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -40,6 +42,9 @@ class Tweet:
 
     @retry(tries=7, delay=10) #TODO 消す
     def Uploads(self, account: str, up_file: str, text: str):
+        today = datetime.datetime.now()
+        logger = getMyLogger(str(today)).getChild(__file__)
+        logger.warning(f"{account}スタート")
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
 
@@ -51,7 +56,7 @@ class Tweet:
             time.sleep(30) #TODO 30へ戻す
             self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
             print(self.driver.current_url)
-            self.driver.save_screenshot('video_up_1.png')
+            self.driver.save_screenshot('/home/don/py/DMM/twitter_aff_videos/selenium_upload/video_up_1.png')
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
@@ -63,7 +68,7 @@ class Tweet:
             time.sleep(6)
 
             print(self.driver.current_url)
-            self.driver.save_screenshot('video_up_2.png')
+            self.driver.save_screenshot('/home/don/py/DMM/twitter_aff_videos/selenium_upload/video_up_2.png')
             self.wait.until(EC.presence_of_all_elements_located)
             elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@name, 'password')]")
             elem_pass.send_keys(password)
@@ -74,7 +79,7 @@ class Tweet:
             self.driver.execute_script('arguments[0].click();', login)
             time.sleep(6)
             print('ログインしました')
-            self.driver.save_screenshot('video_up_3.png')
+            self.driver.save_screenshot('/home/don/py/DMM/twitter_aff_videos/selenium_upload/video_up_3.png')
 
             # TODO 2022/05/23 0:46 up_url削除に伴って消した
             # if up_url and up_file is not None:
@@ -101,14 +106,16 @@ class Tweet:
             # 投稿
             tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
             self.driver.execute_script('arguments[0].click();', tweet_button)
-            self.driver.save_screenshot('video_up_4.png')
+            self.driver.save_screenshot('/home/don/py/DMM/twitter_aff_videos/selenium_upload/video_up_4.png')
             #tweet_button.click()
             time.sleep(30) #動画がアップロードされるまでの待機時間
             self.wait.until(EC.presence_of_all_elements_located)
-            self.driver.save_screenshot('video_up_5.png')
+            self.driver.save_screenshot('/home/don/py/DMM/twitter_aff_videos/selenium_upload/video_up_5.png')
+
 
         except Exception as ex:
             print('[Uploads]:', ex)
+            logger.exception(ex)
             pass
 
 
