@@ -6,6 +6,8 @@ import datetime
 from box import Box
 from dataclasses import dataclass
 import pandas as pd
+from record_log import getMyLogger
+
 
 
 from selenium import webdriver
@@ -100,74 +102,83 @@ class Genre_dmm:
 
 if __name__ == '__main__':
 
-    g = Genre_dmm()
-    g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
-    g.AFFILIATEID = 'kamipanmen-990'
-    g.keyword= 'Eカップ'
-    file_and_json_name = 'e_cup'
-    g.offset_count = 1
-    g.hits_count = 80
+    try:
+        g = Genre_dmm()
+        g.APIID = 'b7fkZaG3pW6ZZHpGBbLz'
+        g.AFFILIATEID = 'kamipanmen-990'
+        g.keyword= 'Eカップ'
+        file_and_json_name = 'e_cup'
+        g.offset_count = 1
+        g.hits_count = 80
 
-    #master JSON読み込み
-    old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{file_and_json_name}_videofile.json', 'r'))
-    old_df = pd.DataFrame(old_json['title'])
-    old_titles = old_df['title'].tolist()
-    g.old_titles_json = old_titles
+        today = datetime.datetime.now()
+        logger = getMyLogger(str(today)+file_and_json_name)
+        logger.info(f"Goスタート")
 
-    save_json = {}
-    save_json['title'] = []
-    for i, video_info in enumerate(g.search_keyword):
-        print(i, video_info)
-        save_json['title'].append(video_info)
-        old_json['title'].append(video_info)
-        # todo old_jsonにvideo_infoを追加する↑ save_jsonみたいなやつ
+        #master JSON読み込み
+        old_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/master_fanza_genre_{file_and_json_name}_videofile.json', 'r'))
+        old_df = pd.DataFrame(old_json['title'])
+        old_titles = old_df['title'].tolist()
+        g.old_titles_json = old_titles
 
-    with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_old_{g.keyword}.json', 'w+', encoding='utf-8') as f:
-        json.dump(old_json, f, indent=4, ensure_ascii=False)
-    with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_new_{g.keyword}.json', 'w+', encoding='utf-8') as f:
-        json.dump(save_json, f, indent=4, ensure_ascii=False)
+        save_json = {}
+        save_json['title'] = []
+        for i, video_info in enumerate(g.search_keyword):
+            print(i, video_info)
+            save_json['title'].append(video_info)
+            old_json['title'].append(video_info)
+            # todo old_jsonにvideo_infoを追加する↑ save_jsonみたいなやつ
 
-
-    # 新しいファイルのダウンロード実行
-    load_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_new_{g.keyword}.json'))
-    print(f"ダウンロード件数は: {len(load_json['title'])}です")
-
-    save_json = {}
-    save_json['title'] = []
-
-    vv = Video_download()
-    for i, video_info in enumerate(load_json['title']):
-        print(i, video_info)
-        try:
-            new_video_info = vv.down(index=i, video_info=video_info, file_name=file_and_json_name)
-            if new_video_info:
-                save_json['title'].append(new_video_info)
-                time.sleep(0.2)
-        except Exception as ex:
-            print(ex)
-            pass
-
-    with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{file_and_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
-        json.dump(save_json, f, indent=4, ensure_ascii=False)
+        with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_old_{g.keyword}.json', 'w+', encoding='utf-8') as f:
+            json.dump(old_json, f, indent=4, ensure_ascii=False)
+        with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_new_{g.keyword}.json', 'w+', encoding='utf-8') as f:
+            json.dump(save_json, f, indent=4, ensure_ascii=False)
 
 
-    # ダウンロードしたファイルのカット実行
-    c = Cut()
-    file_dir = f'/mnt/hdd/don/files/fanza/{file_and_json_name}/'
-    cut_file_dir = f'/mnt/hdd/don/files/fanza/{file_and_json_name}_cut/'
-    cut_file_name = f'{file_and_json_name}_cut_{str(datetime.date.today())}'
-    c.name = g.keyword
-    c.json_name = file_and_json_name
+        # 新しいファイルのダウンロード実行
+        load_json = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_new_{g.keyword}.json'))
+        print(f"ダウンロード件数は: {len(load_json['title'])}です")
 
-    if os.path.exists(cut_file_dir) is False:
-        os.makedirs(cut_file_dir, exist_ok=True)
+        save_json = {}
+        save_json['title'] = []
 
-    load_json_dict = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{file_and_json_name}_videofile.json'))
-    print(len(load_json_dict['title']))
-    load_json_cut = load_json_dict['title']
-    assert type(load_json_cut) == list
+        vv = Video_download()
+        for i, video_info in enumerate(load_json['title']):
+            print(i, video_info)
+            try:
+                new_video_info = vv.down(index=i, video_info=video_info, file_name=file_and_json_name)
+                if new_video_info:
+                    save_json['title'].append(new_video_info)
+                    time.sleep(0.2)
+            except Exception as ex:
+                print(ex)
+                pass
 
-    c.again_cut5seconds(file_dir, cut_file_dir, cut_file_name, load_json_cut)
+        with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{file_and_json_name}_videofile.json', 'w+', encoding='utf-8') as f:
+            json.dump(save_json, f, indent=4, ensure_ascii=False)
+
+
+        # ダウンロードしたファイルのカット実行
+        c = Cut()
+        file_dir = f'/mnt/hdd/don/files/fanza/{file_and_json_name}/'
+        cut_file_dir = f'/mnt/hdd/don/files/fanza/{file_and_json_name}_cut/'
+        cut_file_name = f'{file_and_json_name}_cut_{str(datetime.date.today())}'
+        c.name = g.keyword
+        c.json_name = file_and_json_name
+
+        if os.path.exists(cut_file_dir) is False:
+            os.makedirs(cut_file_dir, exist_ok=True)
+
+        load_json_dict = json.load(open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{file_and_json_name}_videofile.json'))
+        print(len(load_json_dict['title']))
+        load_json_cut = load_json_dict['title']
+        assert type(load_json_cut) == list
+
+        c.again_cut5seconds(file_dir, cut_file_dir, cut_file_name, load_json_cut)
+
+    except Exception as e:
+        logger.exception(e)
+        pass
 
 """
 履歴
@@ -176,4 +187,7 @@ if __name__ == '__main__':
 
 # TODO ビデオサイズが小さいファイルを再度ダウンロードしているため、notdownload_jsonなどを作って待避させるようにする 
 # ↑ 2022/07/03？？？
+
+2022/08/06
+ロギング追加
 """

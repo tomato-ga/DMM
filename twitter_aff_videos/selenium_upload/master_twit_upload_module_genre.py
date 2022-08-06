@@ -8,6 +8,8 @@ import glob
 import os
 import json
 from retry import retry
+from record_log import getMyLogger
+import datetime
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -18,7 +20,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(50,600) # 50, 670
+wait_2 = random.randint(50,400)
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -36,10 +38,15 @@ class Tweet:
         self.driver.implicitly_wait(20)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
-        self.twitter = 'https://twitter.com/login'
+        self.twitter = 'https://twitter.com/i/flow/login'
+
 
     @retry(tries=7, delay=10) #TODO 消す
     def Uploads(self, account: str, up_file: str, text: str):
+
+        today = datetime.datetime.now()
+        logger = getMyLogger(str(today)).getChild(__file__)
+        logger.info(f"{account}スタート")
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
 
@@ -109,6 +116,7 @@ class Tweet:
 
         except Exception as ex:
             print('[Uploads]:', ex)
+            logger.exception(ex)
             pass
 
 

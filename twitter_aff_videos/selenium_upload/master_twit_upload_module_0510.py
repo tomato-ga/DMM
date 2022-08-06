@@ -21,7 +21,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(5,600) # 50, 670
+wait_2 = random.randint(50,400) # 50, 400
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -39,7 +39,7 @@ class Tweet:
         self.driver.implicitly_wait(20)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
-        self.twitter = 'https://twitter.com/login'
+        self.twitter = 'https://twitter.com/i/flow/login'
 
 
     def db_set(self):
@@ -62,7 +62,7 @@ class Tweet:
 
         today = datetime.datetime.now()
         logger = getMyLogger(str(today)).getChild(__file__)
-        logger.warning(f"{account}スタート")
+        logger.info(f"{account}スタート")
 
         time.sleep(randomwait) #投稿時間をランダムにする時間
 
@@ -76,6 +76,7 @@ class Tweet:
             print(self.driver.current_url)
             self.driver.save_screenshot('1.png')
 
+            # elem_account = self.driver.find_element_by_name('text')
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
             time.sleep(10)
@@ -141,6 +142,7 @@ class Tweet:
             logger.exception(ex)
             pass
 
+        logger.info("正常終了しました")
 
     def Quit(self):
         self.driver.quit()
@@ -163,5 +165,14 @@ click()からexecute_scriptへ変更
 
 2022/05/23 0:02
 テキスト・URL消す
+
+2022/08/02
+logger追加
+
+ログインURLを変更
+https://twitter.com/login
+↓
+https://twitter.com/i/flow/login
+
 
 """
