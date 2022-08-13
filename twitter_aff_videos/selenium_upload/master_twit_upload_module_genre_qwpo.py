@@ -38,7 +38,7 @@ class Tweet:
         self.driver.implicitly_wait(20)
 
         self.wait = WebDriverWait(driver=self.driver, timeout=30)
-        self.twitter = 'https://twitter.com/i/flow/login'
+        self.twitter = 'https://twitter.com/login'
 
     @retry(tries=7, delay=10) #TODO 消す
     def Uploads(self, account: str, up_file: str, text: str):
@@ -60,8 +60,8 @@ class Tweet:
 
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
-            time.sleep(10)
 
+            self.driver.implicitly_wait(10)
             self.wait.until(EC.presence_of_all_elements_located)
             next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
             self.driver.execute_script('arguments[0].click();', next_button)
@@ -74,6 +74,7 @@ class Tweet:
             elem_pass.send_keys(password)
             time.sleep(6)
 
+            self.driver.implicitly_wait(10)
             self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
             self.driver.execute_script('arguments[0].click();', login)

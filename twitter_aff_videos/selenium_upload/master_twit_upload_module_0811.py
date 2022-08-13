@@ -11,6 +11,7 @@ import datetime
 from record_log import getMyLogger
 
 
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -20,7 +21,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(50,400) # 50, 400
+wait_2 = random.randint(5,20) # 50, 400
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -69,30 +70,31 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            self.driver.implicitly_wait(30)
-            self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
-            print(self.driver.current_url)
-            self.driver.save_screenshot('1.png')
+            self.driver.implicitly_wait(20)
 
             # elem_account = self.driver.find_element_by_name('text')
-            elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
-            elem_account.send_keys(account)
-            time.sleep(10)
+            username = self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//input[contains(@autocomplete, 'username')]"))
+            )
+            username.click()
+            username.send_keys(account)
+            username.send_keys(Keys.ENTER)
+            self.driver.save_screenshot('1.png')
 
-            self.driver.implicitly_wait(10)
-            self.wait.until(EC.presence_of_all_elements_located)
-            next_button = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
-            self.driver.execute_script('arguments[0].click();', next_button)
-            time.sleep(6)
+
+            # self.driver.implicitly_wait(10)
+            # next_button = self.driver.find_element(By.XPATH, "//div[@role='button']/div[@dir='auto']//span[contains(text(), '次へ')]")
+            # self.driver.execute_script('arguments[0].click();', next_button)
+            # time.sleep(6)
 
             print(self.driver.current_url)
-            self.driver.save_screenshot('2.png')
-            self.wait.until(EC.presence_of_all_elements_located)
             elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@name, 'password')]")
             elem_pass.send_keys(password)
+            self.driver.save_screenshot('2.png')
+
             time.sleep(6)
 
-            self.driver.implicitly_wait(20)
+            self.driver.implicitly_wait(10)
             self.wait.until(EC.presence_of_all_elements_located)
             login = self.driver.find_element(by=By.XPATH, value="//div[@role='button']/div[@dir='auto']//span[contains(text(), 'ログイン')]")
             self.driver.execute_script('arguments[0].click();', login)
@@ -133,6 +135,8 @@ class Tweet:
                 # 投稿
                 tweet_button = self.driver.find_element(by=By.XPATH, value='//*[@data-testid="tweetButtonInline"]')
                 self.driver.execute_script('arguments[0].click();', tweet_button)
+                self.driver.save_screenshot('4.png')
+
                 #tweet_button.click()
                 time.sleep(20) #動画がアップロードされるまでの待機時間
                 self.wait.until(EC.presence_of_all_elements_located)
