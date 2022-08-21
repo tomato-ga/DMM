@@ -11,8 +11,8 @@ import datetime
 
 class Tweet_get:
     #WARN katudonのAPI使ってるのに注意する 200万/月アクセス可能 Elevated
-    auth = tweepy.OAuthHandler(API_config_1oku.API_KEY, API_config_1oku.API_SECRET)
-    auth.set_access_token(API_config_1oku.ACCESS_TOKEN, API_config_1oku.ACCESS_TOKEN_SECRET)
+    auth = tweepy.OAuthHandler(API_config_katudon.API_KEY, API_config_katudon.API_SECRET)
+    auth.set_access_token(API_config_katudon.ACCESS_TOKEN, API_config_katudon.ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
     """
@@ -222,7 +222,9 @@ if __name__ == '__main__':
         # スレッドだけど引用してるからとれなかった"https://mobile.twitter.com/Myra98544314"
         # "https://twitter.com/k_tzip" OK
         # 'https://twitter.com/SeibiSenmon' OK
-        "https://twitter.com/Myra98544314"
+        # "https://twitter.com/Myra98544314"
+        # "https://twitter.com/ikaseifuku"
+        "https://twitter.com/sefu9girl"
 
 
     ]
