@@ -185,7 +185,7 @@ class Tweet_get:
         db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
         client = pymongo.MongoClient(db_url)
         db = client.twitter
-        collection = db.videos3
+        collection = db.kyonyu
 
         return collection
 
@@ -224,12 +224,16 @@ if __name__ == '__main__':
         # 'https://twitter.com/SeibiSenmon' OK
         # "https://twitter.com/Myra98544314"
         # "https://twitter.com/ikaseifuku"
-        "https://twitter.com/sefu9girl"
-
+        # "https://twitter.com/sefu9girl"
+        # "https://twitter.com/AV_honpo_kyonyu",
+        # "https://twitter.com/pahupahu0909",
+        "https://twitter.com/GALS1collection",
+        "https://mobile.twitter.com/ero_gal_girls",
+        "https://twitter.com/gal3150_movie"
 
     ]
 
-    tag = "制服"
+    tag = "巨乳"
 
     i = Tweet_get()
     i.info_matome(key_accounts, tag)
@@ -238,6 +242,8 @@ if __name__ == '__main__':
 
 #TODO , key_accountsを辞書にしてtypeを追加する ex, 'type': 'sirouto' 'type': 'normal' etc...
 
+
+"こっち"
 """ダウンロードリスト　ジャンル別"""
 "素人"
 
@@ -258,7 +264,9 @@ if __name__ == '__main__':
 
 
 "gal"
-"https://twitter.com/GALS1collection"
+
+
+
 
 "尻"
 "https://twitter.com/osiri_no_kuni"
@@ -277,12 +285,16 @@ if __name__ == '__main__':
 "https://twitter.com/funsha_megami"
 
 
-"制服"
-"https://twitter.com/SeibiSenmon"
-"https://mobile.twitter.com/Myra98544314"
-"https://mobile.twitter.com/k_tzip"
-"https://mobile.twitter.com/ikaseifuku"
-"https://twitter.com/sefu9girl"
+"巨乳"
+"https://twitter.com/paimori69"
+
+
+# "制服"
+# "https://twitter.com/SeibiSenmon"
+# "https://mobile.twitter.com/Myra98544314"
+# "https://mobile.twitter.com/k_tzip"
+# "https://mobile.twitter.com/ikaseifuku"
+# "https://twitter.com/sefu9girl"
 
 
 "足"

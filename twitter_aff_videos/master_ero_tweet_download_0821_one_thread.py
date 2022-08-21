@@ -185,7 +185,7 @@ class Tweet_get:
         db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
         client = pymongo.MongoClient(db_url)
         db = client.twitter
-        collection = db.videos3
+        collection = db.kyonyu
 
         return collection
 
@@ -222,12 +222,16 @@ if __name__ == '__main__':
         # スレッドだけど引用してるからとれなかった"https://mobile.twitter.com/Myra98544314"
         # "https://twitter.com/k_tzip" OK
         # 'https://twitter.com/SeibiSenmon' OK
-        "https://twitter.com/Myra98544314"
-
+        # "https://twitter.com/Myra98544314"
+        # "https://twitter.com/xoxooppai0",
+        # "https://twitter.com/paiotu_kaidee"
+        "https://twitter.com/av_gyaru",
+        "https://twitter.com/galchan09",
+        "https://twitter.com/GAL_Katann"
 
     ]
 
-    tag = "制服"
+    tag = "巨乳"
 
     i = Tweet_get()
     i.info_matome(key_accounts, tag)
@@ -255,8 +259,6 @@ if __name__ == '__main__':
 'https://twitter.com/chikubi0909'
 
 
-"gal"
-"https://twitter.com/GALS1collection"
 
 "尻"
 "https://twitter.com/osiri_no_kuni"
