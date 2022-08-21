@@ -8,7 +8,6 @@ from box import Box
 from dataclasses import dataclass
 import pandas as pd
 
-
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -19,7 +18,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from master_movie_5secounds_cut import Cut
 from master_fanza_download_from_json import Video_download
 
-
 @dataclass
 class Genre_dmm:
 
@@ -29,13 +27,6 @@ class Genre_dmm:
     offset_count: int = 0
     hits_count = 0
     old_titles_json = None
-
-    # floor =  requests.get(f'https://api.dmm.com/affiliate/v3/FloorList?api_id={APIID}&affiliate_id={AFFILIATEID}&output=json')
-
-    #pprint.pprint(Box.from_json(floor.text))
-    # json_box = Box.from_json(floor.text)
-    # print(json_box)
-
 
     @property
     def search_keyword(self):
@@ -88,22 +79,16 @@ class Genre_dmm:
                     except Exception as ex:
                         print(ex)
 
-
                 elif item['title'] in self.old_titles_json:
                     print('JSONにあるitemです')
                     pass
 
-
             self.offset_count = self.hits_count + self.offset_count
-
-
 
             if len(items) == 0:
                 with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_{self.keyword}.json', 'w+', encoding='utf-8') as f:
                     json.dump(search_response, f, indent=4, ensure_ascii=False)
                 break
-
-
 
 if __name__ == '__main__':
 

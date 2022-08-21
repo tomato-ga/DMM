@@ -191,7 +191,7 @@ def unfollows(client, unfollow_list: list, max_count) -> list:
 
 def following_json_save(client, my_id, name):
     """フォローしてる人をJSON保存"""
-    my_id = my_id
+    my_id = my_id #togsi ID
     follow_dict = followed_mine(client, my_id)
     json_save(ids=follow_dict, json_name=f'/home/don/py/DMM/twitter_aff_videos/follow_auto/{name}/{name}_following_id')
     return follow_dict

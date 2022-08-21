@@ -1,17 +1,16 @@
 import auto_follow_unfollow_module
-import api_jd as API
+import api_tsuma as API
 import os
 
 
 """
-my_idとnameにアカウントIDと名前を入れる
-
-※フォロー0人だと動かない
+1.apiとmy_idとnameにアカウントIDと名前を入れる
+2.フォローしたい人がいるmoduleのリストを確認する
 """
 
 client = auto_follow_unfollow_module.apicall(API)
-my_id = 1548271191294898176
-name = 'jd'
+my_id = 1529779842702798848
+name = 'tsuma_doga'
 max_count = 15
 get_dir = os.getcwd()
 print(get_dir)

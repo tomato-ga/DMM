@@ -1,6 +1,7 @@
 
 import tweepy
 import API_config_1oku
+import API_config_katudon
 import requests
 import re
 import pymongo
@@ -96,7 +97,7 @@ class Tweet_get:
                 pass
 
 
-    def video_af_url_get(self,movie_url, af_url, comment, account_id) -> list:
+    def video_af_url_get(self,movie_url, af_url, comment, account_id, tag) -> list:
         """動画のファイル名、アフィリエイトURL、ツイッターのテキスト、元のIDを保存する
 
         Args:
@@ -113,7 +114,7 @@ class Tweet_get:
         v_url_file_name_list = re.findall('(/[a-zA-z0-9_-]*)(.mp4)', movie_url)
         v_url_file_name = v_url_file_name_list[0][0]
         v_url_file_name = v_url_file_name.replace('/', '')
-        with open(f'/mnt/hdd/don/files/twitvideo/{str(v_url_file_name)}.mp4', 'wb') as save_video:
+        with open(f'/mnt/hdd/don/files/twitvideo2/{str(v_url_file_name)}.mp4', 'wb') as save_video:
             save_video.write(response.content)
             time.sleep(2)
 
@@ -127,12 +128,12 @@ class Tweet_get:
             urls = ""
 
         now = datetime.datetime.today()
-        video_info = dict(video_file=f'{str(v_url_file_name)}.mp4', url=urls, comment=comment, id=account_id, time=now)
+        video_info = dict(video_file=f'{str(v_url_file_name)}.mp4', url=urls, comment=comment, id=account_id, tag=tag, time=now)
 
         self.save_db(video_info)
 
 
-    def info_matome(self, key_accounts: list):
+    def info_matome(self, key_accounts: list, tag):
         """
         video_af_url_getにパース情報を渡す
 
@@ -147,13 +148,13 @@ class Tweet_get:
                 comment = info['comment']
                 account_id = info['id']
 
-                self.video_af_url_get(movie_url, af_url, comment, account_id)
+                self.video_af_url_get(movie_url, af_url, comment, account_id, tag)
 
     def db_set(self):
         db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
         client = pymongo.MongoClient(db_url)
         db = client.twitter
-        collection = db.videos
+        collection = db.videos2
 
         return collection
 
@@ -181,12 +182,23 @@ if __name__ == '__main__':
         # 'https://twitter.com/kekooharenchi',
         # 'https://twitter.com/er_oyaji', #取得済み
         # 'https://twitter.com/moemoelover_s' #取得済み
-        'https://twitter.com/jueryero',
-        'https://twitter.com/ellosapo'
+        # 'https://twitter.com/kyosyashima'
+        # 'https://twitter.com/paiotuseizin',
+        # 'https://twitter.com/SGmRmu3SzDfvshj'
+        # あとで！！！！！！！！！！！！！'https://twitter.com/chikubi0909'
+        # 'https://twitter.com/wataru_erobakka'
+        # スレッドじゃないからとれなかった"https://twitter.com/SeibiSenmon"
+        # スレッドだけど引用してるからとれなかった"https://mobile.twitter.com/Myra98544314"
+        "https://twitter.com/k_tzip"
+        
+
+
     ]
 
+    tag = "制服"
+
     i = Tweet_get()
-    i.info_matome(key_accounts)
+    i.info_matome(key_accounts, tag)
 
 
 

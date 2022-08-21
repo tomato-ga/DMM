@@ -153,7 +153,7 @@ class Tweet_get:
 if __name__ == '__main__':
 
     key_accounts = [
-        'https://twitter.com/k9xypip',
+        # 'https://twitter.com/k9xypip',
         # 'https://twitter.com/paipai1414',
         # 'https://twitter.com/cb_Eugene13',
         # 'https://twitter.com/penne27436851',

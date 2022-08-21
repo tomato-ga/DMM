@@ -6,7 +6,6 @@ import random
 import pandas as pd
 import glob
 import os
-from retry import retry
 import datetime
 from record_log import getMyLogger
 
@@ -20,7 +19,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome import service as fs
 
 wait_1 = random.random()
-wait_2 = random.randint(50,400) # 50, 400
+wait_2 = random.randint(5,15) # 50, 400
 randomwait = round(wait_1 + wait_2, 5)
 
 
@@ -32,7 +31,7 @@ class Tweet:
         self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--ignore-certificate-errors')
-        self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
+        self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36')
         self.driver = webdriver.Chrome(options=self.options) # Mac '/Volumes/SSD_1TB/Down/chromedriver'
         self.driver.set_window_size('1200', '1800')
 
@@ -55,7 +54,6 @@ class Tweet:
 
         return df
 
-    @retry(tries=7, delay=10) #TODO 消す
     def Uploads(self, account: str):
 
         today = datetime.datetime.now()
@@ -69,15 +67,15 @@ class Tweet:
 
         try:
             self.driver.get(self.twitter)
-            self.driver.implicitly_wait(30)
-            self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@autocapitalize, 'sentences')]")))
-            print(self.driver.current_url)
-            self.driver.save_screenshot('1.png')
+            time.sleep(150)
 
-            # elem_account = self.driver.find_element_by_name('text')
+            self.driver.save_screenshot('/home/don/py/DMM/twitter_aff_videos/selenium_upload/1.png')
+
             elem_account = self.driver.find_element(by=By.XPATH, value="//input[contains(@autocapitalize, 'sentences')]")
             elem_account.send_keys(account)
             time.sleep(10)
+            self.driver.save_screenshot('2.png')
+
 
             self.driver.implicitly_wait(10)
             self.wait.until(EC.presence_of_all_elements_located)
@@ -86,7 +84,7 @@ class Tweet:
             time.sleep(6)
 
             print(self.driver.current_url)
-            self.driver.save_screenshot('2.png')
+            self.driver.save_screenshot('/home/don/py/DMM/twitter_aff_videos/selenium_upload/2.png')
             self.wait.until(EC.presence_of_all_elements_located)
             elem_pass = self.driver.find_element(by=By.XPATH, value="//input[contains(@name, 'password')]")
             elem_pass.send_keys(password)
