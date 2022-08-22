@@ -1,4 +1,3 @@
-
 import tweepy
 import API_config_1oku
 import API_config_katudon
@@ -11,8 +10,8 @@ import datetime
 
 class Tweet_get:
     #WARN katudonのAPI使ってるのに注意する 200万/月アクセス可能 Elevated
-    auth = tweepy.OAuthHandler(API_config_katudon.API_KEY, API_config_katudon.API_SECRET)
-    auth.set_access_token(API_config_katudon.ACCESS_TOKEN, API_config_katudon.ACCESS_TOKEN_SECRET)
+    auth = tweepy.OAuthHandler(API_config_1oku.API_KEY, API_config_1oku.API_SECRET)
+    auth.set_access_token(API_config_1oku.ACCESS_TOKEN, API_config_1oku.ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
     """
@@ -145,7 +144,7 @@ class Tweet_get:
         v_url_file_name_list = re.findall('(/[a-zA-z0-9_-]*)(.mp4)', movie_url)
         v_url_file_name = v_url_file_name_list[0][0]
         v_url_file_name = v_url_file_name.replace('/', '')
-        with open(f'/mnt/hdd/don/files/twitvideo3/{str(v_url_file_name)}.mp4', 'wb') as save_video:
+        with open(f'/mnt/hdd/don/files/twitvideo_sio/{str(v_url_file_name)}.mp4', 'wb') as save_video:
             save_video.write(response.content)
             time.sleep(2)
 
@@ -185,7 +184,7 @@ class Tweet_get:
         db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
         client = pymongo.MongoClient(db_url)
         db = client.twitter
-        collection = db.kyonyu
+        collection = db.sio
 
         return collection
 
@@ -223,17 +222,18 @@ if __name__ == '__main__':
         # "https://twitter.com/k_tzip" OK
         # 'https://twitter.com/SeibiSenmon' OK
         # "https://twitter.com/Myra98544314"
-        # "https://twitter.com/ikaseifuku"
-        # "https://twitter.com/sefu9girl"
-        # "https://twitter.com/AV_honpo_kyonyu",
-        # "https://twitter.com/pahupahu0909",
-        "https://twitter.com/GALS1collection",
-        "https://mobile.twitter.com/ero_gal_girls",
-        "https://twitter.com/gal3150_movie"
+        # "https://twitter.com/xoxooppai0",
+        # "https://twitter.com/paiotu_kaidee"
+        # "https://twitter.com/av_gyaru",
+        # "https://twitter.com/galchan09",
+        # "https://twitter.com/GAL_Katann"
+        "https://twitter.com/check1969o",
+        "https://twitter.com/shiotyan00",
+        "https://twitter.com/kaka_bounezumi"
 
     ]
 
-    tag = "巨乳"
+    tag = "潮吹き"
 
     i = Tweet_get()
     i.info_matome(key_accounts, tag)
@@ -242,8 +242,6 @@ if __name__ == '__main__':
 
 #TODO , key_accountsを辞書にしてtypeを追加する ex, 'type': 'sirouto' 'type': 'normal' etc...
 
-
-"こっち"
 """ダウンロードリスト　ジャンル別"""
 "素人"
 
@@ -261,10 +259,6 @@ if __name__ == '__main__':
 
 "tikubi"
 'https://twitter.com/chikubi0909'
-
-
-"gal"
-
 
 
 
@@ -285,16 +279,12 @@ if __name__ == '__main__':
 "https://twitter.com/funsha_megami"
 
 
-"巨乳"
-"https://twitter.com/paimori69"
-
-
-# "制服"
-# "https://twitter.com/SeibiSenmon"
-# "https://mobile.twitter.com/Myra98544314"
-# "https://mobile.twitter.com/k_tzip"
-# "https://mobile.twitter.com/ikaseifuku"
-# "https://twitter.com/sefu9girl"
+"制服"
+"https://twitter.com/SeibiSenmon"
+"https://mobile.twitter.com/Myra98544314"
+"https://mobile.twitter.com/k_tzip"
+"https://mobile.twitter.com/ikaseifuku"
+"https://twitter.com/sefu9girl"
 
 
 "足"

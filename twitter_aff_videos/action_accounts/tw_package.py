@@ -41,6 +41,48 @@ def Thirdparty_rt(API):
                     print('RT完了')
 
 
+def My_like(API, ids, max_rt_like_count):
+    """自分アカウント"""
+
+    print('[My_like]: 自分のアカウントのRTスタート')
+
+    client = tweepy.Client(consumer_key=API.API_KEY, consumer_secret=API.API_SECRET, access_token=API.ACCESS_TOKEN, \
+        access_token_secret=API.ACCESS_TOKEN_SECRET, bearer_token=API.Bearer_token)
+    max_rt_like_count = max_rt_like_count
+
+    for id_mine in ids:
+        try:
+            timeline = client.get_users_tweets(id=id_mine, max_results=10, exclude='retweets', expansions=["attachments.media_keys","author_id","referenced_tweets.id"]) # context_annotations削除 tweet_fields=["text","source","entities"]
+            name: list = [username_0.data['username'] for username_0 in timeline.includes['users']]
+            username = name[0]
+
+            tweets = timeline.data
+            random.shuffle(tweets)
+            print(f'{username}のアクションをスタートします！')
+            print(tweets)
+        except Exception as ex:
+            print(ex)
+            pass
+
+        like_count = 0
+        for tweet in tweets:
+            if like_count >= max_rt_like_count:
+                break
+            tw = tweet.data
+            post_mine = tw['id']
+            time.sleep(wait)
+            try:
+                client.retweet(post_mine)
+                client.like(post_mine)
+                like_count += 1
+                print('[My_like]: 自分のLIKE完了!!')
+            except Exception as e:
+                print(e)
+                pass
+
+
+
+
 def My_rt(API, ids, max_rt_like_count: int):
     """自分アカウント"""
 
@@ -66,7 +108,7 @@ def My_rt(API, ids, max_rt_like_count: int):
 
         rt_count = 0
         for rt_tweet in rts_tweet:
-            if rt_count == max_rt_like_count:
+            if rt_count >= max_rt_like_count:
                 break
             rttw = rt_tweet.data
             match rttw['author_id']:
