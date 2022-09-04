@@ -1,5 +1,5 @@
 import auto_follow_unfollow_module
-import api_tsuma as API
+import API_tsuma as API
 import os
 
 """
@@ -7,7 +7,7 @@ my_idとnameにアカウントIDと名前を入れる
 """
 
 client = auto_follow_unfollow_module.apicall(API)
-my_id = 1529779842702798848
+my_id = 1548264373738950656
 name = 'tsuma_doga'
 max_count = 30
 get_dir = os.getcwd()
