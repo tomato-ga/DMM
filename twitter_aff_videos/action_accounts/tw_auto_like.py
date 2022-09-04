@@ -39,3 +39,9 @@ try:
 except Exception as e:
     logger.exception(e)
     pass
+
+"""
+# TODO: 
+ids= API_config_yukarinが多いので修正する
+
+"""
