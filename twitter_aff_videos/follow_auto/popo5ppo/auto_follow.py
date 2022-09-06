@@ -1,16 +1,15 @@
 import auto_follow_unfollow_module
-import api_popo as API
+import API_popo5ppo as API
 import os
 
 
 """
-1.apiとmy_idとnameにアカウントIDと名前を入れる
-2.フォローしたい人がいるmoduleのリストを確認する
+my_idとnameにアカウントIDと名前を入れる
 """
 
 client = auto_follow_unfollow_module.apicall(API)
 my_id = 1529779842702798848
-name = 'popo5ppo'
+name = 'popo'
 max_count = 15
 get_dir = os.getcwd()
 print(get_dir)

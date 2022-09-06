@@ -1,3 +1,4 @@
+from http.client import RemoteDisconnected
 import tweepy
 import json
 import ujson
@@ -96,6 +97,7 @@ def new_follow_id(client) -> dict[str]:
     Returns:
         dict[str]: 新しくフォローするアカウントIDをdictで返す
     """
+    # TODO: リストから取得したツイートのLIKEしたユーザーがとれていない
     # 1521876334074818560 グラビアアイドルのリスト 1532272699044937728 裏垢 1514978714572173313 アダルト
     response = client.get_list_tweets(id=1514978714572173313, max_results=15,  expansions=["attachments.media_keys","referenced_tweets.id"])
     tweets = response.data
@@ -104,7 +106,9 @@ def new_follow_id(client) -> dict[str]:
     follow_id_lists = []
     max_count= 40
 
+
     for tweet in tweets:
+
         tid = tweet.id
         like_users = client.get_liking_users(tid, max_results=100)
         follows = like_users.data
@@ -113,9 +117,26 @@ def new_follow_id(client) -> dict[str]:
             for follow in follows:
                 follow_id_lists.append(follow.id)
 
+        try:
+
+            if tweet['referenced_tweets'][0].id:
+                tid = tweet['referenced_tweets'][0].id
+                like_users = client.get_liking_users(tid, max_results=100)
+                follows = like_users.data
+
+                if follows:
+                    for follow in follows:
+                        follow_id_lists.append(follow.id)
+
+        except Exception as ex:
+            print(ex)
+            continue
+
     new_follow_dict: dict[str] = {'id': follow_id_lists[:max_count]}
     print(len(follow_id_lists), follow_id_lists[:max_count])
     print(f'follows（フォローする人）が{len(follow_id_lists)}人いました')
+
+
     return new_follow_dict
 
 
@@ -134,19 +155,28 @@ def follows(client, follow_list: list, max_count) -> list:
     like_user_follow = 0
     follow_done_list = []
 
-    for id in follow_list:
-        follow_response = client.follow_user(target_user_id=id)
-        print('フォローしました')
-        if follow_response.data['following'] == True:
-            like_user_follow += 1
-            print(f'フォロー完了: {like_user_follow}人フォローしました')
-            follow_done_list.append(id)
-        elif follow_response.data['following'] == False:
-            like_user_follow = like_user_follow
+    try:
 
-        time.sleep(50)
-        if like_user_follow >= max_count:
-            break
+        for id in follow_list:
+            follow_response = client.follow_user(target_user_id=id)
+            print('フォローしました')
+            if follow_response.data['following'] == True:
+                like_user_follow += 1
+                print(f'フォロー完了: {like_user_follow}人フォローしました')
+                follow_done_list.append(id)
+            elif follow_response.data['following'] == False:
+                like_user_follow = like_user_follow
+
+            time.sleep(50)
+            if like_user_follow >= max_count:
+                break
+
+    except RemoteDisconnected:
+        print('error')
+        pass
+    except ConnectionError:
+        print('connection error')
+        pass
 
     return follow_done_list
 
@@ -191,7 +221,7 @@ def unfollows(client, unfollow_list: list, max_count) -> list:
 
 def following_json_save(client, my_id, name):
     """フォローしてる人をJSON保存"""
-    my_id = my_id
+    my_id = my_id #togsi ID
     follow_dict = followed_mine(client, my_id)
     json_save(ids=follow_dict, json_name=f'/home/don/py/DMM/twitter_aff_videos/follow_auto/{name}/{name}_following_id')
     return follow_dict

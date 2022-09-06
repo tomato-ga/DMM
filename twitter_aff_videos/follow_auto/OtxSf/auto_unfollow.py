@@ -1,5 +1,5 @@
 import auto_follow_unfollow_module
-import api_OtxSf as API
+import API_OtxSf as API
 import os
 
 """
@@ -8,7 +8,7 @@ my_idとnameにアカウントIDと名前を入れる
 
 client = auto_follow_unfollow_module.apicall(API)
 my_id = 1515978583730458630
-name = 'OtxSf'
+name = 'otx'
 max_count = 30
 get_dir = os.getcwd()
 print(get_dir)

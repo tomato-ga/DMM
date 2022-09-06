@@ -1,5 +1,5 @@
 import auto_follow_unfollow_module
-import api_togsi7 as API
+import API_togsi7 as API
 import os
 
 

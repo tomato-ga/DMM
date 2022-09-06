@@ -1,5 +1,5 @@
 import auto_follow_unfollow_module
-import api_jd as API
+import API_jd as API
 import os
 
 """
