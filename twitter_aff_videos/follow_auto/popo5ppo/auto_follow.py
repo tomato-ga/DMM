@@ -9,7 +9,7 @@ my_idとnameにアカウントIDと名前を入れる
 
 client = auto_follow_unfollow_module.apicall(API)
 my_id = 1529779842702798848
-name = 'popo'
+name = 'popo5ppo'
 max_count = 15
 get_dir = os.getcwd()
 print(get_dir)

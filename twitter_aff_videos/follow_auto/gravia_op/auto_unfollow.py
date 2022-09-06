@@ -1,14 +1,16 @@
 import auto_follow_unfollow_module
-import API_popo5ppo as API
+import API_grabia_op as API
 import os
 
 """
+フォルダ名とnameを同じにする
 my_idとnameにアカウントIDと名前を入れる
+
 """
 
 client = auto_follow_unfollow_module.apicall(API)
-my_id = 1529779842702798848
-name = 'popo5ppo'
+my_id = 1566371169607057414
+name = 'gravia_op'
 max_count = 30
 get_dir = os.getcwd()
 print(get_dir)
