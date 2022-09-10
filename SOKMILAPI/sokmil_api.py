@@ -97,15 +97,16 @@ s.APIKEY = 'f5fa0b38192389bb264ad32bdb80c802'
 s.AFFILIATEID = 24353
 s.hits_count = 100
 s.offset_count = 1
-s.keyword = '木嶋のりこ'
+s.keyword = ''
 
 save_json = {}
 save_json['title'] = []
 
 for video_info in s.search_items():
-    file_name = d.down(video_info)
-    video_info['file_name'] = file_name
-    save_json['title'].append(video_info)
+    print(video_info)
+#     file_name = d.down(video_info)
+#     video_info['file_name'] = file_name
+#     save_json['title'].append(video_info)
 
-with open(fr'/mnt/hdd/don/files/sok/{s.keyword}/sokmil_{s.keyword}_videofile.json', 'w+', encoding='utf-8') as f:
-    json.dump(save_json, f, indent=4, ensure_ascii=False)
+# with open(fr'/mnt/hdd/don/files/sok/{s.keyword}/sokmil_{s.keyword}_videofile.json', 'w+', encoding='utf-8') as f:
+#     json.dump(save_json, f, indent=4, ensure_ascii=False)
