@@ -58,14 +58,6 @@ class Tweet_text:
                 # with open(f'/home/don/py/DMM/twitter_pic_download/{self.__username}.json', 'w', encoding='utf-8') as f:
                 #     json.dump(tweet, f, indent=4, ensure_ascii=False)
 
-            elif 'media' not in result.entities:
-                texts = result.full_text
-                text = texts.split()
-                tweet_text = text[0]
-                print(tweet_text)
-
-                tweet['tweet'].append({"text": tweet_text})
-                index += 1
 
             else:
                 pass

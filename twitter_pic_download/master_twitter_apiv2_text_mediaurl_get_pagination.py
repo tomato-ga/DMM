@@ -58,7 +58,7 @@ class Tweet_text:
         return tweet
 
 
-username = 'poyopoyoman88'
+username = 'nagiiiii0730'
 t = Tweet_text()
 tweet = t.text_media_get(username)
 
