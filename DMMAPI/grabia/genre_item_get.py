@@ -180,5 +180,5 @@ if __name__ == '__main__':
     # with open(f'/home/don/py/DMM/DMMAPI/JSON/fanza_genre_{g.keyword}.json', 'w+', encoding='utf-8') as f:
     #     json.dump(save_json, f, indent=4, ensure_ascii=False)
 
-    # g.floor()
-    g.Items()
+    g.floor()
+    # g.Items()

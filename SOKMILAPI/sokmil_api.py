@@ -3,9 +3,10 @@ import json
 import re
 import requests
 import time
-import pprint
+import pymongo
 from box import Box
 from dataclasses import dataclass
+from datetime import datetime, date, timedelta
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -23,6 +24,9 @@ class Sokmil:
     hits_count = 0
     offset_count: int = 0
     keyword: str = ''
+    sort: str = ""
+    gte_date: str = ""
+    index_today: str = ""
 
     def search_items(self):
         search_response = {}
@@ -34,6 +38,8 @@ class Sokmil:
             'affiliate_id': self.AFFILIATEID,
             'category': 'idol',
             'keyword': self.keyword,
+            "sort": self.sort,
+            "gte_date": self.gte_date,
             'output': 'json',
             }
 
@@ -53,7 +59,7 @@ class Sokmil:
                 aff_url =  x['affiliateURL'],
                 dates = x['date'],
                 price = x.prices['price'],
-                index=i)
+                index=self.index_today + "_" + str(i))
 
 
 class Down(Sokmil):
@@ -84,12 +90,13 @@ class Down(Sokmil):
 
         search_url_modify = search[0].replace('\\', '')
         video_response = requests.get(search_url_modify)
-        os.makedirs(fr'/mnt/hdd/don/files/sok/{s.keyword}/', mode=0o777, exist_ok=True)
-        with open(fr'/mnt/hdd/don/files/sok/{s.keyword}/{file_name}', 'wb') as save_video:
+        # os.makedirs(fr'/mnt/hdd/don/files/sok/{s.keyword}/', mode=0o777, exist_ok=True)
+        with open(fr'/mnt/hdd/don/files/sok/new/{file_name}', 'wb') as save_video:
             save_video.write(video_response.content)
         print(video_response)
 
         return file_name
+
 
 s = Sokmil()
 d = Down()
@@ -98,15 +105,27 @@ s.AFFILIATEID = 24353
 s.hits_count = 100
 s.offset_count = 1
 s.keyword = ''
+s.sort = "date"
 
-save_json = {}
-save_json['title'] = []
+
+today = datetime.now().replace(microsecond=0)
+today = (today - timedelta(days=7)).isoformat()
+s.gte_date = today
+
+index_today = datetime.now().replace(microsecond=0).strftime("%Y%m%d")
+s.index_today = index_today
+
+
+
+db_url = 'mongodb://pyton:radioipad1215@192.168.0.25:27017'
+client = pymongo.MongoClient(db_url)
+db = client.twitter
+collection = db.sokmil
 
 for video_info in s.search_items():
     print(video_info)
-#     file_name = d.down(video_info)
-#     video_info['file_name'] = file_name
-#     save_json['title'].append(video_info)
+    file_name = d.down(video_info)
+    video_info['file_name'] = file_name
+    collection.insert_one(video_info)
 
-# with open(fr'/mnt/hdd/don/files/sok/{s.keyword}/sokmil_{s.keyword}_videofile.json', 'w+', encoding='utf-8') as f:
-#     json.dump(save_json, f, indent=4, ensure_ascii=False)
+
