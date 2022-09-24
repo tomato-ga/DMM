@@ -2,7 +2,6 @@ from dataclasses import dataclass
 import tweepy
 import time
 import random
-import API_config_yukarin
 from dataclasses import dataclass
 
 

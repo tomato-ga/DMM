@@ -41,7 +41,7 @@ def Thirdparty_rt(API):
                     print('RT完了')
 
 
-def My_like(API, ids, max_rt_like_count):
+def My_RT_like(API, ids, max_rt_like_count):
     """自分アカウント"""
 
     print('[My_like]: 自分のアカウントのRTスタート')

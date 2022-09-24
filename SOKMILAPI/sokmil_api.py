@@ -122,6 +122,8 @@ client = pymongo.MongoClient(db_url)
 db = client.twitter
 collection = db.sokmil
 
+# TODO もしDBにデータがなかったら追加する処理を記述する
+
 for video_info in s.search_items():
     print(video_info)
     file_name = d.down(video_info)
