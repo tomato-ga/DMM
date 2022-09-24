@@ -112,7 +112,7 @@ def My_rt_like_matchcase(API, ids, max_rt_like_count: int):
                 break
             rttw = rt_tweet.data
             match rttw['author_id']:
-                case '1566371169607057414' | '1568873219708559361' | '1566685664107810818' : # グラビア系
+                case '1566371169607057414' | '1568873219708559361' | '1566685664107810818' | "1573260221752877056" : # グラビア・おもしろ系
                     post_mine = rt_tweet.id
                     time.sleep(wait)
                     try:
