@@ -21,8 +21,9 @@ old_df = pd.DataFrame(old_json['photo'])
 old_imgs = old_df['imgs'].tolist()
 get_count = 0
 
+today = datetime.datetime.now()
 
-logger = getMyLogger()
+logger = getMyLogger(str(today))
 logger.info(f"Goスタート")
 
 try:

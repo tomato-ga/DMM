@@ -21,7 +21,7 @@ today = datetime.datetime.now()
 logger = getMyLogger(str(today)+"autolike")
 logger.info(f"Goスタート")
 
-max_like_count = 1 #最大RT / Like数
+max_like_count = 2 #最大RT / Like数
 try:
     tw_package.My_RT_like(API=api_tomorrow_genkio, ids=api_tomorrow_genkio.ids, max_rt_like_count=max_like_count)
     tw_package.My_RT_like(API=api_togsi7, ids=api_togsi7.ids, max_rt_like_count=max_like_count)
@@ -41,7 +41,3 @@ except Exception as e:
     logger.exception(e)
     pass
 
-"""
-# TODO:
-
-"""

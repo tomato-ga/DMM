@@ -49,7 +49,6 @@ class Sokmil:
         print(search_json_box)
 
 
-
         for i, x in enumerate(search_json_box.result['items']):
 
             yield dict(

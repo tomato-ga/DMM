@@ -69,16 +69,29 @@ def My_RT_like(API, ids, max_rt_like_count):
             if counts >= max_rt_like_count:
                 break
             tw = tweet.data
-            post_mine = tw['id']
-            time.sleep(wait)
-            try:
-                client.retweet(post_mine)
-                client.like(post_mine)
-                counts += 1
-                print('[My_like]: 自分のLIKE完了!!')
-            except Exception as e:
-                print(e)
-                pass
+            match tw['author_id']:
+                case '1566371169607057414' | '1568873219708559361' | '1566685664107810818' | "1573628430704254976" | "1573260221752877056" : # グラビア・おもしろ系
+                    post_mine = tweet.id
+                    time.sleep(wait)
+                    try:
+                        client.like(post_mine)
+                        counts += 1
+                        print('[My_rt_like_matchcase]: 自分のRTとReply完了!!')
+                    except Exception as e:
+                        print(e)
+                        pass
+
+                case _: # AV系
+                    post_mine = tweet.id
+                    time.sleep(wait)
+                    try:
+                        client.like(post_mine)
+                        client.retweet(post_mine)
+                        counts += 1
+                        print('[My_rt_like_matchcase]: 自分のRTとReply完了!!')
+                    except Exception as e:
+                        print(e)
+                        pass
 
 
 
@@ -112,14 +125,14 @@ def My_rt_like_matchcase(API, ids, max_rt_like_count: int):
                 break
             rttw = rt_tweet.data
             match rttw['author_id']:
-                case '1566371169607057414' | '1568873219708559361' | '1566685664107810818' | "1573260221752877056" : # グラビア・おもしろ系
+                case '1566371169607057414' | '1568873219708559361' | '1566685664107810818' | "1573628430704254976" | "1573260221752877056" : # グラビア・おもしろ系
                     post_mine = rt_tweet.id
                     time.sleep(wait)
                     try:
                         client.retweet(post_mine)
                         client.like(post_mine)
                         counts += 1
-                        print('[My_rt]: 自分のRTとReply完了!!')
+                        print('[My_rt_like_matchcase]: 自分のRTとReply完了!!')
                     except Exception as e:
                         print(e)
                         pass
@@ -130,7 +143,7 @@ def My_rt_like_matchcase(API, ids, max_rt_like_count: int):
                     try:
                         client.like(post_mine)
                         counts += 1
-                        print('[My_rt]: 自分のRTとReply完了!!')
+                        print('[My_rt_like_matchcase]: 自分のRTとReply完了!!')
                     except Exception as e:
                         print(e)
                         pass
