@@ -23,7 +23,7 @@ logger.info(f"Goスタート")
 
 max_like_count = 2 #最大RT / Like数
 try:
-    tw_package.My_RT_like(API=api_tomorrow_genkio, ids=api_tomorrow_genkio.ids, max_rt_like_count=max_like_count)
+
     tw_package.My_RT_like(API=api_togsi7, ids=api_togsi7.ids, max_rt_like_count=max_like_count)
     tw_package.My_RT_like(API=api_1j_mc, ids=api_1j_mc.ids, max_rt_like_count=max_like_count)
     tw_package.My_RT_like(API=api_OtxSf, ids=api_OtxSf.ids, max_rt_like_count=max_like_count)

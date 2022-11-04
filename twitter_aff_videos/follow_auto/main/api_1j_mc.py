@@ -7,6 +7,6 @@ Bearer_token = 'AAAAAAAAAAAAAAAAAAAAADpzbgEAAAAAW43kEotMk%2F7mmQ4w%2FIThRlG78oM%
 # 1j_mc 種まき玉三郎
 ids: list = [
     1515696887781015558, # togsi
-    1514977383216205834, # tomorrow
+#
     1515978583730458630 # OtxSf
 ]

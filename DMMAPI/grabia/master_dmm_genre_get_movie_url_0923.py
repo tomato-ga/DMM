@@ -113,7 +113,7 @@ if __name__ == '__main__':
     g.AFFILIATEID = 'kamipanmen-990'
     g.keyword= ''
     g.offset_count = 1
-    g.hits_count = 50
+    g.hits_count = 90
     g.sort = "rank"
     file_and_json_name = 'gravure'
 

@@ -7,6 +7,6 @@ Bearer_token = 'AAAAAAAAAAAAAAAAAAAAALhybgEAAAAApFgWN%2B0GEhzje9MrIo3028m48rY%3D
 # togsi7 えちえち
 ids: list = [
     1515697390480945160, # 1j_mc
-    1514977383216205834, # tomorrow
+#
     1515978583730458630 # OtxSf
 ]
